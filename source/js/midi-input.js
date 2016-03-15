@@ -29,6 +29,9 @@ function onMIDISuccess(midiAccess) {
     midi.onstatechange = onStateChange;
 }
 
+function onMIDIFailure(midiAccess){
+    console.log("Shit's broke - midi - ", midiAccess);
+}
 function onMIDIMessage(event) {
     data = event.data,
     cmd = data[0] >> 4,
@@ -47,12 +50,11 @@ function onMIDIMessage(event) {
         case 144: // noteOn message
              noteOn(note, velocity);
              break;
-        case 128: // noteOff message
-            noteOff(note, velocity);
+        case 128:
+            // noteOff message
             break;
     }
 
-    console.log(keyData, 'key data', data);
 }
 
 function listInputs(inputs) {
@@ -93,9 +95,18 @@ function noteOn(midiNote, velocity) {
             index = 70;
             break;
     }
-    animationController.trigger(index);
+    console.log("MIDI Note", midiNote);
+    // animationController.trigger(index);
 }
 
 function logger(data) {
     console.log(" [channel: " + (data[0] & 0xf) + ", cmd: " + (data[0] >> 4) + ", type: " + (data[0] & 0xf0) + " , note: " + data[1] + " , velocity: " + data[2] + "]");
+}
+
+function onStateChange(event) {
+    var port = event.port,
+        state = port.state,
+        name = port.name,
+        type = port.type;
+    if (type == "input") console.log("name", name, "port", port, "state", state);
 }
