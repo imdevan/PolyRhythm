@@ -1,6 +1,31 @@
 var socket = io();
 
 var acc = null;
+var button = document.getElementById("button");
+
+function setButtonHeightWidth()
+{
+	var height = document.body.clientHeight;
+	var width = document.body.clientWidth;
+	var setHeight = 0;
+	var setWidth = 0;
+
+	if(height > width) 
+	{
+		setWidth = width*.6;
+		setHeight = setWidth;
+	}
+	else
+	{
+		setWidth = height*.6;
+		setHeight = setWidth;
+	}
+	button.style.width = setWidth + "px";
+	button.style.height = setHeight + "px";
+}
+
+window.onload = setButtonHeightWidth;
+window.resize = setButtonHeightWidth;
 
 function send()
 {
