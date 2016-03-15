@@ -11,6 +11,33 @@
 	<body>
 		<div id="two">
 		    <!-- render two.js here!  -->
+			<div class="scripts" style="display: none;">
+			<script>
+	        /**
+	         * Check before loading JavaScript that we have the necessary features
+	         * in order to run the project. If we don't throw an error and display
+	         * the error page.
+	         */
+			if (!Object.defineProperty || !(window.AudioContext || window.webkitAudioContext)) {
+	          $(function() {
+	            $('#lobby').fadeOut();
+	            $('#merchandise').css({
+	              opacity: 1.0,
+	              display: 'none',
+	              zIndex: 0
+	            }).fadeIn();
+	            $('#close-merchandise').css('display', 'none');
+	          });
+	          throw 'Oof, I cannot load this application because it will break...';
+	        }
+			</script>
+			<!-- other js dependencies -->
+			<script async="" src="//www.google-analytics.com/analytics.js"></script>
+			<script src="js/third-party/has.js"></script>
+			<script src="js/third-party/url.js"></script>
+			<script src="js/third-party/jquery.js"></script>
+			<script src="js/third-party/tween.js"></script>
+			<script src="js/third-party/two.js"></script>
 		</div>
     </body>
 
