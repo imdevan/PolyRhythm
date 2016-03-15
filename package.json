@@ -4,7 +4,7 @@
   "description": "sxsw music hackathon project",
   "main": "app.js",
   "scripts": {
-      "start": "gulp"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
   "engines": {
     "node": "^4.1",
     "npm": "^2.14"
-},
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/imdevan/PolyRhythm/issues"
