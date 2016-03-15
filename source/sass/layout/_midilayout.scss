@@ -1,0 +1,12 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background: #222;
+}
+
+.phone-container {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}

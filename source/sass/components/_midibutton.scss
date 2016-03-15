@@ -1,0 +1,28 @@
+$button-border: 5px solid gray;
+$button-border-active: 5px solid red;
+
+.button {
+    &--container {
+        min-width: 25%;
+        flex-grow: 1;
+        box-sizing: border-box;
+        display:flex;
+        padding: 3px;
+    }
+
+    &--pad {
+        flex: 1;
+        background: #222;
+        border-radius: 5px;
+        border: $button-border;
+
+        &.active {
+            border: $button-border-active;
+        }
+
+        &.disabled {
+            background: #333;
+            border-color: #333;
+        }
+    }
+}
