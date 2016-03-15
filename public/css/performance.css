@@ -1,4 +1,24 @@
+@-webkit-keyframes pastelRainbow {
+  0% {
+    background-position: 94% 0%; }
+  50% {
+    background-position: 7% 100%; }
+  100% {
+    background-position: 94% 0%; } }
+
+@keyframes pastelRainbow {
+  0% {
+    background-position: 94% 0%; }
+  50% {
+    background-position: 7% 100%; }
+  100% {
+    background-position: 94% 0%; } }
+
 body, html {
   margin: 0;
   padding: 0;
-  background: #444; }
+  background: -webkit-linear-gradient(45deg, #FFE481, #FB8C8E, #C695FA);
+  background: linear-gradient(45deg, #FFE481, #FB8C8E, #C695FA);
+  background-size: 300% 300%;
+  -webkit-animation: pastelRainbow 15s ease infinite;
+          animation: pastelRainbow 15s ease infinite; }
