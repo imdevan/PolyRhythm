@@ -1,7 +1,18 @@
 express = require('express');
+_ = require('underscore');
 app = express();
 http = require('http').Server(app);
 io = require('socket.io')(http);
+
+
+console.log(io.sockets.sockets);
+// _.each(io.sockets.sockets, function(s) {
+// 	console.log("Oh man a connection");
+// 	s.disconnect(true);
+// });
+
+var users = 0;
+var total_acceleration = 0;
 
 app.use(express.static(__dirname+ '/public'));
 
@@ -25,19 +36,36 @@ app.get('/audience', function(req, res)
 	res.sendfile('./public/audience.html');
 });
 
-var users = 0;
-var total_acceleration = 0;
+app.get('/acceleration', function(req, res)
+{
+	res.json({acceleration: (total_acceleration/users)});
+});
+
+setInterval(function() {
+		var accavg = total_acceleration/users || 0
+		if(!isFinite(accavg)) { accavg = 0; }
+		console.log("Average acceleration is ", accavg);
+		io.emit('acceleration_input', accavg)
+	}, 750);
+
+setInterval(function() {
+	console.log("total_acceleration is ", total_acceleration);
+	total_acceleration = 0;
+}, 750)
+
+var phone_users = [];
 io.on('connection', function(socket)
 {
-	users++;
-	console.log(users + " number of users");
+	socket.on('audience_init', function(msg)
+	{
+		users++;
+		console.log(users + " number of users");
+		phone_users.push(socket);
+	});
 
 	socket.on('audience_acceleration', function(msg)
 	{
 		total_acceleration += msg;
-		console.log("total_acceleration is ", total_acceleration);
-		setTimeout(function() { total_acceleration -= msg; console.log("total_acceleration is ", total_acceleration); }, 750);
-		console.log(msg);
 	});
 
 	socket.on('audience_input', function(msg)
@@ -56,8 +84,10 @@ io.on('connection', function(socket)
 	});
 
 	socket.on('disconnect', function() {
-		users--;
-		console.log(users + " number of users");
+		if(phone_users.indexOf(socket) !== -1) {	
+			users--;
+			console.log(users + " number of users");
+		}
 	});
 });
 
