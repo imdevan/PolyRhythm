@@ -111,9 +111,7 @@ var audienceShape = function(type, color) {
     shape.visible = true;
     shape.scale = pulseMin;
     var start = function(onComplete, silent) {
-      console.log("Acceleration is ", acceleration);
       var x = acceleration / 40 * 1.5;
-      console.log("x is ", x);
       if(x > 2)
         x = 2;
       if(x < pulseMin)
@@ -128,9 +126,6 @@ var audienceShape = function(type, color) {
         pulseIn = pulseIn;
         pulseOut = x;
       }
-      console.log("x is ", x);
-      console.log("pulseIn is ", pulseIn);
-      console.log("pulseOut is ", pulseOut);
       playing = true;
       shape.visible = true;
       animate_in.start();
