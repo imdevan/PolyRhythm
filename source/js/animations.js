@@ -36,6 +36,7 @@ var audienceShape = function(type, color) {
     shape.stroke = convertHex(randColor, 100);
     shape.linewidth = 5;
     shape.visible = true;
+    shape.rotation = Math.PI * Math.random() * 10;
     shape.scale = 1;
 
     var angle = Math.PI * Math.random() * 10;
