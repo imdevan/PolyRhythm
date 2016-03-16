@@ -35,11 +35,11 @@
         }
     },
     updateCircle: function () {
-        console.log("In update circle");
+        //console.log("In update circle");
         var animation = this.dict["circle"]
         //animation.start(undefined, undefined);
     }
-    
+
 };
 
 two.bind('update', function() {
@@ -47,4 +47,4 @@ two.bind('update', function() {
 }).play();
 
 animationController.init();
-setInterval(animationController.updateCircle(), 750);
+//setInterval(animationController.updateCircle(), 750);
