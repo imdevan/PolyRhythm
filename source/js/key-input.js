@@ -5,7 +5,7 @@ window.addEventListener("keydown", function (e, data){
     if (e.metaKey || e.ctrlKey) {
       return;
     }
-    var id = e.keyCode;
+
     socket.emit('animation_output', id);
     animationController.trigger(id);
     e.preventDefault();

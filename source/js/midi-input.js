@@ -68,37 +68,14 @@ function noteOn(midiNote, velocity) {
     // mpk mini layout
     // 36 38 40 41
     // 43 45 47 48
-    var index = 0;
-    switch(midiNote){
-        case 36:
-            index = 68;
-            break;
-        case 38:
-            index = 69;
-            break;
-        case 40:
-            index = 87;
-            break;
-        case 41:
-            index = 84;
-            break;
-        case 43:
-            index = 65;
-            break;
-        case 45:
-            index = 83;
-            break;
-        case 47:
-            index = 86;
-            break;
-        case 48:
-            index = 70;
-            break;
-    }
-    console.log("MIDI Note", midiNote);
-    animationController.trigger(index);
+    // alesis
+    // 49 41 42 46
+    // 36 37 69 39
+    var animationsToTrigger = [];
 
-    socket.emit('animation_output', index);
+    // console.log("MIDI Note", midiNote);
+    animationController.trigger(animationsToTrigger);
+    socket.emit('animation_output', {   animation: animationsToTrigger});
 }
 
 function logger(data) {

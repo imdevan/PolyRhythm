@@ -18,7 +18,6 @@ var animationController = {
         "audienceShapes": audienceShapes
     },
     trigger: function (id, wasPhone) {
-        var sound = soundController.dict[id];
         console.log("soundcont", soundController);
         var animation = this.dict[id];
         if (sound && wasPhone) {

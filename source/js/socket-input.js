@@ -1,6 +1,10 @@
 socket.on("animation_input", function(msg) {
-	console.log("In animation-input ", msg);
-	animationController.trigger(Number(msg), true);
+	if(msg.animations) {
+		animationController.trigger(msg.animations);
+	}
+	if(msg.audio) {
+		soundController.trigger(msg.audio);
+	}
 });
 
 socket.on("acceleration_input", function(msg) {
