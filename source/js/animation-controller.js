@@ -7,8 +7,9 @@
         // asdf
         84: highRise,
         83: circlePop,  // S
-        81: centerCircle, // Q
-        70: glimmer, // D
+        81: audienceShape, // Q
+        86: sqaureExplode, //V
+        //70: glimmer, // D
         65: strike,
         82: squiggle,
         68: flash,
@@ -28,7 +29,8 @@
     trigger: function (id) {
         var animation = this.dict[id];
         if(id === 81){
-            animation.start();
+            var x = animation();
+            x.start();
         }
         else if (animation) {
             if (animation.playing()) {
@@ -37,12 +39,11 @@
             animation.start(undefined, undefined);
         }
     },
-    updateCircle: function () {
-        //console.log("In update circle");
-        var animation = this.dict["circle"]
-        //animation.start(undefined, undefildned);
+    audienceTrigger: function(shape, color) {
+        console.log("Getting animation!");
+        var animation = this.dict["audienceTrigger"](undefined, undefined);
+        console.log(animation);
     }
-
 };
 
 two.bind('update', function() {
