@@ -277,8 +277,8 @@ var suspension = (function() {
     var playing = false,
         callback = _.identity,
         amount = 16,
-        r1 = min_dimension * 12 / 900,
-        r2 = min_dimension * 20 / 900,
+        r1 = min_dimension * 40 / 900,
+        r2 = min_dimension * 60 / 900,
         theta, deviation, distance = height,
         destinations = [],
         circles = _.map(_.range(amount), function(i) {
@@ -425,3 +425,102 @@ var circlePop = (function(){
     };
     return exports;
 })();
+
+var horizontalLines = (function() {
+
+    var playing = false;
+    var callback = _.identity;
+
+    var distance = min_dimension * 0.5;
+
+    var line = two.makeLine(-width, center.y - center.y * .25, 0, center.y - center.y * .25);
+    var line2 = two.makeLine(width, center.y + center.y * .25, 2*width, center.y + center.y * .25);
+
+    line.noFill().stroke = "#333";
+    line.visible = true;
+
+    line2.noFill().stroke = "#333";
+    line2.visible = true;
+
+    var start = function(onComplete, silent) {
+      line.visible = true;
+      playing = true;
+      animate_in.start();
+      animate_in2.start();
+      if (_.isFunction(onComplete)) {
+        callback = onComplete;
+      }
+    };
+
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(line.translation)
+      .to({
+        x: 2*width + width/2
+      }, duration * 0.7)
+      .easing(Easing.Circular.In)
+      .onComplete(function() {
+        //animate_out.start();
+        start.onComplete();
+        callback();
+      });
+
+    var animate_in2 = new TWEEN.Tween(line2.translation)
+      .to({
+        x: -2*width + width/2
+      }, duration * 0.7)
+      .easing(Easing.Circular.In)
+      .onComplete(function() {
+        //animate_out.start();
+        start.onComplete();
+        callback();
+      });
+
+    var animate_out = new TWEEN.Tween(line)
+      .to({
+        beginning: 1.0
+      }, duration * 0.25)
+      .easing(Easing.Circular.Out)
+      .onComplete(function() {
+        start.onComplete();
+        callback();
+      });
+
+    var exports = {
+      start: start,
+      clear: reset,
+      playing: function() { return playing; },
+    };
+
+    var a = {
+      x: 0, y: 0
+    };
+    var b = {
+      x: 0, y: 0
+    };
+
+    var rando, theta, pct, i, p;
+    function reset() {
+
+      playing = false;
+      rando = Math.random();
+
+      line.linewidth = Math.round(rando * 5) + 7;
+      line2.linewidth = Math.round(rando * 5) + 7;
+      line.translation.set(-width + width/2, line.translation.y);
+      line2.translation.set(width + width/2, line2.translation.y);
+
+      line.ending = line.beginning = 0;
+      line.ending = 1;
+      line.visible = true;
+      line2.visible = true;
+
+      animate_in.stop();
+      animate_out.stop();
+    }
+
+    reset();
+
+    return exports;
+
+  })();

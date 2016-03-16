@@ -1,19 +1,21 @@
 var animationController = {
     dict: {
-        87: veil,
-        69: ufo,
-        79: dotted_spiral,
-        80: clay,
-        // asdf
-        84: highRise,
-        83: circlePop,  // S
-        81: audienceShapes, // Q
-        //86: sqaureExplode, //V
-        70: horizontalLines, // D
-        65: strike,
-        82: squiggle,
-        68: flash,
-        "circle": centerCircle
+        "veil": veil,
+        "ufo": ufo,
+        "suspension": suspension,
+        "highRise": highRise,
+        "starExplode": starExplode,
+        "clay": clay,
+        "circlePop": circlePop,
+        "horizontalLines": horizontalLines,
+        "strike": strike,
+        "squiggle": squiggle,
+        "flash": flash,
+        "dotted_spiral": dotted_spiral,
+        "centerCircle": centerCircle,
+        "circle": centerCircle,
+        // THIS ONE IS WEIRD
+        "audienceShapes": audienceShapes
     },
     trigger: function (id, wasPhone) {
         var sound = soundController.dict[id];
@@ -22,11 +24,6 @@ var animationController = {
         if (sound && wasPhone) {
             // we want them to overlap
             sound.play();
-        }
-        if(id === 81){
-            console.log("I'm in")
-            var x = animation("square", randomColor());
-            x.start();
         }
         else if (animation) {
             if (animation.playing()) {

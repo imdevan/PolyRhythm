@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 var animationController={dict:{87:veil,69:ufo,79:dotted_spiral,80:clay,84:highRise,83:circlePop,81:audienceShapes,70:horizontalLines,65:strike,82:squiggle,68:flash,circle:centerCircle},trigger:function(o,i){var e=soundController.dict[o];console.log("soundcont",soundController);var l=this.dict[o];if(e&&i&&e.play(),81===o){console.log("I'm in");var r=l("square",randomColor());r.start()}else l&&(l.playing()&&l.clear(),l.start(void 0,void 0))}};two.bind("update",function(){TWEEN.update()}).play();
+=======
+var animationController={dict:{veil:veil,ufo:ufo,suspension:suspension,highRise:highRise,starExplode:starExplode,clay:clay,circlePop:circlePop,horizontalLines:horizontalLines,strike:strike,squiggle:squiggle,flash:flash,dotted_spiral:dotted_spiral,centerCircle:centerCircle,circle:centerCircle,audienceShapes:audienceShapes},trigger:function(e,i){var o=soundController.dict[e];console.log("soundcont",soundController);var l=this.dict[e];o&&i?o.play():l&&(l.playing()&&l.clear(),l.start(void 0,void 0))}};two.bind("update",function(){TWEEN.update()}).play();
+>>>>>>> a4960d4be287931a01d3f5fda0641cc5d95f41e9
