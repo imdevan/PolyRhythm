@@ -6,7 +6,6 @@ window.addEventListener("keydown", function (e, data){
       return;
     }
     var id = e.keyCode;
-    console.log("in key-input", id);
     socket.emit('animation_output', id);
     animationController.trigger(id);
     e.preventDefault();

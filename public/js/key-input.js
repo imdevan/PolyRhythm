@@ -1,1 +1,1 @@
-window.addEventListener("keydown",function(e,t){if(!e.metaKey&&!e.ctrlKey){var n=e.keyCode;console.log("in key-input",n),socket.emit("animation_output",n),animationController.trigger(n),e.preventDefault()}});
+window.addEventListener("keydown",function(e,t){if(!e.metaKey&&!e.ctrlKey){var n=e.keyCode;socket.emit("animation_output",n),animationController.trigger(n),e.preventDefault()}});
