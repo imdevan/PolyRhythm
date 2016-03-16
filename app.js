@@ -39,9 +39,9 @@ io.on('connection', function(socket)
 	setInterval(function() {
 		var accavg = total_acceleration/users || 0
 		if(!isFinite(accavg)) { accavg = 0; }
-		console.log(accavg);
+		console.log("Average acceleration is ", accavg);
 		io.emit('acceleration_input', accavg)
-	}, 750;
+	}, 750);
 
 	setInterval(function() {
 		console.log("total_acceleration is ", total_acceleration);
