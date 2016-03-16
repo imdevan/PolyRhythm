@@ -1,18 +1,8 @@
-var type = /(canvas|webgl)/.test(url.type) ? url.type : 'svg',
-    two = new Two({
-       type: Two.Types[type],
-       fullscreen: true
-    }).appendTo(document.querySelector('#two')),
-    Easing = TWEEN.Easing;
+
 
 // Animation related variables
 // =====================================================
-var width = $(window).width(), height = $(window).height();
-var center = { x: width / 2, y: height / 2 };
-var duration = 1000;
-var min_dimension = width > height ? height : width;
-var TWO_PI = Math.PI * 2;
-var colors = {
+var _colors = {
     black: "#000000",
     white: "#ffffff",
     seafoam: "#74C8B1",
@@ -32,7 +22,7 @@ function makeTriangle(x, y, radius) {
   return shape;
 }
 
-function colorsEqual(c1, c2, t) {
+function _colorsEqual(c1, c2, t) {
   var threshold = t || 0.25;
   return Math.abs(c1.r - c2.r) < threshold
     && Math.abs(c1.g - c2.g) < threshold
@@ -121,65 +111,6 @@ var r, rectSpin =  {
         this.animate_in.start();
     }
 }
-
-var centerCircle = (function() {
-
-    var callback = _.identity;
-    var playing = false;
-
-    var direction = true;
-
-    var shape = two.makeCircle(center.x, center.y, 200, 200);
-    shape.fill = "#FFF";
-    shape.noStroke();
-    shape.visible = true;
-
-    var start = function(onComplete, silent) {
-      console.log("start got called");
-      playing = true;
-      shape.visible = true;
-      animate_in.start();
-
-      if (_.isFunction(onComplete)) {
-          callback = onComplete;
-      }
-    }
-
-    start.onComplete = reset;
-
-    var animate_in = new TWEEN.Tween(shape)
-      .to({scale: 1.5}, duration * 0.2)
-      .easing(Easing.Exponential.In)
-      .onComplete(function() {
-        animate_out.start();
-      });
-
-    var animate_out = new TWEEN.Tween(shape)
-      .to({scale: 1}, duration * 0.15)
-      .easing(Easing.Exponential.Out)
-      .onComplete(function() {
-        start.onComplete();
-        callback();
-      });
-
-    reset();
-
-    function reset() {
-      shape.visible = true;
-      playing = false;
-      animate_in.stop();
-      animate_out.stop();
-    }
-
-    var exports = {
-      start: start,
-      clear: reset,
-      playing: function() { return playing; },
-    };
-
-    return exports;
-
-})();
 
 // Wipe
 // =====================================================
@@ -445,7 +376,7 @@ var ufo = (function() {
       var y2 = r * Math.sin(theta);
 
       var line = two.makeLine(x1, y1, x2, y2);
-      line.stroke = colors.black;
+      line.stroke = _colors.black;
       line.linewidth = (1 - Math.sqrt(1 - pct)) * linewidth;
       line.cap = line.join = 'round';
 
@@ -476,7 +407,7 @@ var ufo = (function() {
     start.onComplete = reset;
 
     var update = function() {
-      group.stroke = colors.black;
+      group.stroke = _colors.black;
     };
     var resize = function() {
       group.translation.set(center.x, center.y);
@@ -556,7 +487,7 @@ var ufo = (function() {
       });
 
       var clay = two.makeCurve(points);
-      clay.fill = colors.seafoam;
+      clay.fill = _colors.seafoam;
       clay.noStroke();
 
       points = clay.vertices;
@@ -575,7 +506,7 @@ var ufo = (function() {
       start.onComplete = reset;
 
       var update = function() {
-        clay.fill = colors.seafoam;
+        clay.fill = _colors.seafoam;
       };
       var resize = function() {};
 
@@ -693,7 +624,7 @@ var strike = (function() {
         return new Two.Anchor();
     });
     var line = two.makePolygon(points, true);
-        line.noFill().stroke = colors.black;
+        line.noFill().stroke = _colors.black;
         line.translation.set(center.x, center.y);
         line.cap = 'round';
 
@@ -716,7 +647,7 @@ var strike = (function() {
         line.translation.set(center.x, center.y);
     };
     var update = function() {
-        line.stroke = colors.black;
+        line.stroke = _colors.black;
     };
 
     var animate_in = new TWEEN.Tween(line)
@@ -802,7 +733,7 @@ var squiggle = (function() {
 
     var squiggle = two.makePolygon(points, true);
         squiggle.translation.set(center.x, center.y);
-        squiggle.stroke = colors.accent;
+        squiggle.stroke = _colors.accent;
         squiggle.linewidth = min_dimension / 40;
         squiggle.cap = squiggle.join = 'round';
         squiggle.noFill();
@@ -824,7 +755,7 @@ var squiggle = (function() {
     start.onComplete = reset;
 
     var update = function() {
-        squiggle.stroke = colors.accent;
+        squiggle.stroke = _colors.accent;
     };
     var resize = function() {
         w = center.x;
@@ -894,7 +825,7 @@ var flash = (function() {
 
     var shape = two.makeRectangle(center.x, center.y, width, height);
     var timeout;
-    shape.noStroke().fill = colors.white;
+    shape.noStroke().fill = _colors.white;
     shape.visible = false;
 
     var start = function(onComplete, silent) {
@@ -917,7 +848,7 @@ var flash = (function() {
     };
 
     var update = function() {
-        shape.fill = colors.white;
+        shape.fill = _colors.white;
     };
 
     var resize = function() {
@@ -999,7 +930,7 @@ var flash = (function() {
       var s, points;
       var update = function() {
         for (i = 0; i < amount; i++) {
-          shapes[i].fill = colors.white;
+          shapes[i].fill = _colors.white;
         }
       }; // Mainly for color in the future
       var resize = function() {
@@ -1079,3 +1010,134 @@ var flash = (function() {
       return exports;
 
     })();
+
+var pistons = (function() {
+    var i = 1;
+    var playing = false;
+    var callback = _.identity;
+
+    var amount = i * 4 + 1, w = width * 0.75, h = center.y;
+    var begin, end;
+
+    var group = two.makeGroup();
+        group.translation.copy(center);
+
+var shapes = _.map(_.range(amount), function(i) {
+
+var d = h / amount - h / (amount * 3);
+var x = 0;
+var y = - h / 2 + (i + 1) * (h / (amount + 1));
+
+var shape = two.makeRectangle(x, y, w, d);
+
+shape.fill = "#C695FA";
+shape.noStroke();
+
+group.add(shape);
+
+return shape;
+
+});
+
+var options = { ending: 0, beginning: 0 };
+
+var showShape = function(shape) {
+shape.visible = true;
+};
+
+var start = function(onComplete, silent) {
+_.each(shapes, showShape);
+_in.start();
+if (!silent && exports.sound) {
+exports.sound.stop().play();
+}
+if (_.isFunction(onComplete)) {
+callback = onComplete;
+}
+};
+
+start.onComplete = reset;
+
+var s, points;
+var update = function() {
+for (i = 0; i < amount; i++) {
+shapes[i].fill = _colors.white;
+}
+}; // Mainly for color in the future
+var resize = function() {
+w = width * 0.75, h = center.y;
+group.translation.copy(center);
+};
+
+var _in = new TWEEN.Tween(options)
+.to({ ending: 1.0 }, duration * 0.125)
+.easing(Easing.Sinusoidal.Out)
+.onStart(function() {
+playing = true;
+})
+.onUpdate(function() {
+for (i = 0; i < amount; i++) {
+s = shapes[i];
+points = s.vertices;
+points[3].x = points[0].x = end * options.ending;
+}
+})
+.onComplete(function() {
+_out.start();
+});
+
+var _out = new TWEEN.Tween(options)
+.to({ beginning: 1.0 }, duration * 0.125)
+.easing(Easing.Sinusoidal.Out)
+.onUpdate(function() {
+for (i = 0; i < amount; i++) {
+s = shapes[i];
+points = s.vertices;
+points[1].x = points[2].x = end * options.beginning;
+}
+})
+.onComplete(function() {
+start.onComplete();
+callback();
+});
+
+function reset() {
+
+options.beginning = options.ending = 0;
+var rotated = Math.random() > 0.5 ? true : false;
+
+if (rotated) {
+begin = - w / 2;
+end = w / 2;
+} else {
+begin = w / 2;
+end = - w / 2;
+}
+
+for (i = 0; i < amount; i++) {
+s = shapes[i];
+shapes.visible = false;
+points = s.vertices;
+points[0].x = points[1].x = points[2].x = points[3].x = begin;
+}
+
+playing = false;
+
+_in.stop();
+_out.stop();
+
+}
+
+var exports = {
+start: start,
+update: update,
+clear: reset,
+resize: resize,
+playing: function() { return playing; },
+};
+
+reset();
+
+return exports;
+
+})();

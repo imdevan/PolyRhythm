@@ -1,18 +1,20 @@
     var animationController = {
     dict: {
-        81: centerCircle,
-        87: veil,
-        69: ufo,
-        82: dotted_spiral,
-        84: clay,
+        // 87: veil,
+        // 69: ufo,
+        // 82: dotted_spiral,
+        // 84: clay,
         // asdf
-        65: strike,
-        83: squiggle,
-        68: flash,
-        70: pistons
+        65: highRise,
+        83: circlePop,  // S
+        81: centerCircle, // Q
+        70: glimmer // D
+
+        // 68: flash,
+        // 70: pistons
     },
     init: function () {
-        rectSpin.init();
+        // rectSpin.init();
         $.each(this.dict, function(key, val) {
             console.log(key);
             console.log(val);
