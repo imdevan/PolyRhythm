@@ -25,10 +25,18 @@ app.get('/audience', function(req, res)
 	res.sendfile('./public/audience.html');
 });
 
+var users = 0;
+var total_acceleration = 0;
 io.on('connection', function(socket)
 {
+	users++;
+	console.log(users + " number of users");
+
 	socket.on('audience_acceleration', function(msg)
 	{
+		total_acceleration += msg;
+		console.log("total_acceleration is ", total_acceleration);
+		setTimeout(function() { total_acceleration -= msg; console.log("total_acceleration is ", total_acceleration); }, 750);
 		console.log(msg);
 	});
 
@@ -45,6 +53,11 @@ io.on('connection', function(socket)
 	socket.on('animation_output', function(msg)
 	{
 		io.emit('animation_input', msg);
+	});
+
+	socket.on('disconnect', function() {
+		users--;
+		console.log(users + " number of users");
 	});
 });
 
