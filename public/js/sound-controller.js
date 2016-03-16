@@ -1,0 +1,1 @@
+var soundController={dict:{87:kick,69:snare,82:droplet,84:carSound,65:pikaHi,83:pikaLow,68:kirby,70:iphone},init:function(){$.each(this.dict,function(i,n){console.log(n),n.init()})}};soundController.init();

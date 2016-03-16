@@ -1,7 +1,7 @@
 socket.on("animation_input", function(msg) {
 	console.log("In animation-input ", msg);
 	if(!midiDeviceConnected){
-		animationController.trigger(Number(msg));
+		animationController.trigger(Number(msg), true);
 	}
 });
 
