@@ -5,8 +5,9 @@ var button = document.getElementById("button");
 
 function setButtonHeightWidth()
 {
-	var height = document.body.clientHeight;
-	var width = document.body.clientWidth;
+	var height = window.innerHeight;
+	var width = window.innerWidth;
+	console.log(height, width);
 	var setHeight = 0;
 	var setWidth = 0;
 
@@ -25,7 +26,7 @@ function setButtonHeightWidth()
 }
 
 window.onload = setButtonHeightWidth;
-window.resize = setButtonHeightWidth;
+window.onresize = setButtonHeightWidth;
 
 function send()
 {
