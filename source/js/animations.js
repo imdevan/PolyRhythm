@@ -113,9 +113,10 @@ var audienceShape = function(type, color) {
     return (function() {
     var callback = _.identity;
     var playing = false;
-
+    var actual = type;
+    console.log(actual);
     var shape;
-    var type = type || "star";
+    type = type || "star";
     switch(type)
     {
       case "sqaure":
@@ -131,6 +132,7 @@ var audienceShape = function(type, color) {
         shape = two.makeStar(center.x, center.y, 50/2, 40, 5);
         break;
     }
+    middleGround.add(shape);
 
     var randColor = color;
     shape.fill = convertHex(randColor, 50);

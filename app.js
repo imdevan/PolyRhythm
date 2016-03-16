@@ -73,6 +73,11 @@ io.on('connection', function(socket)
 		console.log(msg);
 	});
 
+	socket.on('audience_shape', function(msg)
+	{
+		io.emit('audience_shape_input', msg);
+	});
+
 	socket.on('midi_input', function(msg)
 	{
 		console.log(msg);

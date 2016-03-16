@@ -1,6 +1,11 @@
 var socket = io();
 socket.emit('audience_init');
 
+shapes = ["sqaure", "circle", "triangle", "star"];
+
+shape = shapes[Math.floor(Math.random()*shapes.length)];
+color = randomColor();
+
 var acc = null;
 var button = document.getElementById("button");
 
@@ -51,6 +56,7 @@ function buttonPress(event) {
   button.classList.add("active");
   clearTimeout(mytimeout);
   mytimeout = setTimeout(removeActive, 1000);
+  socket.emit("audience_shape", {shape: shape, color: color});
 }
 
 function removeActive() {

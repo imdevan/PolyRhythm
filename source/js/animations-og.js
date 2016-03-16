@@ -202,7 +202,7 @@ var sqaureExplode = (function() {
 // ======================================
 // MIDDLE GROUND
 // ======================================
-
+var middleGround = two.makeGroup();
 // var centerCircle = (function() {
 //     var callback = _.identity,
 //         playing = false,

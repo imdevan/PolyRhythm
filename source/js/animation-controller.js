@@ -30,7 +30,7 @@
         var animation = this.dict[id];
         if(id === 81){
             console.log("I'm in")
-            var x = animation("sqaure", randomColor());
+            var x = animation("square", randomColor());
             x.start();
         }
         else if (animation) {
