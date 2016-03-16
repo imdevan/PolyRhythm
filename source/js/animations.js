@@ -119,10 +119,11 @@ var audienceShape = function(type, color) {
     var dest_in = { x: posx, y: posy};
 
     var animate_in = new TWEEN.Tween(shape.translation)
-      .to(dest_in, duration * 2)
+      .to(dest_in, duration * 4)
       .easing(Easing.Exponential.Out)
       .onComplete(function() {
         animate_out.start();
+        two.remove(shape);
       });
     var animate_out = new TWEEN.Tween(shape)
       .to({scale: 0}, duration * 1)
