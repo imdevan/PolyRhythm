@@ -371,7 +371,7 @@ var ufo = (function() {
       var y2 = r * Math.sin(theta);
 
       var line = two.makeLine(x1, y1, x2, y2);
-      line.stroke = _colors.black;
+      line.stroke = currentPallette[rand(0, currentPallette.length)];
       line.linewidth = (1 - Math.sqrt(1 - pct)) * linewidth;
       line.cap = line.join = 'round';
 
@@ -402,7 +402,7 @@ var ufo = (function() {
     start.onComplete = reset;
 
     var update = function() {
-      group.stroke = _colors.black;
+      group.stroke = currentPallette[rand(0, currentPallette.length)];
     };
     var resize = function() {
       group.translation.set(center.x, center.y);
@@ -482,7 +482,7 @@ var ufo = (function() {
       });
 
       var clay = two.makeCurve(points);
-      clay.fill = _colors.seafoam;
+      clay.fill = currentPallette[1];
       clay.noStroke();
 
       points = clay.vertices;
@@ -501,7 +501,7 @@ var ufo = (function() {
       start.onComplete = reset;
 
       var update = function() {
-        clay.fill = _colors.seafoam;
+        clay.fill = currentPallette[1];
       };
       var resize = function() {};
 
@@ -619,7 +619,7 @@ var strike = (function() {
         return new Two.Anchor();
     });
     var line = two.makePolygon(points, true);
-        line.noFill().stroke = _colors.black;
+        line.noFill().stroke = currentPallette[2]
         line.translation.set(center.x, center.y);
         line.cap = 'round';
 
@@ -642,7 +642,7 @@ var strike = (function() {
         line.translation.set(center.x, center.y);
     };
     var update = function() {
-        line.stroke = _colors.black;
+        line.stroke = currentPallette[2];
     };
 
     var animate_in = new TWEEN.Tween(line)
@@ -730,7 +730,7 @@ var squiggle = (function() {
 
     var squiggle = two.makePolygon(points, true);
         squiggle.translation.set(center.x, center.y);
-        squiggle.stroke = _colors.accent;
+        squiggle.stroke = currentPallette[1];
         squiggle.linewidth = min_dimension / 40;
         squiggle.cap = squiggle.join = 'round';
         squiggle.noFill();
@@ -752,7 +752,7 @@ var squiggle = (function() {
     start.onComplete = reset;
 
     var update = function() {
-        squiggle.stroke = _colors.accent;
+        squiggle.stroke = currentPallette[1];
     };
     var resize = function() {
         w = center.x;
@@ -822,7 +822,7 @@ var flash = (function() {
 
     var shape = two.makeRectangle(center.x, center.y, width, height);
     var timeout;
-    shape.noStroke().fill = _colors.white;
+    shape.noStroke().fill = currentPallette[0];
     shape.visible = false;
 
     var start = function(onComplete, silent) {
@@ -845,7 +845,7 @@ var flash = (function() {
     };
 
     var update = function() {
-        shape.fill = _colors.white;
+        shape.fill = currentPallette[0];
     };
 
     var resize = function() {
@@ -927,7 +927,7 @@ var flash = (function() {
       var s, points;
       var update = function() {
         for (i = 0; i < amount; i++) {
-          shapes[i].fill = _colors.white;
+          shapes[i].fill = currentPallette[0];
         }
       }; // Mainly for color in the future
       var resize = function() {
@@ -1058,7 +1058,7 @@ start.onComplete = reset;
 var s, points;
 var update = function() {
 for (i = 0; i < amount; i++) {
-shapes[i].fill = _colors.white;
+shapes[i].fill = currentPallette[rand(0, currentPallette.length)];
 }
 }; // Mainly for color in the future
 var resize = function() {

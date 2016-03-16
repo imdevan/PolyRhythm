@@ -35,6 +35,3 @@
 two.bind('update', function() {
   TWEEN.update();
 }).play();
-
-animationController.init();
-//setInterval(animationController.updateCircle(), 750);
