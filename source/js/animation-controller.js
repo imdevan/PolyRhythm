@@ -1,6 +1,6 @@
     var animationController = {
     dict: {
-        81: rectSpin,
+        81: centerCircle,
         87: veil,
         69: ufo,
         82: dotted_spiral,
