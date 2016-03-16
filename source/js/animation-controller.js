@@ -13,7 +13,7 @@ var animationController = {
         65: strike,
         82: squiggle,
         68: flash,
-        70: pistons,
+        70: suspension,
         "circle": centerCircle
     },
     trigger: function (id, wasPhone) {
