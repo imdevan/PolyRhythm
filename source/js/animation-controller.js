@@ -29,7 +29,8 @@
     trigger: function (id) {
         var animation = this.dict[id];
         if(id === 81){
-            var x = animation();
+            console.log("I'm in")
+            var x = animation("sqaure", randomColor());
             x.start();
         }
         else if (animation) {
@@ -38,11 +39,6 @@
             }
             animation.start(undefined, undefined);
         }
-    },
-    audienceTrigger: function(shape, color) {
-        console.log("Getting animation!");
-        var animation = this.dict["audienceTrigger"](undefined, undefined);
-        console.log(animation);
     }
 };
 

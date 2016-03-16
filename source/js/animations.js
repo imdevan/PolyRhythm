@@ -108,30 +108,48 @@ var r, rectSpin =  {
     }
 }
 
-var audienceShape = function(shape, color) {
+
+var audienceShape = function(type, color) {
     return (function() {
     var callback = _.identity;
     var playing = false;
 
-    var shape;
-    switch(shape)
-    {
-      case "circle":
-        shape = two.makeRectangle(center.x, center.y, 50, 50);
-        break;
-      case "square":
-        shape = two.makeCircle(center.x, center.y, 50/2);
-        break;
-      case "triangle":
-        shape = two.makePolygon(center.x, center.y, 50/2, 3);
-    }
+    var shape = two.makeRectangle(center.x, center.y, 50, 50);
+    // switch(type)
+    // {
+    //   case "sqaure":
+    //     shape = two.makeRectangle(center.x, center.y, 50, 50);
+    //     break;
+    //   case "circle":
+    //     shape = two.makeCircle(center.x, center.y, 50/2);
+    //     break;
+    //   case "triangle":
+    //     shape = two.makePolygon(center.x, center.y, 50/2, 3);
+    //     break;
+    // }
 
     var randColor = color;
     shape.fill = convertHex(randColor, 50);
     shape.stroke = convertHex(randColor, 100);
-    shape.linewidth = 10;
+    shape.linewidth = 5;
     shape.visible = true;
-    shape.scale = 0;
+    shape.scale = 1;
+
+    var angle = Math.PI * Math.random() * 10;
+    console.log("Angle ", angle);
+
+    var posx = Math.cos(angle);
+    var posy = Math.sin(angle);
+
+    console.log(posx, posy);
+
+    // distance = Math.round(map(Math.random(), 0, 1, height, width));
+    
+    posx *= width;
+    posy *= width;
+
+    posx += center.x;
+    posy += center.y;
 
     var start = function(onComplete, silent) {
       playing = true;
@@ -143,14 +161,16 @@ var audienceShape = function(shape, color) {
     }
     start.onComplete = reset;
 
-    var animate_in = new TWEEN.Tween(shape)
-      .to({scale: 1}, duration * 3)
+    var dest_in = { x: posx, y: posy};
+
+    var animate_in = new TWEEN.Tween(shape.translation)
+      .to(dest_in, duration * 2)
       .easing(Easing.Exponential.Out)
       .onComplete(function() {
         animate_out.start();
       });
     var animate_out = new TWEEN.Tween(shape)
-      .to({scale: 0}, duration * 3 )
+      .to({scale: 0}, duration * 1)
       .easing(Easing.Exponential.In)
       .onComplete(function() {
         start.onComplete();
