@@ -33,21 +33,21 @@ app.get('/acceleration', function(req, res)
 	res.json({acceleration: (total_acceleration/users)});
 });
 
-var phone_users = [];
-io.on('connection', function(socket)
-{
-	setInterval(function() {
+setInterval(function() {
 		var accavg = total_acceleration/users || 0
 		if(!isFinite(accavg)) { accavg = 0; }
 		console.log("Average acceleration is ", accavg);
 		io.emit('acceleration_input', accavg)
 	}, 750);
 
-	setInterval(function() {
-		console.log("total_acceleration is ", total_acceleration);
-		total_acceleration = 0;
-	}, 750)
+setInterval(function() {
+	console.log("total_acceleration is ", total_acceleration);
+	total_acceleration = 0;
+}, 750)
 
+var phone_users = [];
+io.on('connection', function(socket)
+{
 	socket.on('audience_init', function(msg)
 	{
 		users++;
