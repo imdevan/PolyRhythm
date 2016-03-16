@@ -5,12 +5,6 @@ http = require('http').Server(app);
 io = require('socket.io')(http);
 
 
-console.log(io.sockets.sockets);
-// _.each(io.sockets.sockets, function(s) {
-// 	console.log("Oh man a connection");
-// 	s.disconnect(true);
-// });
-
 var users = 0;
 var total_acceleration = 0;
 
@@ -92,7 +86,7 @@ io.on('connection', function(socket)
 	});
 
 	socket.on('disconnect', function() {
-		if(phone_users.indexOf(socket) !== -1) {	
+		if(phone_users.indexOf(socket) !== -1) {
 			users--;
 			console.log(users + " number of users");
 		}
