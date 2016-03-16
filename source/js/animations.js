@@ -604,7 +604,7 @@ var ufo = (function() {
 
     })();
 
-  var strike = (function() {
+  var horizontalLines = (function() {
 
     var playing = false;
     var callback = _.identity;
@@ -703,27 +703,28 @@ var ufo = (function() {
 
   })();
 
-var randomStroke = (function() {
+ var strike = (function() {
 
     var playing = false;
     var callback = _.identity;
 
+    var amount = 32;
     var distance = min_dimension * 0.5;
 
-    var line = two.makeLine(-width, center.y - center.y * .25, 0, center.y - center.y * .25);
-    var line2 = two.makeLine(width, center.y + center.y * .25, 2*width, center.y + center.y * .25);
+    var points = _.map(_.range(amount), function(i) {
+      return new Two.Anchor();
+    });
 
-    line.noFill().stroke = "#333";
-    line.visible = true;
-
-    line2.noFill().stroke = "#333";
-    line2.visible = true;
+    var line = two.makePath(points);
+    line.stroke = "#000";
+    line.translation.set(center.x, center.y);
+    line.cap = 'round';
+    line.visible = false;
 
     var start = function(onComplete, silent) {
       line.visible = true;
       playing = true;
       animate_in.start();
-      animate_in2.start();
       if (_.isFunction(onComplete)) {
         callback = onComplete;
       }
@@ -731,26 +732,21 @@ var randomStroke = (function() {
 
     start.onComplete = reset;
 
-    var animate_in = new TWEEN.Tween(line.translation)
-      .to({
-        x: 2*width + width/2 
-      }, duration * 0.7)
-      .easing(Easing.Circular.In)
-      .onComplete(function() {
-        //animate_out.start();
-        start.onComplete();
-        callback();
-      });
+    var resize = function() {
+      // distance = height * 0.5;
+      line.translation.set(center.x, center.y);
+    };
+    var update = function() {
+      line.stroke = colors.black;
+    };
 
-    var animate_in2 = new TWEEN.Tween(line2.translation)
+    var animate_in = new TWEEN.Tween(line)
       .to({
-        x: -2*width + width/2 
-      }, duration * 0.7)
+        ending: 1.0
+      }, duration * 0.25)
       .easing(Easing.Circular.In)
       .onComplete(function() {
-        //animate_out.start();
-        start.onComplete();
-        callback();
+        animate_out.start();
       });
 
     var animate_out = new TWEEN.Tween(line)
@@ -782,15 +778,117 @@ var randomStroke = (function() {
       playing = false;
       rando = Math.random();
 
-      line.linewidth = Math.round(rando * 5) + 7;
-      line2.linewidth = Math.round(rando * 5) + 7;
-      line.translation.set(-width + width/2, line.translation.y); 
-      line2.translation.set(width + width/2, line2.translation.y); 
+      line.linewidth = Math.round(rando * 7) + 3;
+      distance = Math.round(map(rando, 0, 1, height * 0.5, width))
+      line.stroke = currentPallette[rand(0, currentPallette.length)];
+      theta = Math.random() * TWO_PI;
+      a.x = distance * Math.cos(theta);
+      a.y = distance * Math.sin(theta);
+
+      theta = theta + Math.PI;
+      b.x = distance * Math.cos(theta);
+      b.y = distance * Math.sin(theta);
 
       line.ending = line.beginning = 0;
-      line.ending = 1;
+      line.visible = false;
+
+      for (i = 0; i < amount; i++) {
+        p = points[i];
+        pct = i / (amount - 1);
+        p.x = lerp(a.x, b.x, pct);
+        p.y = lerp(a.y, b.y, pct);
+      }
+
+      animate_in.stop();
+      animate_out.stop();
+
+    }
+
+    reset();
+
+    return exports;
+
+  })();
+
+var randomStroke = (function() {
+
+    var playing = false;
+    var callback = _.identity;
+
+    var amount = 32;
+    var distance = min_dimension * 0.5;
+
+    var points = _.map(_.range(amount), function(i) {
+      return new Two.Anchor();
+    });
+
+    var line = two.makePath (points, true);
+    console.log(line.vertices.length);
+    line.translation.set(center.x + (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 200), center.y);
+
+    line.noFill().stroke = "#333";
+    //line.visible = true;
+
+    var start = function(onComplete, silent) {
       line.visible = true;
-      line2.visible = true;
+      playing = true;
+      animate_in.start();
+      if (_.isFunction(onComplete)) {
+        callback = onComplete;
+      }
+    };
+
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(line)
+      .to({
+        ending: 1.0, beinning: 0.5 
+      }, duration * 0.4)
+      .easing(Easing.Circular.In)
+      .onComplete(function() {
+        animate_out.start();
+      });
+
+    var animate_out = new TWEEN.Tween(line)
+      .to({
+        beginning: 1.0
+      }, duration * 0.4)
+      .easing(Easing.Circular.Out)
+      .onComplete(function() {
+        start.onComplete();
+        callback();
+      });
+
+    var exports = {
+      start: start,
+      clear: reset,
+      playing: function() { return playing; },
+    };
+
+    var a = {
+      x: 0, y: 0
+    };
+    var b = {
+      x: 0, y: 0
+    };
+
+    var rando, theta, pct, i, p;
+    function reset() {
+
+      playing = false;
+      rando = Math.random();
+
+      line.linewidth = Math.round(rando * 4) + 2;
+
+      line.ending = line.beginning = 0;
+      line.visible = false;
+
+      for (i = 0; i < amount; i++) {
+        p = points[i];
+        pct = i / (amount - 1);
+        p.x = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * (center.x/2));
+        p.y = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * (center.y/2));
+      }
 
       animate_in.stop();
       animate_out.stop();
@@ -817,7 +915,7 @@ var squiggle = (function() {
         return new Two.Anchor(x, y);
     });
 
-    var squiggle = two.makePolygon(points, true);
+    var squiggle = two.makePath(points, true);
         squiggle.translation.set(center.x, center.y);
         squiggle.stroke = currentPallette[1];
         squiggle.linewidth = min_dimension / 40;

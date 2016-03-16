@@ -8,8 +8,8 @@ var animationController = {
         84: highRise,
         83: circlePop,  // S
         //81: horizontalLine, // Q
-        86: sqaureExplode, //V
-        70: horizontalLine, // D
+        //86: sqaureExplode, //V
+        70: horizontalLines, // D
         65: strike,
         82: squiggle,
         68: flash,
