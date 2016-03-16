@@ -135,7 +135,7 @@ var centerCircle = (function() {
     shape.visible = true;
 
     var start = function(onComplete, silent) {
-      console.log("start got called");
+      console.log("Acceleration is ", acceleration);
       playing = true;
       shape.visible = true;
       animate_in.start();
@@ -147,13 +147,11 @@ var centerCircle = (function() {
 
     start.onComplete = reset;
 
-    console.log("Acceleration is ", acceleration);
     var animate_in = new TWEEN.Tween(shape)
       .to({scale: 1.5}, duration * 0.2)
       .easing(Easing.Exponential.In)
       .onComplete(function() {
-        start.onComplete();
-        callback();
+        animate_out.start();
       });
 
     var animate_out = new TWEEN.Tween(shape)
