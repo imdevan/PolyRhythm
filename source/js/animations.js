@@ -114,19 +114,23 @@ var audienceShape = function(type, color) {
     var callback = _.identity;
     var playing = false;
 
-    var shape = two.makeRectangle(center.x, center.y, 50, 50);
-    // switch(type)
-    // {
-    //   case "sqaure":
-    //     shape = two.makeRectangle(center.x, center.y, 50, 50);
-    //     break;
-    //   case "circle":
-    //     shape = two.makeCircle(center.x, center.y, 50/2);
-    //     break;
-    //   case "triangle":
-    //     shape = two.makePolygon(center.x, center.y, 50/2, 3);
-    //     break;
-    // }
+    var shape;
+    var type = type || "star";
+    switch(type)
+    {
+      case "sqaure":
+        shape = two.makeRectangle(center.x, center.y, 50, 50);
+        break;
+      case "circle":
+        shape = two.makeCircle(center.x, center.y, 50/2);
+        break;
+      case "triangle":
+        shape = two.makePolygon(center.x, center.y, 50/2, 3);
+        break;
+      case "star":
+        shape = two.makeStar(center.x, center.y, 50/2, 40, 5);
+        break;
+    }
 
     var randColor = color;
     shape.fill = convertHex(randColor, 50);
