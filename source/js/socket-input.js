@@ -3,7 +3,6 @@ socket.on("animation_input", function(msg) {
 	animationController.trigger(Number(msg));
 });
 
-// socket.on("acceleration_input", function(msg) {
-// 	console.log("Acceleration is ", msg);
-// 	acceleration = msg;
-// });
+socket.on("acceleration_input", function(msg) {
+	acceleration = msg;
+});

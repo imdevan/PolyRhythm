@@ -38,9 +38,15 @@ io.on('connection', function(socket)
 {
 	setInterval(function() {
 		var accavg = total_acceleration/users || 0
+		if(!isFinite(accavg)) { accavg = 0; }
 		console.log(accavg);
 		io.emit('acceleration_input', accavg)
-	}, 500);
+	}, 750;
+
+	setInterval(function() {
+		console.log("total_acceleration is ", total_acceleration);
+		total_acceleration = 0;
+	}, 750)
 
 	socket.on('audience_init', function(msg)
 	{
@@ -52,8 +58,6 @@ io.on('connection', function(socket)
 	socket.on('audience_acceleration', function(msg)
 	{
 		total_acceleration += msg;
-		console.log("total_acceleration is ", total_acceleration);
-		setTimeout(function() { total_acceleration -= msg; console.log("total_acceleration is ", total_acceleration); }, 750);
 		console.log(msg);
 	});
 
