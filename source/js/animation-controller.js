@@ -8,7 +8,7 @@ var animationController = {
         84: highRise,
         83: circlePop,  // S
         81: audienceShape, // Q
-        86: sqaureExplode, //V
+        86: starExplode, //V
         // 70: glimmer, // D
         65: strike,
         82: squiggle,
@@ -41,4 +41,3 @@ var animationController = {
 two.bind('update', function() {
   TWEEN.update();
 }).play();
-

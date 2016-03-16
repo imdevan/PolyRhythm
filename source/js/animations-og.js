@@ -150,7 +150,7 @@ var highRise = (function(){
 
 })();
 
-var sqaureExplode = (function() {
+var starExplode = (function() {
     var callback = _.identity;
     var playing = false;
 
