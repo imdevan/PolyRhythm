@@ -1,7 +1,12 @@
 express = require('express');
+_ = require('underscore');
 app = express();
 http = require('http').Server(app);
 io = require('socket.io')(http);
+
+_.each(io.sockets.sockets, function(s) {
+	s.disconnect(true);
+});
 
 var users = 0;
 var total_acceleration = 0;
