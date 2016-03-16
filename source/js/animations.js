@@ -148,6 +148,7 @@ var centerCircle = (function() {
     start.onComplete = reset;
 
     var animate_in = new TWEEN.Tween(shape)
+      console.log("Acceleration is ", acceleration);
       .to({scale: 1.5}, duration * 0.2)
       .easing(Easing.Exponential.In)
       .onComplete(function() {

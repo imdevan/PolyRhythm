@@ -63,7 +63,6 @@ io.on('connection', function(socket)
 	socket.on('audience_acceleration', function(msg)
 	{
 		total_acceleration += msg;
-		console.log(msg);
 	});
 
 	socket.on('audience_input', function(msg)
