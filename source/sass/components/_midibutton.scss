@@ -1,5 +1,5 @@
-$button-border: 5px solid gray;
-$button-border-active: 5px solid red;
+$button-border: 10px solid gray;
+$button-border-active: 10px solid red;
 
 .button {
     &--container {
@@ -7,7 +7,7 @@ $button-border-active: 5px solid red;
         flex-grow: 1;
         box-sizing: border-box;
         display:flex;
-        padding: 3px;
+        padding: 10px;
     }
 
     &--pad {
@@ -17,6 +17,7 @@ $button-border-active: 5px solid red;
         border: $button-border;
 
         &.active {
+            background: #555;
             border: $button-border-active;
         }
 
