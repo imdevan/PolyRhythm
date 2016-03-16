@@ -58,7 +58,7 @@ gulp.task('scripts:watch', function () {
       ], ['scripts']);
 });
 
-gulp.task('lint', function () {
+gulp.task('lit', function () {
     return gulp.src([
         'source/**/*.js',
         '!source/third-party/**/*.js'])
