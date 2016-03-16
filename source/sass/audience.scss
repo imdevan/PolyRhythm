@@ -1,2 +1,6 @@
 @import 'layout/allaudience';
 @import 'components/allaudience';
+
+* {
+    user-select: none;
+}
