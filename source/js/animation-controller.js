@@ -8,6 +8,18 @@ var animationController = {
         68: audienceShape,
         70: starExplode,
         88: strike,
+        87: veil,
+        69: ufo,
+        79: dotted_spiral,
+        80: clay,
+        // asdf
+        84: highRise,
+        83: circlePop,  // S
+        81: audienceShapes, // Q
+        //86: sqaureExplode, //V
+        70: horizontalLines, // D
+        65: strike,
+        82: squiggle,
         68: flash,
         86: dotted_spiral,
         81: centerCircle,
