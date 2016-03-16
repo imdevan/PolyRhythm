@@ -83,6 +83,10 @@ var midCornerPositions = [
 ];
 
 
+function lerp(a, b, t) {
+  return (b - a) * t + a;
+}
+
 // ======================================
 // BACK GROUND
 // ======================================
@@ -267,4 +271,97 @@ var circlePop = (function(){
 
     return exports;
 
+})();
+
+var suspension = (function() {
+var playing = false,
+    callback = _.identity,
+    amount = 16,
+    r1 = min_dimension * 12 / 900,
+    r2 = min_dimension * 20 / 900,
+    theta, deviation, distance = height,
+    destinations = [],
+    circles = _.map(_.range(amount), function(i) {
+        var r = Math.round(map(Math.random(), 0, 1, r1, r2));
+        var circle = two.makeCircle(0, 0, r);
+        circle.fill = colors.white;
+        circle.noStroke();
+        destinations.push(new Two.Vector());
+        return circle;
+    });
+
+    var group = two.makeGroup(circles);
+        group.translation.set(center.x, center.y);
+
+    var i, c;
+    var start = function(onComplete, silent) {
+        for (i = 0; i < amount; i++) {
+            circles[i].visible = true;
+        }
+        _in.start();
+        if (!silent && exports.sound) {
+            exports.sound.stop().play();
+        }
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    start.onComplete = reset;
+
+    var update = function() {
+        group.fill = colors.white;
+    };
+    var resize = function() {
+        group.translation.set(center.x, center.y);
+    };
+
+    var options = { ending: 0 };
+
+    var t, d, x, y;
+    var _in = new TWEEN.Tween(options)
+        .to({ ending: 1 }, duration * 0.5)
+        .easing(Easing.Sinusoidal.Out)
+        .onStart(function() {
+            playing = true;
+        })
+        .onUpdate(function() {
+            t = options.ending;
+            for (i = 0; i < amount; i++) {
+                c = circles[i];
+                d = destinations[i];
+                x = lerp(c.translation.x, d.x, t);
+                y = lerp(c.translation.y, d.y, t);
+                c.translation.set(x, y);
+            }
+            })
+            .onComplete(function() {
+                start.onComplete();
+                callback();
+            });
+
+    function reset() {
+        theta = Math.random() * TWO_PI;
+        deviation = map(Math.random(), 0, 1, Math.PI / 4, Math.PI / 2);
+        options.ending = 0;
+        for (i = 0; i < amount; i++) {
+            c = circles[i];
+            t = theta + Math.random() * deviation * 2 - deviation;
+            a = Math.random() * distance;
+            x = a * Math.cos(t);
+            y = a * Math.sin(t);
+            destinations[i].set(x, y);
+            c.visible = false;
+            c.translation.set(0, 0);
+        }
+        playing = false;
+        _in.stop();
+    }
+    reset();
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function() { return playing; }
+    };
+    return exports;
 })();
