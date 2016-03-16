@@ -45,14 +45,20 @@ html, body {
           justify-content: space-around; }
 
 .normal {
+  font-family: 'Lato', sans-serif;
+  font-size: 3rem;
+  color: black;
   height: 0;
   width: 0;
   background: red;
-  border-radius: 50%; }
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 0; }
 
 .active {
-  -webkit-animation: grow 1s ease-in-out;
-          animation: grow 1s ease-in-out;
+  -webkit-animation: grow 0.8s ease-in-out;
+          animation: grow 0.8s ease-in-out;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards; }
 
