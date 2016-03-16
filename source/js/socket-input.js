@@ -1,9 +1,10 @@
 socket.on("animation_input", function(msg) {
+	console.log(msg);
 	if(msg.animations) {
 		animationController.trigger(msg.animations);
 	}
 	if(msg.audio) {
-		soundController.trigger(msg.audio);
+		soundController.dict[msg.audio].play();
 	}
 });
 

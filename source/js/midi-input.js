@@ -84,6 +84,7 @@ function noteOn(midiNote, velocity) {
             break;
         case 51:
             animationsToTrigger.push("highRise");
+            animationsToTrigger.push("ufo");
             break;
         case 52:
             animationsToTrigger.push("starExplode");
