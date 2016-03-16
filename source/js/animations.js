@@ -904,68 +904,6 @@ var squiggle = (function() {
 })();
 
 
-var flash = (function() {
-
-    var playing = false;
-    var callback = _.identity;
-
-    var shape = two.makeRectangle(center.x, center.y, width, height);
-    var timeout;
-    shape.noStroke().fill = currentPallette[0];
-    shape.visible = false;
-
-    var start = function(onComplete, silent) {
-        if (!_.isUndefined(timeout)) {
-            clearTimeout(timeout);
-            timeout = undefined;
-        }
-        playing = true;
-        if (!silent && exports.sound) {
-            exports.sound.stop().play();
-        }
-        timeout = setTimeout(function() {
-            playing = false;
-            callback();
-            shape.visible = false;
-        }, duration * 0.25);
-        if (_.isFunction(onComplete)) {
-            callback = onComplete;
-        }
-    };
-
-    var update = function() {
-        shape.fill = currentPallette[0];
-    };
-
-    var resize = function() {
-    var vertices = shape.vertices;
-        vertices[0].set(- center.x, - center.y);
-        vertices[1].set(center.x, - center.y);
-        vertices[2].set(center.x, center.y);
-        vertices[3].set(- center.x, center.y);
-        shape.translation.copy(center);
-    };
-
-    two.bind('update', function() {
-        if (!playing) {
-            return;
-        }
-            shape.visible = Math.random() > 0.5;
-    });
-
-    var exports = {
-        start: start,
-        update: update,
-        clear: _.identity,
-        resize: resize,
-        playing: function() { return playing; },
-    };
-
-    return exports;
-
-})();
-
-
     var pistons = (function() {
         var i = 1;
       var playing = false;

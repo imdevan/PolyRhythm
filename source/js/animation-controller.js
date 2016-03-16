@@ -40,4 +40,3 @@ var animationController = {
 two.bind('update', function() {
   TWEEN.update();
 }).play();
-
