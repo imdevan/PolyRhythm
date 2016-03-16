@@ -53,6 +53,7 @@ setInterval(function() {
 	total_acceleration = 0;
 }, 750)
 
+
 var phone_users = [];
 io.on('connection', function(socket)
 {
