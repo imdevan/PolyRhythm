@@ -1,4 +1,4 @@
-    var animationController = {
+var animationController = {
     dict: {
         87: veil,
         69: ufo,
@@ -9,7 +9,7 @@
         83: circlePop,  // S
         81: audienceShape, // Q
         86: sqaureExplode, //V
-        //70: glimmer, // D
+        // 70: glimmer, // D
         65: strike,
         82: squiggle,
         68: flash,
@@ -26,8 +26,14 @@
     reset: function(){
 
     },
-    trigger: function (id) {
+    trigger: function (id, wasPhone) {
+        var sound = soundController.dict[id];
+        console.log("soundcont", soundController);
         var animation = this.dict[id];
+        if (sound && wasPhone) {
+            // we want them to overlap
+            sound.play();
+        }
         if(id === 81){
             console.log("I'm in")
             var x = animation("sqaure", randomColor());
