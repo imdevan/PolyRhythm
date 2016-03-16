@@ -86,6 +86,8 @@ var midCornerPositions = [
 // ======================================
 // BACK GROUND
 // ======================================
+var backGround = two.makeGroup();
+
 var highRise = (function(){
     var callback = _.identity,
         colCount = 5,
@@ -202,65 +204,13 @@ var sqaureExplode = (function() {
 // ======================================
 // MIDDLE GROUND
 // ======================================
-
-// var centerCircle = (function() {
-//     var callback = _.identity,
-//         playing = false,
-//         shape = two.makeCircle(center.x, center.y, 200, 200);
-//         shape.fill = "#FFF";
-//         shape.noStroke();
-//         shape.visible = true;
-
-//     var start = function(onComplete, silent) {
-//       playing = true;
-//       shape.visible = true;
-//       animate_in.start();
-
-//       if (_.isFunction(onComplete)) {
-//           callback = onComplete;
-//       }
-//     }
-
-//     start.onComplete = reset;
-
-//     var animate_in = new TWEEN.Tween(shape)
-//       .to({scale: 1.5}, duration * 0.2)
-//       .easing(Easing.Exponential.In)
-//       .onComplete(function() {
-//         animate_out.start();
-//       });
-
-//     var animate_out = new TWEEN.Tween(shape)
-//       .to({scale: 1}, duration * 0.15)
-//       .easing(Easing.Exponential.Out)
-//       .onComplete(function() {
-//         start.onComplete();
-//         callback();
-//       });
-
-//     reset();
-
-//     function reset() {
-//       shape.visible = true;
-//       playing = false;
-//       animate_in.stop();
-//       animate_out.stop();
-//     }
-
-//     var exports = {
-//       start: start,
-//       clear: reset,
-//       playing: function() { return playing; },
-//     };
-
-//     return exports;
-
-// })();
-
+var middleGround = two.makeGroup();
 
 // ======================================
 // FORE GROUND
 // ======================================
+var foreGround = two.makeGroup();
+
 var circlePop = (function(){
     var callback = _.identity,
         playing = false,
@@ -318,115 +268,3 @@ var circlePop = (function(){
     return exports;
 
 })();
-
-  // var glimmer = (function() {
-
-  //   var playing = false;
-  //   var callback = _.identity;
-  //   var amount = 12, r1 = height * 20 / 900, r2 = height * 40 / 900;
-
-  //   var longest = 0, index;
-
-  //   var circles = _.map(_.range(amount), function(i) {
-  //     var r = Math.round(map(Math.random(), 0, 1, r1, r2));
-  //     var delay = Math.random() * duration * 0.5;
-  //     var circle = two.makeCircle(0, 0, r);
-  //     circle.key = colors.getRandomKey();
-  //     circle.stroke = colors[circle.key];
-  //     circle.noFill();
-  //     circle.__linewidth = Math.random() * 20 + 40;
-  //     circle.tween = new TWEEN.Tween(circle)
-  //       .to({ scale: 1, linewidth: 0 }, duration * 0.2)
-  //       .easing(Easing.Sinusoidal.Out)
-  //       .delay(delay)
-  //       .onComplete(function() {
-  //         circle.visible = false;
-  //       });
-
-  //     if (longest < delay) {
-  //       longest = delay;
-  //       index = i;
-  //     }
-
-  //     return circle;
-
-  //   });
-
-  //   circles[index].tween
-  //     .onComplete(function() {
-  //       circles[index].visible = false;
-  //       start.onComplete();
-  //       callback();
-  //     });
-
-
-  //   var group = two.makeGroup(circles);
-  //   group.translation.set(center.x, center.y);
-
-  //   var i, c;
-  //   var start = function(onComplete, silent) {
-  //     playing = true;
-  //     for (i = 0; i < amount; i++) {
-  //       c = circles[i];
-  //       c.visible = true;
-  //       c.tween.start();
-  //     }
-  //     if (!silent && exports.sound) {
-  //       exports.sound.stop().play();
-  //     }
-  //     if (_.isFunction(onComplete)) {
-  //       callback = onComplete;
-  //     }
-  //   }
-
-  //   start.onComplete = reset;
-
-  //   var update = function() {
-  //     for (i = 0; i < amount; i++) {
-  //       circles[i].stroke = colors[circles[i].key];
-  //     }
-  //   };
-  //   var resize = function() {
-  //     group.translation.set(center.x, center.y);
-  //   };
-
-  //   var theta, x, y;
-  //   function reset() {
-
-  //     for (i = 0; i < amount; i++) {
-
-  //       c = circles[i];
-
-  //       theta = TWO_PI * Math.random();
-
-  //       x = Math.random() * center.y * Math.cos(theta);
-  //       y = Math.random() * center.y * Math.sin(theta);
-
-  //       c.translation.set(x, y);
-  //       c.visible = false;
-  //       c.scale = 0;
-  //       c.linewidth = c.__linewidth;
-
-  //       c.tween.stop();
-
-  //     }
-
-  //     playing = false;
-
-  //   }
-
-  //   reset();
-
-  //   var exports = {
-  //     start: start,
-  //     update: update,
-  //     clear: reset,
-  //     resize: resize,
-  //     playing: function() { return playing; },
-  //   };
-
-  //   return exports;
-  // })();
-
-
-// rain

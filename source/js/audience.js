@@ -1,14 +1,22 @@
 var socket = io();
 socket.emit('audience_init');
 
+shapes = ["sqaure", "circle", "triangle", "star"];
+
+shape = shapes[Math.floor(Math.random()*shapes.length)];
+color = randomColor();
+
 var acc = null;
 var button = document.getElementById("button");
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function setButtonHeightWidth()
 {
 	var height = window.innerHeight;
 	var width = window.innerWidth;
-	console.log(height, width);
 	var setHeight = 0;
 	var setWidth = 0;
 
@@ -24,6 +32,9 @@ function setButtonHeightWidth()
 	}
 	button.style.width = setWidth + "px";
 	button.style.height = setHeight + "px";
+	button.style.lineHeight = setHeight + "px";
+	var str = capitalizeFirstLetter(shape);
+	button.innerHTML = str + "!";
 }
 
 window.onload = setButtonHeightWidth;
@@ -43,16 +54,21 @@ window.addEventListener('devicemotion', function(event)
 });
 
 var button = document.getElementById("button");
+button.style.backgroundColor = color;
 var mytimeout = null;
 
 button.addEventListener("touchstart", buttonPress, false);
 
 function buttonPress(event) {
+	console.log("in here");
+  //button.classList.remove("comingback");
   button.classList.add("active");
   clearTimeout(mytimeout);
   mytimeout = setTimeout(removeActive, 1000);
+  socket.emit("audience_shape", {shape: shape, color: color});
 }
 
 function removeActive() {
-  button.classList.remove("active")
+  button.classList.remove("active");
+  //button.classList.add("comingback");
 }

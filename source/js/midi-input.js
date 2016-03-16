@@ -1,7 +1,7 @@
 var AudioContext = AudioContext || webkitAudioContext, // for ios/safari
     context = new AudioContext(),
     data, cmd, channel, type, note, velocity,
-    b_HasMidi = false;
+    midiDeviceConnected = false;
 
 // request MIDI access
 if (navigator.requestMIDIAccess) {
@@ -15,7 +15,7 @@ if (navigator.requestMIDIAccess) {
 
 // midi functions
 function onMIDISuccess(midiAccess) {
-    b_HasMidi = true;
+    midiDeviceConnected = true;
     midi = midiAccess;
     var inputs = midi.inputs.values();
     // loop through all inputs
@@ -77,7 +77,7 @@ function noteOn(midiNote, velocity) {
             index = 69;
             break;
         case 40:
-            index = 82;
+            index = 87;
             break;
         case 41:
             index = 84;
@@ -89,15 +89,16 @@ function noteOn(midiNote, velocity) {
             index = 83;
             break;
         case 47:
-            index = 87;
+            index = 86;
             break;
         case 48:
             index = 70;
             break;
     }
     console.log("MIDI Note", midiNote);
-    socket.emit('animation_output', index);
     animationController.trigger(index);
+
+    socket.emit('animation_output', index);
 }
 
 function logger(data) {

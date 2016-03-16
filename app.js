@@ -5,12 +5,6 @@ http = require('http').Server(app);
 io = require('socket.io')(http);
 
 
-console.log(io.sockets.sockets);
-// _.each(io.sockets.sockets, function(s) {
-// 	console.log("Oh man a connection");
-// 	s.disconnect(true);
-// });
-
 var users = 0;
 var total_acceleration = 0;
 
@@ -21,9 +15,9 @@ app.get('/', function(req, res)
 	res.sendfile('./public/index.html');
 });
 
-app.get('/main', function(req, res)
+app.get('/dashboard', function(req, res)
 {
-
+	res.sendfile('./public/dashboard.html');
 });
 
 app.get('/phonemidi', function(req, res)
@@ -44,14 +38,17 @@ app.get('/acceleration', function(req, res)
 setInterval(function() {
 		var accavg = total_acceleration/users || 0
 		if(!isFinite(accavg)) { accavg = 0; }
-		console.log("Average acceleration is ", accavg);
 		io.emit('acceleration_input', accavg)
 	}, 750);
 
 setInterval(function() {
-	console.log("total_acceleration is ", total_acceleration);
+	io.emit('user_input', users);
+});
+
+setInterval(function() {
 	total_acceleration = 0;
 }, 750)
+
 
 var phone_users = [];
 io.on('connection', function(socket)
@@ -73,6 +70,11 @@ io.on('connection', function(socket)
 		console.log(msg);
 	});
 
+	socket.on('audience_shape', function(msg)
+	{
+		io.emit('audience_shape_input', msg);
+	});
+
 	socket.on('midi_input', function(msg)
 	{
 		console.log(msg);
@@ -84,7 +86,7 @@ io.on('connection', function(socket)
 	});
 
 	socket.on('disconnect', function() {
-		if(phone_users.indexOf(socket) !== -1) {	
+		if(phone_users.indexOf(socket) !== -1) {
 			users--;
 			console.log(users + " number of users");
 		}

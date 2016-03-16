@@ -16,16 +16,6 @@ var animationController = {
         70: pistons,
         "circle": centerCircle
     },
-    init: function () {
-        // rectSpin.init();
-        $.each(this.dict, function(key, val) {
-            console.log(key);
-            console.log(val);
-        });
-    },
-    reset: function(){
-
-    },
     trigger: function (id, wasPhone) {
         var sound = soundController.dict[id];
         console.log("soundcont", soundController);
@@ -36,7 +26,7 @@ var animationController = {
         }
         if(id === 81){
             console.log("I'm in")
-            var x = animation("sqaure", randomColor());
+            var x = animation("square", randomColor());
             x.start();
         }
         else if (animation) {
@@ -52,5 +42,4 @@ two.bind('update', function() {
   TWEEN.update();
 }).play();
 
-animationController.init();
 //setInterval(animationController.updateCircle(), 750);

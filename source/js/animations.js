@@ -1,132 +1,39 @@
 
-
-// Animation related variables
-// =====================================================
-var _colors = {
-    black: "#000000",
-    white: "#ffffff",
-    seafoam: "#74C8B1",
-    accent: "#0DB4FE"
-};
-
-function makeTriangle(x, y, radius) {
-  var t1 = TWO_PI * .33;
-  var t2 = TWO_PI * .66;
-  var t3 = TWO_PI;
-  var points = [
-    new Two.Anchor(radius * Math.cos(t1) + x, radius * Math.sin(t1) + y),
-    new Two.Anchor(radius * Math.cos(t2) + x, radius * Math.sin(t2) + y),
-    new Two.Anchor(radius * Math.cos(t3) + x, radius * Math.sin(t3) + y)
-  ];
-  var shape = two.makePolygon(points);
-  return shape;
-}
-
-function _colorsEqual(c1, c2, t) {
-  var threshold = t || 0.25;
-  return Math.abs(c1.r - c2.r) < threshold
-    && Math.abs(c1.g - c2.g) < threshold
-    && Math.abs(c1.b - c2.b) < threshold;
-}
-
-function ease(cur, dest, t) {
-  var d = dest - cur;
-  if (Math.abs(d) <= 0.0001) {
-    return dest;
-  } else {
-    return cur + d * t;
-  }
-}
-
-function toRGB(o) {
-  return 'rgb(' + Math.round(o.r) + ',' + Math.round(o.g) + ',' + Math.round(o.b) + ')';
-}
-
+// Util functions
 function angleBetween(v1, v2) {
   var dx = v2.x - v1.x;
   var dy = v2.y - v2.y;
   return Math.atan2(dy, dx);
 }
 
-function negate(v) {
-  return v * -1;
-}
-
 function lerp(a, b, t) {
   return (b - a) * t + a;
 }
-
-function sigmoid(a, b, t, k) {
-  var k = k || 0.2;
-  return lerp(a, b, (k * t) / ((1 + k) * t));
-}
-
-// Rectangle Spin
-// =====================================================
-var r, rectSpin =  {
-    vars: {
-        square: null
-    },
-    init: function(){
-        r = this.vars;
-        this.bindUI();
-    },
-    reset: function(){
-        r.square.translation.x = - two.width / 2;
-    },
-    bindUI: function() {
-        r.square = two.makeRectangle(70, 0, 100, 100);
-        r.square.fill = 'rgba(0, 191, 168, 0.33)';
-        r.square.stroke = 'rgb(0, 191, 168)';
-        r.square.linewidth = 5;
-        r.square.translation.set(- two.width / 2, two.height / 2);
-        var that = this;
-        this.animate_out = new TWEEN.Tween(r.square.translation)
-            .to({
-                x: two.width * 1.5
-            }, 750)
-            .easing(TWEEN.Easing.Elastic.In)
-            .onUpdate(function(t) {
-                r.square.rotation = Math.PI * 2 * t;
-            })
-            .onComplete(that.reset);
-        this.animate_in = new TWEEN.Tween(r.square.translation)
-            .to({
-                x: two.width / 2
-            }, 750)
-            .delay(500)
-            .easing(TWEEN.Easing.Bounce.Out)
-            .onUpdate(function(t) {
-                r.square.rotation = Math.PI * 2 * t;
-            })
-            .onComplete(function() {
-                that.animate_out.start();
-            });
-    },
-    start: function (){
-        this.animate_in.start();
-    }
-}
-
 
 var audienceShape = function(type, color) {
     return (function() {
     var callback = _.identity;
     var playing = false;
-
-    var shape = two.makeRectangle(center.x, center.y, 50, 50);
-    // switch(type)
-    // {
-    //   case "sqaure":
-    //     shape = two.makeRectangle(center.x, center.y, 50, 50);
-    //     break;
-    //   case "circle":
-    //     shape = two.makeCircle(center.x, center.y, 50/2);
-    //     break;
-    //   case "triangle":
-    //     shape = two.makePolygon(center.x, center.y, 50/2, 3);
-    //     break;
-    // }
+    var actual = type;
+    console.log(actual);
+    var shape;
+    type = type || "star";
+    switch(type)
+    {
+      case "sqaure":
+        shape = two.makeRectangle(center.x, center.y, 50, 50);
+        break;
+      case "circle":
+        shape = two.makeCircle(center.x, center.y, 50/2);
+        break;
+      case "triangle":
+        shape = two.makePolygon(center.x, center.y, 50/2, 3);
+        break;
+      case "star":
+        shape = two.makeStar(center.x, center.y, 50/2, 40, 5);
+        break;
+    }
+    middleGround.add(shape);
 
     var randColor = color;
     shape.fill = convertHex(randColor, 50);
@@ -144,7 +51,7 @@ var audienceShape = function(type, color) {
     console.log(posx, posy);
 
     // distance = Math.round(map(Math.random(), 0, 1, height, width));
-    
+
     posx *= width;
     posy *= width;
 
@@ -164,10 +71,11 @@ var audienceShape = function(type, color) {
     var dest_in = { x: posx, y: posy};
 
     var animate_in = new TWEEN.Tween(shape.translation)
-      .to(dest_in, duration * 2)
+      .to(dest_in, duration * 4)
       .easing(Easing.Exponential.Out)
       .onComplete(function() {
         animate_out.start();
+        two.remove(shape);
       });
     var animate_out = new TWEEN.Tween(shape)
       .to({scale: 0}, duration * 1)
