@@ -271,3 +271,118 @@ var circlePop = (function(){
     return exports;
 
 })();
+
+  var horizontalLine = (function() {
+
+    var playing = false;
+    var callback = _.identity;
+
+    var amount = 32;
+    var distance = min_dimension * 0.5;
+
+    var points = _.map(_.range(amount), function(i) {
+      return new Two.Anchor();
+    });
+    var line = two.makePolygon(points, true);
+    line.noFill().stroke = colors.black;
+    line.translation.set(center.x, center.y);
+    line.cap = 'round';
+    line.visible = true;
+
+    var start = function(onComplete, silent) {
+        console.log("in this thing");
+      line.visible = true;
+      playing = true;
+      animate_in.start();
+      if (!silent && exports.sound) {
+        exports.sound.stop().play();
+      }
+      if (_.isFunction(onComplete)) {
+        callback = onComplete;
+      }
+    };
+
+    start.onComplete = reset;
+
+    var resize = function() {
+      // distance = height * 0.5;
+      line.translation.set(center.x, center.y);
+    };
+    var update = function() {
+      line.stroke = colors.black;
+    };
+
+    var animate_in = new TWEEN.Tween(line)
+      .to({
+        ending: 1.0
+      }, duration * 0.25)
+      .easing(Easing.Circular.In)
+      .onComplete(function() {
+        animate_out.start();
+      });
+
+    var animate_out = new TWEEN.Tween(line)
+      .to({
+        beginning: 1.0
+      }, duration * 0.25)
+      .easing(Easing.Circular.Out)
+      .onComplete(function() {
+        start.onComplete();
+        callback();
+      });
+
+    var exports = {
+      start: start,
+      update: update,
+      clear: reset,
+      resize: resize,
+      playing: function() { return playing; },
+      hash: '1,5',
+      filename: 'strike'
+    };
+
+    var a = {
+      x: 0, y: 0
+    };
+    var b = {
+      x: 0, y: 0
+    };
+
+    var rando, theta, pct, i, p;
+    function reset() {
+
+      playing = false;
+      rando = Math.random();
+
+      line.linewidth = Math.round(rando * 7) + 3;
+      distance = Math.round(map(rando, 0, 1, height * 0.5, width))
+      distance = width;
+
+      theta = Math.random() * TWO_PI;
+      a.x = 0
+      a.y = center.y;
+
+      theta = theta + Math.PI;
+      b.x = width;
+      b.y = center.y;
+
+      line.ending = line.beginning = 0;
+      line.visible = true;
+
+      for (i = 0; i < amount; i++) {
+        p = points[i];
+        pct = i / (amount - 1);
+        p.x = lerp(a.x, b.x, pct);
+        p.y = lerp(a.y, b.y, pct);
+      }
+
+      animate_in.stop();
+      animate_out.stop();
+
+    }
+
+    reset();
+
+    return exports;
+
+  })();

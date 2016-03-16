@@ -7,13 +7,12 @@ var animationController = {
         // asdf
         84: highRise,
         83: circlePop,  // S
-        81: audienceShape, // Q
+        //81: horizontalLine, // Q
         86: sqaureExplode, //V
-        // 70: glimmer, // D
+        70: horizontalLine, // D
         65: strike,
         82: squiggle,
         68: flash,
-        70: pistons,
         "circle": centerCircle
     },
     trigger: function (id, wasPhone) {
