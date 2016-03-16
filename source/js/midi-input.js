@@ -71,46 +71,62 @@ function noteOn(midiNote, velocity) {
     // alesis
     // 49 41 42 46
     // 36 37 69 39
+    // launchpad
+    // 0 1 2 3
+    // 16 17 18 19
+    // 32 33 34 35
+    // 48 49 50 51
     var animationsToTrigger = [];
     switch(midiNote){
-        case 48:
+        case 0:
             animationsToTrigger.push("veil");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 49:
+        case 1:
             animationsToTrigger.push("ufo");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 50:
+        case 2:
             animationsToTrigger.push("suspension");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 51:
-            animationsToTrigger.push("highRise");
+        case 3:
             animationsToTrigger.push("ufo");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 52:
+        case 16:
             animationsToTrigger.push("starExplode");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 53:
+        case 17:
             animationsToTrigger.push("clay");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 54:
+        case 18:
             animationsToTrigger.push("circlePop");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 55:
+        case 19:
             animationsToTrigger.push("horizontalLines");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 56:
+        case 32:
             animationsToTrigger.push("strike");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 57:
+        case 33:
             animationsToTrigger.push("squiggle");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 58:
+        case 34:
             animationsToTrigger.push("flash");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 61:
+        case 35:
             animationsToTrigger.push("dotted_spiral");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 62:
+        case 48:
             animationsToTrigger.push("centerCircle");
             break;
     }
