@@ -1,0 +1,1 @@
+var socket=io(),average_acceleration=0;num_users=0,socket.on("acceleration_input",function(e){average_acceleration=e}),socket.on("user_input",function(e){num_users=e});
