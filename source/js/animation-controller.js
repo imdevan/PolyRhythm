@@ -13,23 +13,20 @@ var animationController = {
         "flash": flash,
         "dotted_spiral": dotted_spiral,
         "centerCircle": centerCircle,
-        "circle": centerCircle,
         // THIS ONE IS WEIRD
         "audienceShapes": audienceShapes
     },
-    trigger: function (id, wasPhone) {
-        console.log("soundcont", soundController);
-        var animation = this.dict[id];
-        if (sound && wasPhone) {
-            // we want them to overlap
-            sound.play();
-        }
-        else if (animation) {
-            if (animation.playing()) {
-                animation.clear();
+    trigger: function (animations) {
+        var that = this;
+        _.each(animations, function(key){
+            animation = that.dict[key];
+            if (animation) {
+                if (animation.playing()) {
+                    animation.clear();
+                }
+                animation.start(undefined, undefined);
             }
-            animation.start(undefined, undefined);
-        }
+        });
     }
 };
 

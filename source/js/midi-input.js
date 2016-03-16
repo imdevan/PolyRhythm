@@ -72,7 +72,47 @@ function noteOn(midiNote, velocity) {
     // 49 41 42 46
     // 36 37 69 39
     var animationsToTrigger = [];
-
+    switch(midiNote){
+        case 48:
+            animationsToTrigger.push("veil");
+            break;
+        case 49:
+            animationsToTrigger.push("ufo");
+            break;
+        case 50:
+            animationsToTrigger.push("suspension");
+            break;
+        case 51:
+            animationsToTrigger.push("highRise");
+            break;
+        case 52:
+            animationsToTrigger.push("starExplode");
+            break;
+        case 53:
+            animationsToTrigger.push("clay");
+            break;
+        case 54:
+            animationsToTrigger.push("circlePop");
+            break;
+        case 55:
+            animationsToTrigger.push("horizontalLines");
+            break;
+        case 56:
+            animationsToTrigger.push("strike");
+            break;
+        case 57:
+            animationsToTrigger.push("squiggle");
+            break;
+        case 58:
+            animationsToTrigger.push("flash");
+            break;
+        case 61:
+            animationsToTrigger.push("dotted_spiral");
+            break;
+        case 62:
+            animationsToTrigger.push("centerCircle");
+            break;
+    }
     // console.log("MIDI Note", midiNote);
     animationController.trigger(animationsToTrigger);
     socket.emit('animation_output', {   animation: animationsToTrigger});
