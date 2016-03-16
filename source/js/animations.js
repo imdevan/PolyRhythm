@@ -129,13 +129,41 @@ var centerCircle = (function() {
 
     var direction = true;
 
+    var pulseMin = 0.50;
+    var pulseDistance = 0.3;
+
+    var pulseIn = pulseMin + pulseDistance;
+    var pulseOut = pulseMin;
+
     var shape = two.makeCircle(center.x, center.y, 200, 200);
     shape.fill = "#FFF";
     shape.noStroke();
     shape.visible = true;
+    shape.scale = pulseMin;
 
     var start = function(onComplete, silent) {
       console.log("Acceleration is ", acceleration);
+      var x = acceleration / 40 * 1.7;
+      console.log("x is ", x);
+      if(x > 2)
+        x = 2;
+      if(x < pulseMin)
+        x = pulseMin;
+
+      if(x > pulseOut)
+      {
+        pulseIn = x + pulseDistance;
+        pulseOut = x;
+      }
+      else if(x < pulseOut)
+      {
+        pulseIn = pulseIn;
+        pulseOut = x;
+      }
+      console.log("x is ", x);
+      console.log("pulseIn is ", pulseIn);
+      console.log("pulseOut is ", pulseOut);
+
       playing = true;
       shape.visible = true;
       animate_in.start();
@@ -147,15 +175,18 @@ var centerCircle = (function() {
 
     start.onComplete = reset;
 
+    var pI = {scale: pulseIn};
+    var pO = {scale: pulseOut};
+
     var animate_in = new TWEEN.Tween(shape)
-      .to({scale: 1.5}, duration * 0.2)
+      .to(pI, duration * 0.15)
       .easing(Easing.Exponential.In)
       .onComplete(function() {
         animate_out.start();
       });
 
     var animate_out = new TWEEN.Tween(shape)
-      .to({scale: 1}, duration * 0.15)
+      .to(pO, duration * 0.15)
       .easing(Easing.Exponential.Out)
       .onComplete(function() {
         start.onComplete();
@@ -165,6 +196,8 @@ var centerCircle = (function() {
     reset();
 
     function reset() {
+      pI.scale = pulseIn;
+      pO.scale = pulseOut;
       shape.visible = true;
       playing = false;
       animate_in.stop();
@@ -180,71 +213,6 @@ var centerCircle = (function() {
     return exports;
 
 })();
-
-// Wipe
-// =====================================================
-// var w, wipe = {
-//     vars: {
-//         playing: false,
-//         direction: true,
-//         points: [
-//              new Two.Anchor(- center.x, -center.y),
-//              new Two.Anchor(center.x, - center.y),
-//              new Two.Anchor(center.x, center.y),
-//              new Two.Anchor(- center.x, center.y)
-//          ],
-//          shape: null,
-//          dest_in: { x: center.x },
-//          dest_out: { x: width * 1.5 }
-//     },
-//     init: function() {
-//         w = this.vars;
-//         console.log("center", center);
-//         console.log("width", width);
-//         this.initAnimations();
-//     },
-//     initAnimations: function() {
-//         var that = this;
-//         console.log("w", w);
-//         console.log("this", this);
-//         console.log("that", that);
-//         w.shape = two.makePolygon(w.points);
-//         w.shape.fill = "#CD92F1";
-//         w.shape.noStroke();
-//         this.reset();
-//         this.animate_out = new TWEEN.Tween(w.shape.translation)
-//             .to(w.dest_out, duration * 0.5)
-//             .easing(Easing.Exponential.In)
-//             .onComplete(that.reset);
-//         this.animate_in = new TWEEN.Tween(w.shape.translation)
-//             .to(w.dest_in, duration * 0.5)
-//             .easing(Easing.Exponential.Out)
-//             .onComplete(function() {
-//                 that.animate_out.start();
-//             });
-//     },
-//     reset: function () {
-//         w.shape.visible = false;
-//         w.playing = false;
-//         w.direction = Math.random() > 0.5;
-//         if (w.direction) {
-//             w.shape.translation.set(- center.x, center.y);
-//             w.dest_out.x = width * 1.5;
-//         } else {
-//             w.shape.translation.set(width * 1.5, center.y);
-//             w.dest_out.x = - center.x;
-//         }
-//         w.dest_in.x = center.x;
-//         // this.animate_in.stop();
-//         // this.animate_out.stop();
-//     },
-//     start: function() {
-//         // w.playing = true;
-//         // w.shape.visible = true;
-//         this.animate_in.start();
-//     }
-// }
-
 
 // rip
 
@@ -725,6 +693,7 @@ var strike = (function() {
         }, duration * 0.25)
         .easing(Easing.Circular.In)
         .onComplete(function() {
+            console.log("End of in");
             animate_out.start();
         });
 
@@ -734,6 +703,7 @@ var strike = (function() {
         }, duration * 0.25)
         .easing(Easing.Circular.Out)
         .onComplete(function() {
+          console.log("End of out");
             start.onComplete();
             callback();
         });
