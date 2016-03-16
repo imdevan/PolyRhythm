@@ -39,6 +39,7 @@
         var animation = this.dict["circle"]
         //animation.start(undefined, undefined);
     }
+    
 };
 
 two.bind('update', function() {
