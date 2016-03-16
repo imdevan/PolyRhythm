@@ -1,64 +1,13 @@
 
-
-// Animation related variables
-// =====================================================
-var _colors = {
-    black: "#000000",
-    white: "#ffffff",
-    seafoam: "#74C8B1",
-    accent: "#0DB4FE"
-};
-
-function makeTriangle(x, y, radius) {
-  var t1 = TWO_PI * .33;
-  var t2 = TWO_PI * .66;
-  var t3 = TWO_PI;
-  var points = [
-    new Two.Anchor(radius * Math.cos(t1) + x, radius * Math.sin(t1) + y),
-    new Two.Anchor(radius * Math.cos(t2) + x, radius * Math.sin(t2) + y),
-    new Two.Anchor(radius * Math.cos(t3) + x, radius * Math.sin(t3) + y)
-  ];
-  var shape = two.makePolygon(points);
-  return shape;
-}
-
-function _colorsEqual(c1, c2, t) {
-  var threshold = t || 0.25;
-  return Math.abs(c1.r - c2.r) < threshold
-    && Math.abs(c1.g - c2.g) < threshold
-    && Math.abs(c1.b - c2.b) < threshold;
-}
-
-function ease(cur, dest, t) {
-  var d = dest - cur;
-  if (Math.abs(d) <= 0.0001) {
-    return dest;
-  } else {
-    return cur + d * t;
-  }
-}
-
-function toRGB(o) {
-  return 'rgb(' + Math.round(o.r) + ',' + Math.round(o.g) + ',' + Math.round(o.b) + ')';
-}
-
+// Util functions
 function angleBetween(v1, v2) {
   var dx = v2.x - v1.x;
   var dy = v2.y - v2.y;
   return Math.atan2(dy, dx);
 }
 
-function negate(v) {
-  return v * -1;
-}
-
 function lerp(a, b, t) {
   return (b - a) * t + a;
-}
-
-function sigmoid(a, b, t, k) {
-  var k = k || 0.2;
-  return lerp(a, b, (k * t) / ((1 + k) * t));
 }
 
 // Rectangle Spin
@@ -150,7 +99,7 @@ var audienceShape = function(type, color) {
     console.log(posx, posy);
 
     // distance = Math.round(map(Math.random(), 0, 1, height, width));
-    
+
     posx *= width;
     posy *= width;
 
