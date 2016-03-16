@@ -9,5 +9,5 @@ socket.on("acceleration_input", function(msg) {
 
 socket.on("audience_shape_input", function(msg) {
 	console.log(msg.shape);
-	animationController.dict[81](msg.shape, msg.color).start();
-}); 
+	animationController.dict["audienceShapes"](msg.shape, msg.color).start();
+});

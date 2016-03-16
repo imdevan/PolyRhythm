@@ -1,29 +1,21 @@
 var animationController = {
     dict: {
-        90: veil,
-        87: ufo,
-        69: suspension,
-        65: highRise,
-        83: circlePop,
-        68: audienceShape,
-        70: starExplode,
-        88: strike,
-        87: veil,
-        69: ufo,
-        79: dotted_spiral,
-        80: clay,
-        // asdf
-        84: highRise,
-        83: circlePop,  // S
-        81: audienceShapes, // Q
-        //86: sqaureExplode, //V
-        70: horizontalLines, // D
-        65: strike,
-        82: squiggle,
-        68: flash,
-        86: dotted_spiral,
-        81: centerCircle,
-        "circle": centerCircle
+        "veil": veil,
+        "ufo": ufo,
+        "suspension": suspension,
+        "highRise": highRise,
+        "starExplode": starExplode,
+        "clay": clay,
+        "circlePop": circlePop,
+        "horizontalLines": horizontalLines,
+        "strike": strike,
+        "squiggle": squiggle,
+        "flash": flash,
+        "dotted_spiral": dotted_spiral,
+        "centerCircle": centerCircle,
+        "circle": centerCircle,
+        // THIS ONE IS WEIRD
+        "audienceShapes": audienceShapes
     },
     trigger: function (id, wasPhone) {
         var sound = soundController.dict[id];
