@@ -3,6 +3,9 @@ app = express();
 http = require('http').Server(app);
 io = require('socket.io')(http);
 
+var users = 0;
+var total_acceleration = 0;
+
 app.use(express.static(__dirname+ '/public'));
 
 app.get('/', function(req, res)
@@ -25,12 +28,26 @@ app.get('/audience', function(req, res)
 	res.sendfile('./public/audience.html');
 });
 
-var users = 0;
-var total_acceleration = 0;
+app.get('/acceleration', function(req, res)
+{
+	res.json({acceleration: (total_acceleration/users)});
+});
+
+var phone_users = [];
 io.on('connection', function(socket)
 {
-	users++;
-	console.log(users + " number of users");
+	setInterval(function() {
+		var accavg = total_acceleration/users || 0
+		console.log(accavg);
+		io.emit('acceleration_input', accavg)
+	}, 500);
+
+	socket.on('audience_init', function(msg)
+	{
+		users++;
+		console.log(users + " number of users");
+		phone_users.push(socket);
+	});
 
 	socket.on('audience_acceleration', function(msg)
 	{
@@ -56,8 +73,10 @@ io.on('connection', function(socket)
 	});
 
 	socket.on('disconnect', function() {
-		users--;
-		console.log(users + " number of users");
+		if(phone_users.indexOf(socket) !== -1) {	
+			users--;
+			console.log(users + " number of users");
+		}
 	});
 });
 

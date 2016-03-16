@@ -1,6 +1,6 @@
     var animationController = {
     dict: {
-        81: centerCircle,
+        81: rectSpin,
         87: veil,
         69: ufo,
         82: dotted_spiral,
@@ -9,7 +9,8 @@
         65: strike,
         83: squiggle,
         68: flash,
-        70: pistons
+        70: pistons,
+        "circle": centerCircle
     },
     init: function () {
         rectSpin.init();
@@ -32,6 +33,11 @@
             }
             animation.start(undefined, undefined);
         }
+    },
+    updateCircle: function () {
+        console.log("In update circle");
+        var animation = this.dict["circle"]
+        //animation.start(undefined, undefined);
     }
 };
 
@@ -40,3 +46,4 @@ two.bind('update', function() {
 }).play();
 
 animationController.init();
+setInterval(animationController.updateCircle(), 750);

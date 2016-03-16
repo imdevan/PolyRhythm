@@ -151,7 +151,8 @@ var centerCircle = (function() {
       .to({scale: 1.5}, duration * 0.2)
       .easing(Easing.Exponential.In)
       .onComplete(function() {
-        animate_out.start();
+        start.onComplete();
+        callback();
       });
 
     var animate_out = new TWEEN.Tween(shape)

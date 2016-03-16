@@ -1,4 +1,5 @@
 var socket = io();
+socket.emit('audience_init');
 
 var acc = null;
 var button = document.getElementById("button");
