@@ -6,10 +6,6 @@ function angleBetween(v1, v2) {
   return Math.atan2(dy, dx);
 }
 
-function lerp(a, b, t) {
-  return (b - a) * t + a;
-}
-
 var audienceShape = function(type, color) {
     return (function() {
     var callback = _.identity;
