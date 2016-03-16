@@ -16,16 +16,6 @@
         70: pistons,
         "circle": centerCircle
     },
-    init: function () {
-        // rectSpin.init();
-        $.each(this.dict, function(key, val) {
-            console.log(key);
-            console.log(val);
-        });
-    },
-    reset: function(){
-
-    },
     trigger: function (id) {
         var animation = this.dict[id];
         if(id === 81){
