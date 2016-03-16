@@ -1,7 +1,7 @@
 .buttonContainer {
   box-sizing: border-box;         /* Opera/IE 8+ */
   height: 100%;
-  background: DarkGray;
+  background: transparent;
   flex-grow: 1;
   display: flex;
   align-items: center;
@@ -12,17 +12,34 @@
   height: 0;
   width: 0;
   background: red;
-  -webkit-animation:spin 8s linear infinite;
-  -moz-animation:spin 8s linear infinite;
-  animation:spin 8s linear infinite;
+  border-radius: 50%;
 }
 
 .active {
-  -webkit-animation:spin 0.5s linear infinite;
-  -moz-animation:spin 0.5s linear infinite;
-  animation:spin 0.5s linear infinite;
+  animation:grow 1s ease-in-out;
+  animation-fill-mode:forwards;
 }
 
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+.comingback {
+  transform: scale(0);
+  animation:comeback .25s ease-in-out;
+  animation-fill-mode:forwards;
+}
+
+@keyframes grow { 
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { opacity: 0.0; 
+        transform:scale(1.5); 
+  }
+  51% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
