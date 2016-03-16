@@ -9,6 +9,10 @@ color = randomColor();
 var acc = null;
 var button = document.getElementById("button");
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function setButtonHeightWidth()
 {
 	var height = window.innerHeight;
@@ -28,6 +32,9 @@ function setButtonHeightWidth()
 	}
 	button.style.width = setWidth + "px";
 	button.style.height = setHeight + "px";
+	button.style.lineHeight = setHeight + "px";
+	var str = capitalizeFirstLetter(shape);
+	button.innerHTML = str + "!";
 }
 
 window.onload = setButtonHeightWidth;
