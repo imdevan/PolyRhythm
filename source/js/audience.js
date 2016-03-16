@@ -13,7 +13,6 @@ function setButtonHeightWidth()
 {
 	var height = window.innerHeight;
 	var width = window.innerWidth;
-	console.log(height, width);
 	var setHeight = 0;
 	var setWidth = 0;
 
@@ -48,11 +47,14 @@ window.addEventListener('devicemotion', function(event)
 });
 
 var button = document.getElementById("button");
+button.style.backgroundColor = color;
 var mytimeout = null;
 
 button.addEventListener("touchstart", buttonPress, false);
 
 function buttonPress(event) {
+	console.log("in here");
+  //button.classList.remove("comingback");
   button.classList.add("active");
   clearTimeout(mytimeout);
   mytimeout = setTimeout(removeActive, 1000);
@@ -60,5 +62,6 @@ function buttonPress(event) {
 }
 
 function removeActive() {
-  button.classList.remove("active")
+  button.classList.remove("active");
+  //button.classList.add("comingback");
 }
