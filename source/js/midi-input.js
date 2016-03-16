@@ -96,7 +96,7 @@ function noteOn(midiNote, velocity) {
             break;
     }
     console.log("MIDI Note", midiNote);
-    // animationController.trigger(index);
+    animationController.trigger(index);
 }
 
 function logger(data) {

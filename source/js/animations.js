@@ -142,7 +142,7 @@ var centerCircle = (function() {
 
       if (_.isFunction(onComplete)) {
           callback = onComplete;
-      }  
+      }
     }
 
     start.onComplete = reset;
@@ -968,7 +968,7 @@ var flash = (function() {
 
         var shape = two.makeRectangle(x, y, w, d);
 
-        shape.fill = colors.white;
+        shape.fill = "#C695FA";
         shape.noStroke();
 
         group.add(shape);
