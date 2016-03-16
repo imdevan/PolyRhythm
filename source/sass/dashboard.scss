@@ -1,0 +1,30 @@
+@import "components/nav-header";
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
+body {
+    font-family: Roboto;
+    font-weight: 400;
+    margin: 0;
+}
+
+section {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+._half {
+    min-width: 50%;
+}
+
+.chart {
+    box-sizing: border-box;
+    padding: 2em;
+    
+    &--title {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

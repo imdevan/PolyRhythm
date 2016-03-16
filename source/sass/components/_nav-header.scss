@@ -1,0 +1,9 @@
+.nav-header {
+    padding: 1em;
+    background: linear-gradient(45deg, #A6F4FE, #E9547D, #DFD4B8);
+    background-size: 300% 300%;
+
+    &--title {
+        color: rgba(white, 50%);
+    }
+}

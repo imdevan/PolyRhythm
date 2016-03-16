@@ -1,0 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+.nav-header {
+  padding: 1em;
+  background: -webkit-linear-gradient(45deg, #A6F4FE, #E9547D, #DFD4B8);
+  background: linear-gradient(45deg, #A6F4FE, #E9547D, #DFD4B8);
+  background-size: 300% 300%; }
+  .nav-header--title {
+    color: white; }
+
+body {
+  font-family: Roboto;
+  font-weight: 400;
+  margin: 0; }
+
+section {
+  margin-top: 2em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around; }
+
+._half {
+  min-width: 50%; }
+
+.chart {
+  box-sizing: border-box;
+  padding: 2em; }
+  .chart--title {
+    position: relative;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); }
