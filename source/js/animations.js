@@ -10,54 +10,6 @@ function lerp(a, b, t) {
   return (b - a) * t + a;
 }
 
-// Rectangle Spin
-// =====================================================
-var r, rectSpin =  {
-    vars: {
-        square: null
-    },
-    init: function(){
-        r = this.vars;
-        this.bindUI();
-    },
-    reset: function(){
-        r.square.translation.x = - two.width / 2;
-    },
-    bindUI: function() {
-        r.square = two.makeRectangle(70, 0, 100, 100);
-        r.square.fill = 'rgba(0, 191, 168, 0.33)';
-        r.square.stroke = 'rgb(0, 191, 168)';
-        r.square.linewidth = 5;
-        r.square.translation.set(- two.width / 2, two.height / 2);
-        var that = this;
-        this.animate_out = new TWEEN.Tween(r.square.translation)
-            .to({
-                x: two.width * 1.5
-            }, 750)
-            .easing(TWEEN.Easing.Elastic.In)
-            .onUpdate(function(t) {
-                r.square.rotation = Math.PI * 2 * t;
-            })
-            .onComplete(that.reset);
-        this.animate_in = new TWEEN.Tween(r.square.translation)
-            .to({
-                x: two.width / 2
-            }, 750)
-            .delay(500)
-            .easing(TWEEN.Easing.Bounce.Out)
-            .onUpdate(function(t) {
-                r.square.rotation = Math.PI * 2 * t;
-            })
-            .onComplete(function() {
-                that.animate_out.start();
-            });
-    },
-    start: function (){
-        this.animate_in.start();
-    }
-}
-
-
 var audienceShape = function(type, color) {
     return (function() {
     var callback = _.identity;
