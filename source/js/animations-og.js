@@ -91,6 +91,96 @@ function lerp(a, b, t) {
 // ======================================
 var backGround = two.makeGroup();
 
+  var veil = (function() {
+
+    var callback = _.identity;
+    var playing = false;
+
+    var direction = true;
+    var points = [
+      new Two.Anchor(- center.x, - center.y),
+      new Two.Anchor(center.x, - center.y),
+      new Two.Anchor(center.x, center.y),
+      new Two.Anchor(- center.x, center.y)
+    ];
+    var shape = two.makePath(points);
+    shape.fill = currentPallette[rand(0,currentPallette.length)];
+    shape.noStroke();
+
+    var start = function(onComplete, silent) {
+      playing = true;
+      shape.visible = true;
+      animate_in.start();
+      if (!silent && exports.sound) {
+        exports.sound.stop().play();
+      }
+      if (_.isFunction(onComplete)) {
+        callback = onComplete;
+      }
+    };
+
+    start.onComplete = reset;
+
+    var update = function() {
+      shape.fill = "#EEE";
+    };
+    var resize = function() {
+      points[0].set(- center.x, - center.y);
+      points[1].set(center.x, - center.y);
+      points[2].set(center.x, center.y);
+      points[3].set(- center.x, center.y);
+    };
+
+    var dest_in = { y: center.y }, dest_out = { y: 0 };
+
+    var animate_in = new TWEEN.Tween(shape.translation)
+      .to(dest_in, duration * 0.5)
+      .easing(Easing.Exponential.Out)
+      .onComplete(function() {
+        animate_out.start();
+      });
+
+    var animate_out = new TWEEN.Tween(shape.translation)
+      .to(dest_out, duration * 0.5)
+      .easing(Easing.Exponential.In)
+      .onComplete(function() {
+        start.onComplete();
+        callback();
+      });
+
+    reset();
+
+    function reset() {
+      shape.visible = false;
+      shape.fill = currentPallette[rand(0,currentPallette.length)];
+      playing = false;
+      direction = Math.random() > 0.5;
+      if (direction) {
+        shape.translation.set(center.x, - center.y);
+        dest_out.y = height * 1.5;
+      } else {
+        shape.translation.set(center.x, height * 1.5);
+        dest_out.y = - center.y;
+      }
+      dest_in.y = center.y;
+      animate_in.stop();
+      animate_out.stop();
+    }
+
+    var exports = {
+      start: start,
+      update: update,
+      resize: resize,
+      clear: reset,
+      playing: function() { return playing; },
+      hash: '1,1',
+      filename: 'veil'
+    };
+
+    return exports;
+
+  })();
+
 var highRise = (function(){
     var callback = _.identity,
         colCount = 5,

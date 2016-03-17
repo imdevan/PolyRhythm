@@ -165,95 +165,6 @@ var audienceShapes = function(type, color) {
     return exports;
 })();
 
-  var veil = (function() {
-
-    var callback = _.identity;
-    var playing = false;
-
-    var direction = true;
-    var points = [
-      new Two.Anchor(- center.x, - center.y),
-      new Two.Anchor(center.x, - center.y),
-      new Two.Anchor(center.x, center.y),
-      new Two.Anchor(- center.x, center.y)
-    ];
-    var shape = two.makePolygon(points);
-    shape.fill = "#EEE";
-    shape.noStroke();
-
-    var start = function(onComplete, silent) {
-      playing = true;
-      shape.visible = true;
-      animate_in.start();
-      if (!silent && exports.sound) {
-        exports.sound.stop().play();
-      }
-      if (_.isFunction(onComplete)) {
-        callback = onComplete;
-      }
-    };
-
-    start.onComplete = reset;
-
-    var update = function() {
-      shape.fill = "#EEE";
-    };
-    var resize = function() {
-      points[0].set(- center.x, - center.y);
-      points[1].set(center.x, - center.y);
-      points[2].set(center.x, center.y);
-      points[3].set(- center.x, center.y);
-    };
-
-    var dest_in = { y: center.y }, dest_out = { y: 0 };
-
-    var animate_in = new TWEEN.Tween(shape.translation)
-      .to(dest_in, duration * 0.5)
-      .easing(Easing.Exponential.Out)
-      .onComplete(function() {
-        animate_out.start();
-      });
-
-    var animate_out = new TWEEN.Tween(shape.translation)
-      .to(dest_out, duration * 0.5)
-      .easing(Easing.Exponential.In)
-      .onComplete(function() {
-        start.onComplete();
-        callback();
-      });
-
-    reset();
-
-    function reset() {
-      shape.visible = false;
-      playing = false;
-      direction = Math.random() > 0.5;
-      if (direction) {
-        shape.translation.set(center.x, - center.y);
-        dest_out.y = height * 1.5;
-      } else {
-        shape.translation.set(center.x, height * 1.5);
-        dest_out.y = - center.y;
-      }
-      dest_in.y = center.y;
-      animate_in.stop();
-      animate_out.stop();
-    }
-
-    var exports = {
-      start: start,
-      update: update,
-      resize: resize,
-      clear: reset,
-      playing: function() { return playing; },
-      hash: '1,1',
-      filename: 'veil'
-    };
-
-    return exports;
-
-  })();
-
 var ufo = (function() {
 
   var playing = false;
@@ -525,6 +436,7 @@ var ufo = (function() {
         clay.visible = false;
         impact = new Two.Vector(Math.random() * width, Math.random() * height);
         var x, y, pos = Math.random() * 8;
+        clay.opacity = 0.5;
 
         if (pos > 7) {
           // north
@@ -609,8 +521,8 @@ var strike = (function() {
     var points = _.map(_.range(amount), function(i) {
         return new Two.Anchor();
     });
-    var line = two.makePolygon(points, true);
-        line.noFill().stroke = currentPallette[2]
+    var line = two.makePath(points, true);
+        line.stroke = currentPallette[rand(0, currentPallette.length)];
         line.translation.set(center.x, center.y);
         line.cap = 'round';
 
@@ -678,6 +590,7 @@ var strike = (function() {
     function reset() {
         playing = false;
         rando = Math.random();
+        line.stroke = currentPallette[rand(0, currentPallette.length)];
         line.linewidth = Math.round(rando * 7) + 3;
         distance = Math.round(map(rando, 0, 1, height * 0.5, width))
         theta = Math.random() * TWO_PI;
@@ -719,7 +632,7 @@ var squiggle = (function() {
         return new Two.Anchor(x, y);
     });
 
-    var squiggle = two.makePolygon(points, true);
+    var squiggle = two.makePath(points, true);
         squiggle.translation.set(center.x, center.y);
         squiggle.stroke = currentPallette[1];
         squiggle.linewidth = min_dimension / 40;

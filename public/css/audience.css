@@ -105,3 +105,9 @@ html, body {
     opacity: 1;
     -webkit-transform: scale(1);
             transform: scale(1); } }
+
+* {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }

@@ -68,37 +68,71 @@ function noteOn(midiNote, velocity) {
     // mpk mini layout
     // 36 38 40 41
     // 43 45 47 48
-    var index = 0;
+    // alesis
+    // 49 41 42 46
+    // 36 37 69 39
+    // launchpad
+    // 0 1 2 3
+    // 16 17 18 19
+    // 32 33 34 35
+    // 48 49 50 51
+    var animationsToTrigger = [];
     switch(midiNote){
-        case 36:
-            index = 68;
+        case 0:
+            animationsToTrigger.push("veil");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 38:
-            index = 69;
+        case 1:
+            animationsToTrigger.push("ufo");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 40:
-            index = 87;
+        case 2:
+            animationsToTrigger.push("suspension");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 41:
-            index = 84;
+        case 3:
+            animationsToTrigger.push("ufo");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 43:
-            index = 65;
+        case 16:
+            animationsToTrigger.push("starExplode");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 45:
-            index = 83;
+        case 17:
+            animationsToTrigger.push("clay");
+            animationsToTrigger.push("centerCircle");
             break;
-        case 47:
-            index = 86;
+        case 18:
+            animationsToTrigger.push("circlePop");
+            animationsToTrigger.push("centerCircle");
+            break;
+        case 19:
+            animationsToTrigger.push("horizontalLines");
+            animationsToTrigger.push("centerCircle");
+            break;
+        case 32:
+            animationsToTrigger.push("strike");
+            animationsToTrigger.push("centerCircle");
+            break;
+        case 33:
+            animationsToTrigger.push("squiggle");
+            animationsToTrigger.push("centerCircle");
+            break;
+        case 34:
+            animationsToTrigger.push("flash");
+            animationsToTrigger.push("centerCircle");
+            break;
+        case 35:
+            animationsToTrigger.push("dotted_spiral");
+            animationsToTrigger.push("centerCircle")
             break;
         case 48:
-            index = 70;
+            animationsToTrigger.push("centerCircle");
             break;
     }
     console.log("MIDI Note", midiNote);
-    animationController.trigger(index);
-
-    socket.emit('animation_output', index);
+    animationController.trigger(animationsToTrigger);
+    // socket.emit('animation_output', {animations: animationsToTrigger});
 }
 
 function logger(data) {
