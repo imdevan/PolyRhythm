@@ -124,15 +124,15 @@ function noteOn(midiNote, velocity) {
             break;
         case 35:
             animationsToTrigger.push("dotted_spiral");
-            animationsToTrigger.push("centerCircle");
+            animationsToTrigger.push("centerCircle")
             break;
         case 48:
             animationsToTrigger.push("centerCircle");
             break;
     }
-    // console.log("MIDI Note", midiNote);
+    console.log("MIDI Note", midiNote);
     animationController.trigger(animationsToTrigger);
-    socket.emit('animation_output', {   animation: animationsToTrigger});
+    // socket.emit('animation_output', {animations: animationsToTrigger});
 }
 
 function logger(data) {
