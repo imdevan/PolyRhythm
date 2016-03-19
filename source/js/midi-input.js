@@ -80,7 +80,6 @@ function noteOn(midiNote, velocity) {
     switch(midiNote){
         case 0:
             animationsToTrigger.push("veil");
-            animationsToTrigger.push("centerCircle");
             break;
         case 1:
             animationsToTrigger.push("ufo");
@@ -88,7 +87,6 @@ function noteOn(midiNote, velocity) {
             break;
         case 2:
             animationsToTrigger.push("suspension");
-            animationsToTrigger.push("centerCircle");
             break;
         case 3:
             animationsToTrigger.push("ufo");
@@ -96,7 +94,6 @@ function noteOn(midiNote, velocity) {
             break;
         case 16:
             animationsToTrigger.push("starExplode");
-            animationsToTrigger.push("centerCircle");
             break;
         case 17:
             animationsToTrigger.push("clay");
@@ -104,7 +101,6 @@ function noteOn(midiNote, velocity) {
             break;
         case 18:
             animationsToTrigger.push("circlePop");
-            animationsToTrigger.push("centerCircle");
             break;
         case 19:
             animationsToTrigger.push("horizontalLines");
@@ -112,19 +108,16 @@ function noteOn(midiNote, velocity) {
             break;
         case 32:
             animationsToTrigger.push("strike");
-            animationsToTrigger.push("centerCircle");
             break;
         case 33:
-            animationsToTrigger.push("squiggle");
+            animationsToTrigger.push("strike");
             animationsToTrigger.push("centerCircle");
             break;
         case 34:
             animationsToTrigger.push("flash");
-            animationsToTrigger.push("centerCircle");
             break;
         case 35:
             animationsToTrigger.push("dotted_spiral");
-            animationsToTrigger.push("centerCircle")
             break;
         case 48:
             animationsToTrigger.push("centerCircle");
