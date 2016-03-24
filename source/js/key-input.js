@@ -61,27 +61,35 @@ window.addEventListener("keydown", function (e, data){
             animationsToTrigger.push("centerCircle");
             break;
         case 81:
+            animationsToTrigger.push("centerCircle");
             soundsToTrigger.push("kick");
             break;
         case 87:
+            animationsToTrigger.push("strike");
             soundsToTrigger.push("snare");
             break;
         case 69:
+            animationsToTrigger.push("suspension");
             soundsToTrigger.push("droplet");
             break;
         case 82:
+            animationsToTrigger.push("starExplode");
             soundsToTrigger.push("carSound");
             break;
         case 65:
+            animationsToTrigger.push("ufo");
             soundsToTrigger.push("pikaHi");
             break;
         case 83:
+            animationsToTrigger.push("circlePop");
             soundsToTrigger.push("pikaLow");
             break;
         case 68:
+            animationsToTrigger.push("veil");
             soundsToTrigger.push("kirby");
             break;
         case 70:
+            animationsToTrigger.push("horizontalLines");
             soundsToTrigger.push("iphone");
             break;
     }
