@@ -13,6 +13,8 @@
   "author": "",
   "dependencies": {
     "express": "^4.13.3",
+    "jade-browser": "0.0.14",
+    "path": "^0.12.7",
     "socket.io": "^1.4.5",
     "underscore": "^1.8.3"
   },

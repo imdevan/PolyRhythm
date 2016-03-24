@@ -1,14 +1,20 @@
-express = require('express');
-_ = require('underscore');
-app = express();
-http = require('http').Server(app);
-io = require('socket.io')(http);
+var express = require('express'),
+    _ = require('underscore'),
+    app = express(),
+    path = require('path'),
+    http = require('http').Server(app),
+    jade_browser = require('jade-browser'),
+    io = require('socket.io')(http);
 
 
 var users = 0;
 var total_acceleration = 0;
 
 app.use(express.static(__dirname+ '/public'));
+
+// app.use(jade_browser('./public/js/templates.js', './source/test.jade'));
+
+app.set('view engine', 'jade');	//using Jade
 
 app.get('/', function(req, res)
 {
@@ -17,7 +23,8 @@ app.get('/', function(req, res)
 
 app.get('/about', function(req, res)
 {
-	res.sendfile('./public/about.html');
+    res.render('test.jade');
+	// res.sendfile('./public/about.html');
 });
 
 app.get('/performance', function(req, res)
@@ -103,7 +110,7 @@ io.on('connection', function(socket)
 	});
 });
 
-app.set('port', (process.env.PORT || 80));
+app.set('port', (process.env.PORT || 4000));
 
 http.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
