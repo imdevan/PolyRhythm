@@ -10,7 +10,11 @@ window.addEventListener("keydown", function (e, data){
     // 85 73 79 80 [u - p]
     // 74 45 76 186 [j - ;]
     // 78 77 188 190 [n - .]
+    // 81 87 69 82 [q - r]
+    // 65 83 68 70 [a - f]
+    // 90 88 67 86 [z - v]
     var animationsToTrigger = [];
+    var soundsToTrigger = [];
     switch(e.which){
         case 85:
             animationsToTrigger.push("veil");
@@ -56,8 +60,33 @@ window.addEventListener("keydown", function (e, data){
         case 190:
             animationsToTrigger.push("centerCircle");
             break;
+        case 81:
+            soundsToTrigger.push("kick");
+            break;
+        case 87:
+            soundsToTrigger.push("snare");
+            break;
+        case 69:
+            soundsToTrigger.push("droplet");
+            break;
+        case 82:
+            soundsToTrigger.push("carSound");
+            break;
+        case 65:
+            soundsToTrigger.push("pikaHi");
+            break;
+        case 83:
+            soundsToTrigger.push("pikaLow");
+            break;
+        case 68:
+            soundsToTrigger.push("kirby");
+            break;
+        case 70:
+            soundsToTrigger.push("iphone");
+            break;
     }
 
     animationController.trigger(animationsToTrigger);
+    soundController.trigger(soundsToTrigger);
     e.preventDefault();
 });

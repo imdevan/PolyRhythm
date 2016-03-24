@@ -10,14 +10,14 @@ var total_acceleration = 0;
 
 app.use(express.static(__dirname+ '/public'));
 
-app.get('/demo', function(req, res)
-{
-	res.sendfile('./public/demo.html');
-});
-
 app.get('/', function(req, res)
 {
 	res.sendfile('./public/index.html');
+});
+
+app.get('/performance', function(req, res)
+{
+	res.sendfile('./public/performance.html');
 });
 
 app.get('/dashboard', function(req, res)

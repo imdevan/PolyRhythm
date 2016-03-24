@@ -15,6 +15,15 @@ var soundController = {
             val.init();
         });
     },
+    trigger: function(sounds) {
+        var that = this;
+        _.each(sounds, function(key){
+            sound = that.dict[key];
+            if (sound) {
+                sound.play();
+            }
+        });
+    }
 };
 
 soundController.init();
