@@ -21,10 +21,8 @@ app.get('/', function(req, res)
 	res.sendfile('./public/index.html');
 });
 
-app.get('/about', function(req, res)
-{
-    res.render('about.jade');
-});
+app.get('/about', function(req, res) { res.render('about.jade'); });
+app.get('/session-edit', function(req, res) {res.render('session-edit.jade');});
 
 app.get('/performance', function(req, res)
 {
