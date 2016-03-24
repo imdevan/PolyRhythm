@@ -15,6 +15,11 @@ app.get('/', function(req, res)
 	res.sendfile('./public/index.html');
 });
 
+app.get('/about', function(req, res)
+{
+	res.sendfile('./public/about.html');
+});
+
 app.get('/performance', function(req, res)
 {
 	res.sendfile('./public/performance.html');

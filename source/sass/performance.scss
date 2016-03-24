@@ -1,3 +1,5 @@
+@import "components/_info.scss";
+
 @keyframes pastelRainbow {
   0% {
     background-position: 94% 0%; }
@@ -13,4 +15,7 @@ body, html  {
     background: linear-gradient(45deg, #A6F4FE, #E9547D, #DFD4B8);
     background-size: 300% 300%;
     animation: pastelRainbow 15s ease infinite;
+    font-family: helvetica, ariel;
+    color: #444;
+    cursor: none;
 }

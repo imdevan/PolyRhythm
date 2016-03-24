@@ -1,0 +1,60 @@
+$lg: 400px;
+
+.info {
+    &--popup {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: top;
+        background-image: linear-gradient(to top right,#333,rgba(#333,0.5));
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out;
+        cursor: none;
+
+        @media(min-width: $lg) {
+            align-items: center;
+        }
+
+        &.show {
+            opacity: 1;
+            cursor: default;
+            visibility: visible;
+            transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+
+            .info--window {
+                transform: scale(1);
+            }
+        }
+    }
+
+    &--window {
+        transition: transform 0.3s ease-in-out;
+        transform: scale(0);
+        background: #eee;
+        box-shadow: 0 0 30px rgba(#333, 0.6);
+        cursor: pointer;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 80%;
+        max-width: 400px;
+        padding: 1rem;
+
+        height: 80%;
+        max-height: 300px;
+
+
+        @media(min-width: $lg) {
+            align-items: center;
+        }
+
+        iframe {
+            margin-bottom: -5px;
+        }
+    }
+}
