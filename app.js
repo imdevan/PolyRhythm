@@ -23,8 +23,7 @@ app.get('/', function(req, res)
 
 app.get('/about', function(req, res)
 {
-    res.render('test.jade');
-	// res.sendfile('./public/about.html');
+    res.render('about.jade');
 });
 
 app.get('/performance', function(req, res)

@@ -16,7 +16,8 @@
     "jade-browser": "0.0.14",
     "path": "^0.12.7",
     "socket.io": "^1.4.5",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "jade": "^1.11.0"
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",
@@ -25,8 +26,7 @@
     "gulp-eslint": "^2.0.0",
     "gulp-nodemon": "^2.0.6",
     "gulp-sass": "^2.2.0",
-    "gulp-uglify": "^1.5.3",
-    "jade": "^1.11.0"
+    "gulp-uglify": "^1.5.3"
   },
   "engines": {
     "node": "^4.1",
