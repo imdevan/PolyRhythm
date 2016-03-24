@@ -1,0 +1,17 @@
+@import "base/_all.scss";
+@import "layout/_tight.scss";
+
+body {
+    background: #FFF9F0;
+    color: #6F6259;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+a {
+    color: #F599C0;
+    text-decoration: none;
+    &:hover {
+        text-decoration: line-through;
+    }
+}

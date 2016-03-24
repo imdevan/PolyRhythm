@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+.band {
+  padding: 5rem 0; }
+
+body {
+  font-family: Roboto;
+  font-weight: 300;
+  margin: 0; }
+
+._tight {
+  max-width: 900px;
+  width: 80%;
+  margin: auto; }
+
+body {
+  background: #FFF9F0;
+  color: #6F6259;
+  font-size: 18px;
+  line-height: 1.7; }
+
+a {
+  color: #F599C0;
+  text-decoration: none; }
+  a:hover {
+    text-decoration: line-through; }
