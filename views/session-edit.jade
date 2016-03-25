@@ -1,5 +1,15 @@
 extends ./layouts/branding.jade
+mixin row(arr)
+    each box, index in arr
+        .box= box
+
+mixin block-party(arrs)
+    .flex
+    each arr, index in arrs
+            + row(arr)
+
 block content
+    - keyboard = ["qwertyuiop".split(''),"asdfghjkl;'".split(''),"zxcvbnm,,.".split('')]
     main.band
         section.container
             aside.side-nav
@@ -9,3 +19,5 @@ block content
                     include ./includes/triangle.jade
                 .side-nav--item
                     include ./includes/rectangle.jade
+            .clip-box
+                + block-party(keyboard)

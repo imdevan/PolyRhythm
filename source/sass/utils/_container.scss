@@ -1,6 +1,7 @@
 $max-width: 900px;
 
 .container {
+    @extend %clearfix;
     max-width: $max-width;
     width: 80%;
     margin: auto;
