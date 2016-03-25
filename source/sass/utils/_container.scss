@@ -1,8 +1,14 @@
-$max-width: 900px;
+$total_width: 100%;
+$container_margin: 3.85%;
+$gutter_width: 3.85%;
+$max_width: 900px;
 
 .container {
-    @extend %clearfix;
-    max-width: $max-width;
-    width: 80%;
-    margin: auto;
+    @include container();
+    @include generate_helper_classes();
+}
+
+.row {
+    display: flex;
+    flex-flow: row wrap;
 }

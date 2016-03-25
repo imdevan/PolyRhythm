@@ -1,5 +1,5 @@
 .side-nav {
-    @extend .col-2;
+    @include column(1);
     display: flex;
     flex-direction: column;
     justify-content: center;

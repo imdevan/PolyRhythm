@@ -1,15 +1,15 @@
 extends ./layouts/branding.jade
 mixin row(arr)
     each box, index in arr
-        .box= box
+        .clip-box--clip= box
 
 mixin block-party(arrs)
-    .flex
     each arr, index in arrs
-            + row(arr)
+        + row(arr)
 
 block content
     - keyboard = ["qwertyuiop".split(''),"asdfghjkl;'".split(''),"zxcvbnm,,.".split('')]
+    - midi = [[1, 2, 3, 4, 5, 6, 7, 50, 60, 67]]
     main.band
         section.container
             aside.side-nav
@@ -19,5 +19,7 @@ block content
                     include ./includes/triangle.jade
                 .side-nav--item
                     include ./includes/rectangle.jade
-            .clip-box
+            .clip-box--left
                 + block-party(keyboard)
+            .clip-box--right
+                + block-party(midi)
