@@ -1,5 +1,3 @@
-@import "components/_info.scss";
-
 @keyframes pastelRainbow {
   0% {
     background-position: 94% 0%; }
@@ -9,7 +7,13 @@
     background-position: 94% 0%; }
 }
 
-body, html  {
+.performance  {
+    display: block;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
     margin: 0;
     padding: 0;
     background: linear-gradient(45deg, #A6F4FE, #E9547D, #DFD4B8);

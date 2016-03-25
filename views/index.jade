@@ -1,0 +1,41 @@
+extends ./layouts/default.jade
+block content
+    .performance
+        #two
+    .info--popup#info
+        .info--window
+            div
+                ul
+                    h2 Animations
+                    ul
+                    - aniKeys = ["u, i, o, p", "j, k, l, ;", "n, m, ,, ."]
+                    - for keys in aniKeys
+                        li=keys
+            div
+                ul
+                    h2 Audio
+                    - audioKeys = ["q, w, e, r", "a, s, d, f"]
+                    - for keys in audioKeys
+                        li=keys
+                a(href="/about") Checkout our about page
+                p This box will go away in 5seconds
+        
+      script(src="/socket.io/socket.io.js")
+      script(async="" src="//www.google-analytics.com/analytics.js")
+      script(src="js/third-party/has.js")
+      script(src="js/third-party/url.js")
+      script(src="js/third-party/jquery.js")
+      script(src="js/third-party/tween.js")
+      script(src="js/third-party/two.js")
+      script(src="js/third-party/randomcolor.js")
+      script(src="js/third-party/sound.js")
+      script(src="js/socket-init.js")
+      script(src="js/sounds.js")
+      script(src="js/sound-controller.js")
+      script(src="js/animations-og.js")
+      script(src="js/animations.js")
+      script(src="js/animation-controller.js")
+      script(src="js/midi-input.js")
+      script(src="js/key-input.js")
+      script(src="js/mouse-info.js")
+      script(src="js/socket-input.js")

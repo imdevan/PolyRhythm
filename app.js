@@ -10,7 +10,7 @@ var express = require('express'),
 var users = 0;
 var total_acceleration = 0;
 
-app.use(express.static(__dirname+ '/public'));
+app.use(express.static(__dirname+ '/dist'));
 
 // app.use(jade_browser('./public/js/templates.js', './source/test.jade'));
 
@@ -18,30 +18,25 @@ app.set('view engine', 'jade');	//using Jade
 
 app.get('/', function(req, res)
 {
-	res.sendfile('./public/index.html');
+	res.render('index.jade');
 });
 
-app.get('/about', function(req, res) { res.render('about.jade'); });
-app.get('/session-edit', function(req, res) {res.render('session-edit.jade');});
-
-app.get('/performance', function(req, res)
-{
-	res.sendfile('./public/performance.html');
+app.get('/about', function(req, res) {
+    res.render('about.jade');
 });
 
-app.get('/dashboard', function(req, res)
-{
-	res.sendfile('./public/dashboard.html');
+app.get('/session-edit', function(req, res) {
+    res.render('session-edit.jade');
 });
 
-app.get('/phonemidi', function(req, res)
+app.get('/phone-midi', function(req, res)
 {
-	res.sendfile('./public/phonemidi.html');
+	res.render('phone-midi.jade');
 });
 
 app.get('/audience', function(req, res)
 {
-	res.sendfile('./public/audience.html');
+	res.render('audience.jade');
 });
 
 app.get('/acceleration', function(req, res)

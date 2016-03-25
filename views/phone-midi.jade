@@ -1,0 +1,13 @@
+extends ./layouts/default.jade
+block content
+    .phone-container
+    - var n = 1
+    while n <= 8
+        .button--container
+            .button--pad(data-id="#{n++}")
+
+    script(src="/socket.io/socket.io.js")
+    script(src="https://code.jquery.com/jquery-2.2.1.min.js"   
+        integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="  
+        crossorigin="anonymous")
+    script(src="js/phone-input.js")
