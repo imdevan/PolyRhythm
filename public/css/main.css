@@ -1,3 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+.container, .band {
+  content: "";
+  display: table;
+  clear: both; }
+
 /**
  * Profound Grid
  *
@@ -35,97 +41,93 @@
 /**
  * Apply to any column to make it the last one of the current row.
  */
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
-.container {
-  width: 92.3%;
-  margin: 0 3.85%;
+body {
   /* Helper Class: Container */
   /* Helper Class: Columns */
   /* Helper Class: Horizontal Position */ }
-  .container .row {
+  body .row {
     width: 92.3%;
     margin: 0 3.85%; }
-  .container .col1 {
+  body .col1 {
     float: left;
     margin-right: -100%;
     width: 4.8%; }
-  .container .col2 {
+  body .col2 {
     float: left;
     margin-right: -100%;
     width: 13.46%; }
-  .container .col3 {
+  body .col3 {
     float: left;
     margin-right: -100%;
     width: 22.11%; }
-  .container .col4 {
+  body .col4 {
     float: left;
     margin-right: -100%;
     width: 30.77%; }
-  .container .col5 {
+  body .col5 {
     float: left;
     margin-right: -100%;
     width: 39.42%; }
-  .container .col6 {
+  body .col6 {
     float: left;
     margin-right: -100%;
     width: 48.08%; }
-  .container .col7 {
+  body .col7 {
     float: left;
     margin-right: -100%;
     width: 56.73%; }
-  .container .col8 {
+  body .col8 {
     float: left;
     margin-right: -100%;
     width: 65.38%; }
-  .container .col9 {
+  body .col9 {
     float: left;
     margin-right: -100%;
     width: 74.04%; }
-  .container .col10 {
+  body .col10 {
     float: left;
     margin-right: -100%;
     width: 82.69%; }
-  .container .col11 {
+  body .col11 {
     float: left;
     margin-right: -100%;
     width: 91.35%; }
-  .container .col12 {
+  body .col12 {
     float: left;
     margin-right: -100%;
     width: 100%; }
-  .container .push0 {
+  body .push0 {
     margin-left: 0%; }
-  .container .push1 {
+  body .push1 {
     margin-left: 8.65%; }
-  .container .push2 {
+  body .push2 {
     margin-left: 17.31%; }
-  .container .push3 {
+  body .push3 {
     margin-left: 25.96%; }
-  .container .push4 {
+  body .push4 {
     margin-left: 34.62%; }
-  .container .push5 {
+  body .push5 {
     margin-left: 43.27%; }
-  .container .push6 {
+  body .push6 {
     margin-left: 51.93%; }
-  .container .push7 {
+  body .push7 {
     margin-left: 60.58%; }
-  .container .push8 {
+  body .push8 {
     margin-left: 69.23%; }
-  .container .push9 {
+  body .push9 {
     margin-left: 77.89%; }
-  .container .push10 {
+  body .push10 {
     margin-left: 86.54%; }
-  .container .push11 {
+  body .push11 {
     margin-left: 95.2%; }
 
-.row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap; }
+.container {
+  max-width: 1120px;
+  margin: auto; }
+
+.band {
+  padding: 5rem 0;
+  width: 100%; }
 
 .flex {
   display: -webkit-box;
@@ -157,9 +159,6 @@ a {
   text-decoration: none; }
   a:hover {
     text-decoration: line-through; }
-
-.band {
-  padding: 5rem 0; }
 
 body {
   font-family: Roboto;

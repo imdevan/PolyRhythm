@@ -1,14 +1,14 @@
 $total_width: 100%;
 $container_margin: 3.85%;
 $gutter_width: 3.85%;
-$max_width: 900px;
+$max_width: 1120px;
 
-.container {
-    @include container();
+body {
     @include generate_helper_classes();
 }
 
-.row {
-    display: flex;
-    flex-flow: row wrap;
+.container {
+    @extend %clearfix;
+    max-width: $max_width;
+    margin: auto;
 }

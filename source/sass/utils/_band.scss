@@ -1,0 +1,5 @@
+.band {
+    @extend %clearfix;
+    padding: $padding-xl 0;
+    width: 100%;
+}
