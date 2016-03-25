@@ -1,31 +1,19 @@
 .clip-box {
-    @include column(5);
+    @include gap(6);
     display: flex;
     flex-flow: row wrap;
 
-    @media (min-width: $lg) {
-        @include column(5);
-    }
-
-    &--left {
-        @extend .clip-box;
-        @include push(1);
-    }
-
-    &--right {
-        @extend .clip-box;
-        @include push(6);
-    }
 
     &--clip {
-        background: rgba(random(256)-1, random(256)-1, random(256)-1, 0.5);
+        background: $bg-accent;
+        color: $bg;
         display: flex;
         width: 20%;
         padding: 2rem;
         flex: 1;
         justify-content: center;
         align-items: center;
-        border: 1px solid white;
+        border: 1px solid $bg;
         box-sizing: border-box;
     }
 }

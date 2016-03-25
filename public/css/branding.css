@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
 .band {
-  padding: 5rem 0; }
+  padding: br(5) 0; }
 
 body {
   font-family: Roboto;

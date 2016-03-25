@@ -1,0 +1,5 @@
+@mixin gap($br){
+    &:not(:last-child) {
+        margin-bottom: #{$br}rem;
+    }
+}
