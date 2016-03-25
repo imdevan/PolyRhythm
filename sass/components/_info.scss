@@ -35,26 +35,15 @@ $bp-lg: 900px;
 
     &--window {
         transition: transform 0.3s ease-in-out;
-        transform: scale(0);
-        background: #eee;
-        box-shadow: 0 0 30px rgba(#333, 0.6);
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        flex-flow: column;
+        transform: scale(0);
+        background: $bg;
+        box-shadow: 0 0 30px rgba(#333, 0.6);
         width: 80%;
         max-width: 400px;
         padding: 1rem;
-
         height: 80%;
         max-height: 300px;
-
-
-        @media(min-width: $bp-lg) {
-            align-items: center;
-        }
-
-        iframe {
-            margin-bottom: -5px;
-        }
     }
 }

@@ -4,21 +4,24 @@ block content
         #two
     .info--popup#info
         .info--window
-            div
-                ul
-                    h2 Animations
+            .row
+                .col6
                     ul
-                    - aniKeys = ["u, i, o, p", "j, k, l, ;", "n, m, ,, ."]
-                    - for keys in aniKeys
-                        li=keys
-            div
-                ul
-                    h2 Audio
-                    - audioKeys = ["q, w, e, r", "a, s, d, f"]
-                    - for keys in audioKeys
-                        li=keys
-                a(href="/about") Checkout our about page
-                p This box will go away in 5seconds
+                        h2 Animations
+                        ul
+                        - aniKeys = ["u, i, o, p", "j, k, l, ;", "n, m, ,, ."]
+                        - for keys in aniKeys
+                            li=keys
+                .col6.push6
+                    ul
+                        h2 Audio
+                        - audioKeys = ["q, w, e, r", "a, s, d, f"]
+                        - for keys in audioKeys
+                            li=keys
+            .row
+                .col12
+                    a(href="/about") Checkout our about page
+                    p This box will go away in 5seconds
         
       script(src="/socket.io/socket.io.js")
       script(async="" src="//www.google-analytics.com/analytics.js")
