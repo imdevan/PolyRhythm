@@ -1,0 +1,6 @@
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        display: inline-flex;
+        width: calc(100% / (12-#{$i}));
+    }
+}

@@ -1,4 +1,5 @@
-$lg: 400px;
+
+$bp-lg: 900px;
 
 .info {
     &--popup {
@@ -16,7 +17,7 @@ $lg: 400px;
         transition: opacity 0.3s ease-in-out;
         cursor: none;
 
-        @media(min-width: $lg) {
+        @media(min-width: $bp-lg) {
             align-items: center;
         }
 
@@ -48,7 +49,7 @@ $lg: 400px;
         max-height: 300px;
 
 
-        @media(min-width: $lg) {
+        @media(min-width: $bp-lg) {
             align-items: center;
         }
 

@@ -1,0 +1,8 @@
+.flex {
+    display: flex;
+
+    &--col {
+        flex-flow: column;
+        justify-content: space-between;
+    }
+}

@@ -1,9 +1,11 @@
-//- index.jade
-doctype html
-html
-    include ./includes/head.jade
-    link(rel='stylesheet' href='css/branding.css')
-    body
+extends ./layouts/branding.jade
+block content
     main.band
-        section._tight
-            include ./includes/knob.jade
+        section.container
+            aside.side-nav
+                .side-nav--item
+                    include ./includes/knob.jade
+                .side-nav--item
+                    include ./includes/triangle.jade
+                .side-nav--item
+                    include ./includes/rectangle.jade
