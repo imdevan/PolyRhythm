@@ -1,0 +1,1 @@
+var socket=io(),acceleration=0;

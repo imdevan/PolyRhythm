@@ -4,7 +4,9 @@
   "description": "sxsw music hackathon project",
   "main": "app.js",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "build": "gulp build",
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",

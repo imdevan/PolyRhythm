@@ -74,10 +74,10 @@ gulp.task('start', function () {
   })
 })
 
-gulp.task('build', ['sass', 'scripts', 'watch']);
+gulp.task('build', ['sass', 'scripts', 'assets']);
 
 gulp.task('test', ['build']);
 
 gulp.task('watch', ['scripts:watch', 'sass:watch']);
 
-gulp.task('default', ['browser-sync', 'build', 'assets', 'start']);
+gulp.task('default', ['browser-sync', 'build', 'watch', 'start']);
