@@ -5,23 +5,16 @@ block content
     .info--popup#info
         .info--window
             .row
-                .col6
-                    ul
-                        h2 Animations
-                        ul
-                        - aniKeys = ["u, i, o, p", "j, k, l, ;", "n, m, ,, ."]
-                        - for keys in aniKeys
-                            li=keys
-                .col6.push6
-                    ul
-                        h2 Audio
-                        - audioKeys = ["q, w, e, r", "a, s, d, f"]
-                        - for keys in audioKeys
-                            li=keys
+                h2 Audio
+                p Press the following keys for a good time
+                ul
+                    - audioKeys = ["q, w, e, r", "a, s, d, f"]
+                    - for keys in audioKeys
+                        li=keys
             .row
                 .col12
-                    a(href="/about") Checkout our about page
                     p This box will go away in 5seconds
+                    a(href="/about") Checkout our about page
         
       script(src="/socket.io/socket.io.js")
       script(async="" src="//www.google-analytics.com/analytics.js")
