@@ -1,20 +1,20 @@
 extends ./layouts/default.jade
-mixin row(arr)
-    each box, index in arr
-        .clip-box--clip= box
 
-mixin block-party(arrs)
-    each arr, index in arrs
-        + row(arr)
+mixin clip-party(party)
+    .clip-box(data-type=party.type)
+        each boxes in party.triggers
+            each box in boxes
+                .clip-box--clip(data-name=box data-type=party.type)= box
 
 block content
-    - keyboard = ["qwertyuiop".split(''),"asdfghjkl;'".split(''),"zxcvbnm,,.".split('')]
-    - midi = [[1, 2, 3, 4, 5, 6, 7, 50, 60, 67]]
-    - phone = [[1, 2, 3, 4], [5, 6, 7, 8]]
+    - keyboard = { type: "keyboard", triggers:["qwertyuiop".split(''),"asdfghjkl;'".split(''),"zxcvbnm,,.".split('')]}
+    - midi = {type: "midi", triggers: [[36, 2, 3, 4, 5, 6, 7, 50, 60, 67]]}
+    - phone = {type:"phone", triggers: [["p1", "p2", "p3", "p4"], ["p5", "p6", "p7", "p8"]]}
+    - scenes = {type:"scene", triggers: [[1,2,3,4]]}
     main.band
         section.container
             .row
-                aside.side-nav
+                aside.side-nav.col1
                     .side-nav--item
                         include ./includes/knob.jade
                     .side-nav--item
@@ -22,10 +22,11 @@ block content
                     .side-nav--item
                         include ./includes/rectangle.jade
                 .col5.push1
-                    .clip-box
-                        + block-party(keyboard)
-                    .clip-box
-                        + block-party(phone)
+                        + clip-party(keyboard)
+                        + clip-party(phone)
                 .col5.push6
-                    .clip-box
-                        + block-party(midi)
+                        + clip-party(midi)
+                .col1.push11
+                    + clip-party(scenes)
+        script(src="js/session-edit/se-controller.js")
+        script(src="js/session-edit/se-midi-in.js")

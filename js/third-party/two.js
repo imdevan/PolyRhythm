@@ -3776,7 +3776,7 @@
 })(
   this.Two,
   typeof require === 'function' && !(typeof define === 'function' && define.amd) ? require('underscore') : this._,
-  typeof require === 'function' && !(typeof define === 'function' && define.amd) ? require('backbone') : this.Backbone,
+  typeof require === 'function' && !(typeof define === 'function' && define.amd) ? require('../../node_modules/backbone/backbone-min.js') : this.Backbone,
   typeof require === 'function' && !(typeof define === 'function' && define.amd) ? require('requestAnimationFrame') : this.requestAnimationFrame
 );
 
@@ -8103,7 +8103,7 @@
     var theta = PI, x, y, lx, ly, rx, ry;
 
     points.push(
-      new Two.Anchor( 
+      new Two.Anchor(
         sin(theta) * (r + (amplitude/2)),
         cos(theta) * (r + (amplitude/2)),
         0,0,0,0,

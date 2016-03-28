@@ -148,6 +148,8 @@ body {
 
 .container {
   max-width: 1120px;
+  width: 100%;
+  box-sizing: border-box;
   margin: auto; }
 
 .band {
@@ -292,9 +294,6 @@ a {
   max-height: 300px; }
 
 .side-nav {
-  float: left;
-  margin-right: -100%;
-  width: 4.8%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -384,7 +383,7 @@ a {
             transform: scale(1);
     -webkit-transition: background 0.12s cubic-bezier(0, 0, 1, 1);
     transition: background 0.12s cubic-bezier(0, 0, 1, 1); }
-    .clip-box--clip:active {
+    .clip-box--clip:active, .clip-box--clip.active {
       background: #b3d6e4;
       -webkit-transform: scale(0.7);
               transform: scale(0.7); }

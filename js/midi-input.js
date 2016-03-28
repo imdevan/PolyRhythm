@@ -9,7 +9,7 @@ if (navigator.requestMIDIAccess) {
         sysex: false
     }).then(onMIDISuccess, onMIDIFailure);
 } else {
-    console("No MIDI support in your browser.");
+    console.log("No MIDI support in your browser.");
 }
 
 
@@ -33,6 +33,7 @@ function onMIDIFailure(midiAccess){
     console.log("Shit's broke - midi - ", midiAccess);
 }
 function onMIDIMessage(event) {
+    console.log(event);
     data = event.data,
     cmd = data[0] >> 4,
     channel = data[0] & 0xf,
@@ -77,18 +78,19 @@ function noteOn(midiNote, velocity) {
     // 32 33 34 35
     // 48 49 50 51
     var animationsToTrigger = [];
+    var soundsToTrigger = [];
     switch(midiNote){
         case 0:
             animationsToTrigger.push("veil");
             break;
-        case 1:
-            animationsToTrigger.push("ufo");
-            animationsToTrigger.push("centerCircle");
+        case 97:
+            soundsToTrigger.push("pikaHi");
+            animationsToTrigger.push("starExplode");
             break;
-        case 2:
+        case 98:
             animationsToTrigger.push("suspension");
             break;
-        case 3:
+        case 99:
             animationsToTrigger.push("ufo");
             animationsToTrigger.push("centerCircle");
             break;
@@ -125,6 +127,7 @@ function noteOn(midiNote, velocity) {
     }
     console.log("MIDI Note", midiNote);
     animationController.trigger(animationsToTrigger);
+    soundController.trigger(soundsToTrigger);
     // socket.emit('animation_output', {animations: animationsToTrigger});
 }
 

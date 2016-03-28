@@ -18,7 +18,7 @@
         transform: scale(1);
         transition: background 0.12s cubic-bezier(0,0,1,1);
 
-        &:active {
+        &:active, &.active {
             background: $bg-accent--light;
             transform: scale(0.7);
         }

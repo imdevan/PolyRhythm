@@ -1,13 +1,18 @@
 'use strict'
 
-var gulp = require('gulp'),
-	sass = require('gulp-sass'),
-	uglify = require('gulp-uglify'),
-	nodemon = require('gulp-nodemon'),
-    eslint = require('gulp-eslint'),
-	browserSync = require('browser-sync'),
-	autoprefixer = require('gulp-autoprefixer'),
-    outputDir = {
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var uglify = require('gulp-uglify');
+var nodemon = require('gulp-nodemon');
+var eslint = require('gulp-eslint');
+var browserSync = require('browser-sync');
+var gutil = require('gulp-util');
+var autoprefixer = require('gulp-autoprefixer');
+var sourcemaps = require('gulp-sourcemaps');
+var browserify = require('gulp-browserify');
+var outputDir = {
         css: 'dist/css',
         js: 'dist/js',
         assets: '/dist/assets'
@@ -36,13 +41,22 @@ gulp.task('sass:watch', function () {
 
 // SCRIPTS
 gulp.task('scripts', function() {
-  return gulp.src([
-          'js/**/*.js',
-          '!js/draft/*.js'
-      ])
-    .pipe(uglify())
-    .pipe(gulp.dest(outputDir.js))
-    .pipe(browserSync.stream());
+    return gulp.src([
+        'js/**/*.js',
+        '!js/draft/*.js'
+    ])
+  .pipe(uglify())
+  .pipe(gulp.dest(outputDir.js))
+  .pipe(browserSync.stream());
+  //
+  // return gulp.src('js/performance.js')
+  //     .pipe(browserify({
+  //           insertGlobals : true,
+  //           debug : !gulp.env.production
+  //       }))
+  //   .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+  //   .pipe(gulp.dest(outputDir.js))
+  //   .pipe(browserSync.stream());
 });
 
 gulp.task('scripts:watch', function () {

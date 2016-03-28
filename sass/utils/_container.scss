@@ -10,5 +10,7 @@ body {
 .container {
     @extend %clearfix;
     max-width: $max_width;
+    width: 100%;
+    box-sizing: border-box;
     margin: auto;
 }

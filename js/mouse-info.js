@@ -18,7 +18,6 @@ window.addEventListener("keypress", function(e){
 });
 
 function timerIncrement() {
-    console.log(idleTime);
     idleTime++;
     if (idleTime > 5) { // 20 minutes
         hideInfo()
