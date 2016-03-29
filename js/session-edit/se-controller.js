@@ -1,3 +1,5 @@
+require("./se-midi-input");
+
 var clips = {
     midi: document.querySelectorAll('.clip-box[data-type="midi"] .clip-box'),
     phone: document.querySelectorAll('.clip-box[data-type="phone"] .clip-box'),

@@ -15,6 +15,7 @@ var browserify = require('gulp-browserify');
 var outputDir = {
         css: 'dist/css',
         js: 'dist/js',
+        sejs: 'dist/js/session-edit',
         assets: '/dist/assets'
     };
 
@@ -39,6 +40,17 @@ gulp.task('sass:watch', function () {
   gulp.watch('sass/**/*.scss', ['sass']);
 });
 
+gulp.task('browserify', function() {
+    return gulp.src('js/session-edit/se-controller.js')
+        .pipe(browserify({
+              insertGlobals : true,
+              debug : !gulp.env.production
+          }))
+      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .pipe(gulp.dest(outputDir.sejs))
+      .pipe(browserSync.stream());
+});
+
 // SCRIPTS
 gulp.task('scripts', function() {
     return gulp.src([
@@ -49,14 +61,6 @@ gulp.task('scripts', function() {
   .pipe(gulp.dest(outputDir.js))
   .pipe(browserSync.stream());
   //
-  // return gulp.src('js/performance.js')
-  //     .pipe(browserify({
-  //           insertGlobals : true,
-  //           debug : !gulp.env.production
-  //       }))
-  //   .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-  //   .pipe(gulp.dest(outputDir.js))
-  //   .pipe(browserSync.stream());
 });
 
 gulp.task('scripts:watch', function () {
@@ -88,7 +92,7 @@ gulp.task('start', function () {
   })
 })
 
-gulp.task('build', ['sass', 'scripts', 'assets']);
+gulp.task('build', ['sass', 'scripts', 'browserify', 'assets']);
 
 gulp.task('test', ['build']);
 

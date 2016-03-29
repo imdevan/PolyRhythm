@@ -1,19 +1,18 @@
 extends ./layouts/default.jade
+include ./includes/clip-box.jade
 block content
     .performance
         #two
     .info--popup
         .info--window
             .row
-                h2 Audio
-                p Press the following keys for a good time
-                ul
-                    - audioKeys = ["q, w, e, r", "a, s, d, f"]
-                    - for keys in audioKeys
-                        li=keys
-            .row
                 .col12
-                    p This box will go away in 5seconds
+                    h2(style="{text-align:center}") PolyRhythm
+                    p Press the following keys for a good time
+            .row
+                + clip-box({type:"info", triggers:["qwer", "asdf"]}, "info")
+            .row
+                p
                     a(href="/about") Checkout our about page
         
       script(src="/socket.io/socket.io.js")

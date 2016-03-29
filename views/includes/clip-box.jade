@@ -1,0 +1,6 @@
+mixin clip-box(party, mod)
+    - var klass = mod ? "clip-box--" + mod : "clip-box"
+    div(data-type=party.type class=klass)
+        each boxes in party.triggers
+            each box in boxes
+                .clip-box--clip(data-name=box data-type=party.type)= box

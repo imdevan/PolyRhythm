@@ -1,25 +1,28 @@
-var info = document.getElementById('info');
+var infoPopUp = document.querySelector('.info--popup');
+var infoWindow = document.querySelector('.info--window');
 var idleTime = 0;
 
 function showInfo() {
-    info.classList.add('show');
+    idleTime = 0;
+    infoPopUp.classList.add('show');
+    infoWindow.classList.add('show');
 }
 function hideInfo() {
-    idleTime = 0;
-    info.classList.remove('show');
+    infoPopUp.classList.remove('show');
+    infoWindow.classList.remove('show');
 }
+
 window.addEventListener("mousemove", function(e){
-    idleTime = 0;
     showInfo();
 });
 
-window.addEventListener("keypress", function(e){
-    idleTime = 0;
+window.addEventListener("keydown", function(e){
+    hideInfo()
 });
 
 function timerIncrement() {
     idleTime++;
-    if (idleTime > 5) { // 20 minutes
+    if (idleTime > 2) {
         hideInfo()
     }
 }

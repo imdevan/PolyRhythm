@@ -5,4 +5,9 @@
         flex-flow: column;
         justify-content: space-between;
     }
+
+    &--center {
+        align-items: center;
+        justify-content: center;
+    }
 }

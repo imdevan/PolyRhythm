@@ -11,39 +11,33 @@ $bp-lg: 900px;
         display: flex;
         justify-content: center;
         align-items: top;
-        background-image: linear-gradient(to top right,#333,rgba(#333,0.5));
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-in-out;
         cursor: none;
+
+        &.show {
+            cursor: default;;
+        }
 
         @media(min-width: $bp-lg) {
             align-items: center;
         }
-
-        &.show {
-            opacity: 1;
-            cursor: default;
-            visibility: visible;
-            transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
-
-            .info--window {
-                transform: scale(1);
-            }
-        }
     }
 
     &--window {
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s  cubic-bezier(0,1,1,1);
         display: flex;
         flex-flow: column;
         transform: scale(0);
         background: $bg;
-        box-shadow: 0 0 30px rgba(#333, 0.6);
+        box-shadow: 0px 0px 20px rgba(#000, 0.1), 0px 0px 70px rgba(#333, 0.2);
         width: 80%;
         max-width: 400px;
         padding: 1rem;
         height: 80%;
         max-height: 300px;
+        cursor: default;
+
+        &.show {
+            transform: scale(1);
+        }
     }
 }

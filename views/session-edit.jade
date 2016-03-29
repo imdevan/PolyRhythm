@@ -1,10 +1,5 @@
 extends ./layouts/default.jade
-
-mixin clip-party(party)
-    .clip-box(data-type=party.type)
-        each boxes in party.triggers
-            each box in boxes
-                .clip-box--clip(data-name=box data-type=party.type)= box
+include ./includes/clip-box.jade
 
 block content
     - keyboard = { type: "keyboard", triggers:["qwertyuiop".split(''),"asdfghjkl;'".split(''),"zxcvbnm,,.".split('')]}
@@ -22,11 +17,11 @@ block content
                     .side-nav--item
                         include ./includes/rectangle.jade
                 .col5.push1
-                        + clip-party(keyboard)
-                        + clip-party(phone)
+                        + clip-box(keyboard)
+                        + clip-box(phone)
                 .col5.push6
-                        + clip-party(midi)
+                        + clip-box(midi)
                 .col1.push11
-                    + clip-party(scenes)
+                    + clip-box(scenes)
         script(src="js/session-edit/se-controller.js")
-        script(src="js/session-edit/se-midi-in.js")
+        //- script(srcs="js/session-edit/sse-midi-in.js")
