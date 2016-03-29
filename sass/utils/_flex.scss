@@ -2,11 +2,13 @@
     display: flex;
 
     &--col {
+        @extend .flex;
         flex-flow: column;
         justify-content: space-between;
     }
 
     &--center {
+        @extend .flex;
         align-items: center;
         justify-content: center;
     }

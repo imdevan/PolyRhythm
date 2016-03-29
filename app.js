@@ -10,6 +10,15 @@ var express = require('express'),
 var users = 0;
 var total_acceleration = 0;
 
+var testScene = {
+    triggers: {
+        "midi": [36, 42],
+        "keyboard": "qwertyuiopasdfghjklzxcvbnm".split()
+    },
+    sounds: ["kick", "snare", "droplet", "carSound", "pikaHi", "pikaLow", "kirby", "iphone"],
+    animations: [""]
+};
+
 app.use(express.static(__dirname+ '/dist'));
 
 // app.use(jade_browser('./public/js/templates.js', './source/test.jade'));
@@ -27,6 +36,10 @@ app.get('/about', function(req, res) {
 
 app.get('/session-edit', function(req, res) {
     res.render('session-edit.jade');
+});
+
+app.get('/animations', function(req, res) {
+    res.render('animations.jade');
 });
 
 app.get('/phone-midi', function(req, res)

@@ -1,1 +1,17 @@
-socket.on("animation_input",function(n){n.animations&&animationController.trigger(n.animations),n.audio&&soundController.dict[n.audio].play()}),socket.on("acceleration_input",function(n){acceleration=n}),socket.on("audience_shape_input",function(n){console.log(n.shape),animationController.dict.audienceShapes(n.shape,n.color).start()});
+socket.on("animation_input", function (msg) {
+	if (msg.animations) {
+		animationController.trigger(msg.animations);
+	}
+	if (msg.audio) {
+		soundController.dict[msg.audio].play();
+	}
+});
+
+socket.on("acceleration_input", function (msg) {
+	acceleration = msg;
+});
+
+socket.on("audience_shape_input", function (msg) {
+	console.log(msg.shape);
+	animationController.dict["audienceShapes"](msg.shape, msg.color).start();
+});

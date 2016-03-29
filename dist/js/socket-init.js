@@ -1,1 +1,3 @@
-var socket=io(),acceleration=0;
+var socket = io();
+
+var acceleration = 0;

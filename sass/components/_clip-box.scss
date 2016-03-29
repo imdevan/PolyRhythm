@@ -1,23 +1,19 @@
+$clip-box-container-gap: 6;
+$clip-box-size: 5rem;
+
 .clip-box {
-    @include gap(6);
+    @include gap($clip-box-container-gap);
     display: flex;
     flex-flow: row wrap;
     width: 100%;
 
-    &--info {
-        @extend .clip-box;
-        @include gap(0);
-    }
-
-
     &--clip {
+        @extend .flex;
+        @extend .flex--center;
         background: $bg-accent;
         color: $bg;
-        display: flex;
-        padding: 1rem;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
+        height: $clip-box-size;
+        width: $clip-box-size;
         border: 1px solid $bg;
         box-sizing: border-box;
         transform: scale(1);

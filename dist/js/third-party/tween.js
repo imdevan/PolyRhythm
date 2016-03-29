@@ -1,1 +1,625 @@
-var TWEEN=TWEEN||function(){var n={},t=0;return{REVISION:"10-br1",generateId:function(){var n=t;return t++,n},getAll:function(){return n},removeAll:function(){n={}},add:function(t){n[t.id]=t},remove:function(t){delete n[t.id]},update:function(t){t=void 0!==t?t:void 0!==window.performance&&void 0!==window.performance.now?window.performance.now():Date.now();for(var r in n)n[r].update(t)?r++:delete n[r];return!0}}}();TWEEN.Tween=function(n){var t=n,r={},i={},u={},o=1e3,e=0,a=0,c=null,f=TWEEN.Easing.Linear.None,h=TWEEN.Interpolation.Linear,s=[],l=null,E=!1,I=null,M=null;this.id=TWEEN.generateId(),this.to=function(n,t){return void 0!==t&&(o=t),i=n,this},this.start=function(n){TWEEN.add(this),E=!1,c=void 0!==n?n:void 0!==window.performance&&void 0!==window.performance.now?window.performance.now():Date.now(),c+=a;for(var o in i)if(o in t!=!1&&null!==t[o]){if(i[o]instanceof Array){if(0===i[o].length)continue;i[o]=[t[o]].concat(i[o])}r[o]=t[o],r[o]instanceof Array==0&&(r[o]*=1),u[o]=r[o]}return this},this.stop=function(){return TWEEN.remove(this),this},this.delay=function(n){return a=n,this},this.repeat=function(n){return e=n,this},this.easing=function(n){return f=n,this},this.interpolation=function(n){return h=n,this},this.chain=function(){return s=arguments,this},this.onStart=function(n){return l=n,this},this.onUpdate=function(n){return I=n,this},this.onComplete=function(n){return M=n,this},this.getObject=function(){return t},this.getOnComplete=function(){return M},this.update=function(n){if(c>n)return!0;E===!1&&(null!==l&&l.call(t),E=!0);var v=(n-c)/o;v=v>1?1:v;var d=f(v);for(var p in r){var w=r[p],O=i[p];O instanceof Array?t[p]=h(O,d):t[p]=w+(O-w)*d}if(null!==I&&I.call(t,d),1==v){if(e>0){isFinite(e)&&e--;for(var p in u)r[p]=u[p];return c=n+a,!0}null!==M&&M.call(t);for(var N=0,T=s.length;T>N;N++)s[N].start(n);return!1}return!0}},TWEEN.Easing={Linear:{None:function(n){return n}},Quadratic:{In:function(n){return n*n},Out:function(n){return n*(2-n)},InOut:function(n){return(n*=2)<1?.5*n*n:-.5*(--n*(n-2)-1)}},Cubic:{In:function(n){return n*n*n},Out:function(n){return--n*n*n+1},InOut:function(n){return(n*=2)<1?.5*n*n*n:.5*((n-=2)*n*n+2)}},Quartic:{In:function(n){return n*n*n*n},Out:function(n){return 1- --n*n*n*n},InOut:function(n){return(n*=2)<1?.5*n*n*n*n:-.5*((n-=2)*n*n*n-2)}},Quintic:{In:function(n){return n*n*n*n*n},Out:function(n){return--n*n*n*n*n+1},InOut:function(n){return(n*=2)<1?.5*n*n*n*n*n:.5*((n-=2)*n*n*n*n+2)}},Sinusoidal:{In:function(n){return 1-Math.cos(n*Math.PI/2)},Out:function(n){return Math.sin(n*Math.PI/2)},InOut:function(n){return.5*(1-Math.cos(Math.PI*n))}},Exponential:{In:function(n){return 0===n?0:Math.pow(1024,n-1)},Out:function(n){return 1===n?1:1-Math.pow(2,-10*n)},InOut:function(n){return 0===n?0:1===n?1:(n*=2)<1?.5*Math.pow(1024,n-1):.5*(-Math.pow(2,-10*(n-1))+2)}},Circular:{In:function(n){return 1-Math.sqrt(1-n*n)},Out:function(n){return Math.sqrt(1- --n*n)},InOut:function(n){return(n*=2)<1?-.5*(Math.sqrt(1-n*n)-1):.5*(Math.sqrt(1-(n-=2)*n)+1)}},Elastic:{In:function(n){var t,r=.1,i=.4;return 0===n?0:1===n?1:(!r||1>r?(r=1,t=i/4):t=i*Math.asin(1/r)/(2*Math.PI),-(r*Math.pow(2,10*(n-=1))*Math.sin((n-t)*(2*Math.PI)/i)))},Out:function(n){var t,r=.1,i=.4;return 0===n?0:1===n?1:(!r||1>r?(r=1,t=i/4):t=i*Math.asin(1/r)/(2*Math.PI),r*Math.pow(2,-10*n)*Math.sin((n-t)*(2*Math.PI)/i)+1)},InOut:function(n){var t,r=.1,i=.4;return 0===n?0:1===n?1:(!r||1>r?(r=1,t=i/4):t=i*Math.asin(1/r)/(2*Math.PI),(n*=2)<1?-.5*(r*Math.pow(2,10*(n-=1))*Math.sin((n-t)*(2*Math.PI)/i)):r*Math.pow(2,-10*(n-=1))*Math.sin((n-t)*(2*Math.PI)/i)*.5+1)}},Back:{In:function(n){var t=1.70158;return n*n*((t+1)*n-t)},Out:function(n){var t=1.70158;return--n*n*((t+1)*n+t)+1},InOut:function(n){var t=2.5949095;return(n*=2)<1?.5*(n*n*((t+1)*n-t)):.5*((n-=2)*n*((t+1)*n+t)+2)}},Bounce:{In:function(n){return 1-TWEEN.Easing.Bounce.Out(1-n)},Out:function(n){return 1/2.75>n?7.5625*n*n:2/2.75>n?7.5625*(n-=1.5/2.75)*n+.75:2.5/2.75>n?7.5625*(n-=2.25/2.75)*n+.9375:7.5625*(n-=2.625/2.75)*n+.984375},InOut:function(n){return.5>n?.5*TWEEN.Easing.Bounce.In(2*n):.5*TWEEN.Easing.Bounce.Out(2*n-1)+.5}}},TWEEN.Interpolation={Linear:function(n,t){var r=n.length-1,i=r*t,u=Math.floor(i),o=TWEEN.Interpolation.Utils.Linear;return 0>t?o(n[0],n[1],i):t>1?o(n[r],n[r-1],r-i):o(n[u],n[u+1>r?r:u+1],i-u)},Bezier:function(n,t){var r,i=0,u=n.length-1,o=Math.pow,e=TWEEN.Interpolation.Utils.Bernstein;for(r=0;u>=r;r++)i+=o(1-t,u-r)*o(t,r)*n[r]*e(u,r);return i},CatmullRom:function(n,t){var r=n.length-1,i=r*t,u=Math.floor(i),o=TWEEN.Interpolation.Utils.CatmullRom;return n[0]===n[r]?(0>t&&(u=Math.floor(i=r*(1+t))),o(n[(u-1+r)%r],n[u],n[(u+1)%r],n[(u+2)%r],i-u)):0>t?n[0]-(o(n[0],n[0],n[1],n[1],-i)-n[0]):t>1?n[r]-(o(n[r],n[r],n[r-1],n[r-1],i-r)-n[r]):o(n[u?u-1:0],n[u],n[u+1>r?r:u+1],n[u+2>r?r:u+2],i-u)},Utils:{Linear:function(n,t,r){return(t-n)*r+n},Bernstein:function(n,t){var r=TWEEN.Interpolation.Utils.Factorial;return r(n)/r(t)/r(n-t)},Factorial:function(){var n=[1];return function(t){var r,i=1;if(n[t])return n[t];for(r=t;r>1;r--)i*=r;return n[t]=i}}(),CatmullRom:function(n,t,r,i,u){var o=.5*(r-n),e=.5*(i-t),a=u*u,c=u*a;return(2*t-2*r+o+e)*c+(-3*t+3*r-2*o-e)*a+o*u+t}}};
+/**
+ * @author sole / http://soledadpenades.com
+ * @author mrdoob / http://mrdoob.com
+ * @author Robert Eisele / http://www.xarg.org
+ * @author Philippe / http://philippe.elsass.me
+ * @author Robert Penner / http://www.robertpenner.com/easing_terms_of_use.html
+ * @author Paul Lewis / http://www.aerotwist.com/
+ * @author lechecacharro
+ * @author Josh Faul / http://jocafa.com/
+ * @author egraether / http://egraether.com/
+ * @author jonobr1 / http://jonobr1.com/
+ */
+
+var TWEEN = TWEEN || function () {
+
+	var _tweens = {},
+	    _id = 0;
+
+	return {
+
+		REVISION: '10-br1',
+
+		generateId: function () {
+
+			var result = _id;
+			_id++;
+			return result;
+		},
+
+		getAll: function () {
+
+			return _tweens;
+		},
+
+		removeAll: function () {
+
+			_tweens = {};
+		},
+
+		add: function (tween) {
+
+			_tweens[tween.id] = tween;
+		},
+
+		remove: function (tween) {
+
+			delete _tweens[tween.id];
+		},
+
+		update: function (time) {
+
+			time = time !== undefined ? time : window.performance !== undefined && window.performance.now !== undefined ? window.performance.now() : Date.now();
+
+			for (var i in _tweens) {
+
+				if (_tweens[i].update(time)) {
+
+					i++;
+				} else {
+
+					delete _tweens[i];
+				}
+			}
+
+			return true;
+		}
+	};
+}();
+
+TWEEN.Tween = function (object) {
+
+	var _object = object;
+	var _valuesStart = {};
+	var _valuesEnd = {};
+	var _valuesStartRepeat = {};
+	var _duration = 1000;
+	var _repeat = 0;
+	var _delayTime = 0;
+	var _startTime = null;
+	var _easingFunction = TWEEN.Easing.Linear.None;
+	var _interpolationFunction = TWEEN.Interpolation.Linear;
+	var _chainedTweens = [];
+	var _onStartCallback = null;
+	var _onStartCallbackFired = false;
+	var _onUpdateCallback = null;
+	var _onCompleteCallback = null;
+
+	this.id = TWEEN.generateId();
+
+	this.to = function (properties, duration) {
+
+		if (duration !== undefined) {
+
+			_duration = duration;
+		}
+
+		_valuesEnd = properties;
+
+		return this;
+	};
+
+	this.start = function (time) {
+
+		TWEEN.add(this);
+
+		_onStartCallbackFired = false;
+
+		_startTime = time !== undefined ? time : window.performance !== undefined && window.performance.now !== undefined ? window.performance.now() : Date.now();
+		_startTime += _delayTime;
+
+		for (var property in _valuesEnd) {
+
+			// This prevents the interpolation of null values or of non-existing properties
+			if (property in _object === false || _object[property] === null) {
+
+				continue;
+			}
+
+			// check if an Array was provided as property value
+			if (_valuesEnd[property] instanceof Array) {
+
+				if (_valuesEnd[property].length === 0) {
+
+					continue;
+				}
+
+				// create a local copy of the Array with the start value at the front
+				_valuesEnd[property] = [_object[property]].concat(_valuesEnd[property]);
+			}
+
+			_valuesStart[property] = _object[property];
+
+			if (_valuesStart[property] instanceof Array == false) {
+				_valuesStart[property] *= 1.0; // Ensures we're using numbers, not strings
+			}
+
+			_valuesStartRepeat[property] = _valuesStart[property];
+		}
+
+		return this;
+	};
+
+	this.stop = function () {
+
+		TWEEN.remove(this);
+		return this;
+	};
+
+	this.delay = function (amount) {
+
+		_delayTime = amount;
+		return this;
+	};
+
+	this.repeat = function (times) {
+
+		_repeat = times;
+		return this;
+	};
+
+	this.easing = function (easing) {
+
+		_easingFunction = easing;
+		return this;
+	};
+
+	this.interpolation = function (interpolation) {
+
+		_interpolationFunction = interpolation;
+		return this;
+	};
+
+	this.chain = function () {
+
+		_chainedTweens = arguments;
+		return this;
+	};
+
+	this.onStart = function (callback) {
+
+		_onStartCallback = callback;
+		return this;
+	};
+
+	this.onUpdate = function (callback) {
+
+		_onUpdateCallback = callback;
+		return this;
+	};
+
+	this.onComplete = function (callback) {
+
+		_onCompleteCallback = callback;
+		return this;
+	};
+
+	this.getObject = function () {
+
+		return _object;
+	};
+
+	this.getOnComplete = function () {
+
+		return _onCompleteCallback;
+	};
+
+	this.update = function (time) {
+
+		if (time < _startTime) {
+
+			return true;
+		}
+
+		if (_onStartCallbackFired === false) {
+
+			if (_onStartCallback !== null) {
+
+				_onStartCallback.call(_object);
+			}
+
+			_onStartCallbackFired = true;
+		}
+
+		var elapsed = (time - _startTime) / _duration;
+		elapsed = elapsed > 1 ? 1 : elapsed;
+
+		var value = _easingFunction(elapsed);
+
+		for (var property in _valuesStart) {
+
+			var start = _valuesStart[property];
+			var end = _valuesEnd[property];
+
+			if (end instanceof Array) {
+
+				_object[property] = _interpolationFunction(end, value);
+			} else {
+
+				_object[property] = start + (end - start) * value;
+			}
+		}
+
+		if (_onUpdateCallback !== null) {
+
+			_onUpdateCallback.call(_object, value);
+		}
+
+		if (elapsed == 1) {
+
+			if (_repeat > 0) {
+
+				if (isFinite(_repeat)) {
+					_repeat--;
+				}
+
+				// reassign starting values, restart by making startTime = now
+				for (var property in _valuesStartRepeat) {
+					_valuesStart[property] = _valuesStartRepeat[property];
+				}
+				_startTime = time + _delayTime;
+
+				return true;
+			} else {
+
+				if (_onCompleteCallback !== null) {
+
+					_onCompleteCallback.call(_object);
+				}
+
+				for (var i = 0, numChainedTweens = _chainedTweens.length; i < numChainedTweens; i++) {
+
+					_chainedTweens[i].start(time);
+				}
+
+				return false;
+			}
+		}
+
+		return true;
+	};
+};
+
+TWEEN.Easing = {
+
+	Linear: {
+
+		None: function (k) {
+
+			return k;
+		}
+
+	},
+
+	Quadratic: {
+
+		In: function (k) {
+
+			return k * k;
+		},
+
+		Out: function (k) {
+
+			return k * (2 - k);
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) return 0.5 * k * k;
+			return -0.5 * (--k * (k - 2) - 1);
+		}
+
+	},
+
+	Cubic: {
+
+		In: function (k) {
+
+			return k * k * k;
+		},
+
+		Out: function (k) {
+
+			return --k * k * k + 1;
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) return 0.5 * k * k * k;
+			return 0.5 * ((k -= 2) * k * k + 2);
+		}
+
+	},
+
+	Quartic: {
+
+		In: function (k) {
+
+			return k * k * k * k;
+		},
+
+		Out: function (k) {
+
+			return 1 - --k * k * k * k;
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) return 0.5 * k * k * k * k;
+			return -0.5 * ((k -= 2) * k * k * k - 2);
+		}
+
+	},
+
+	Quintic: {
+
+		In: function (k) {
+
+			return k * k * k * k * k;
+		},
+
+		Out: function (k) {
+
+			return --k * k * k * k * k + 1;
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) return 0.5 * k * k * k * k * k;
+			return 0.5 * ((k -= 2) * k * k * k * k + 2);
+		}
+
+	},
+
+	Sinusoidal: {
+
+		In: function (k) {
+
+			return 1 - Math.cos(k * Math.PI / 2);
+		},
+
+		Out: function (k) {
+
+			return Math.sin(k * Math.PI / 2);
+		},
+
+		InOut: function (k) {
+
+			return 0.5 * (1 - Math.cos(Math.PI * k));
+		}
+
+	},
+
+	Exponential: {
+
+		In: function (k) {
+
+			return k === 0 ? 0 : Math.pow(1024, k - 1);
+		},
+
+		Out: function (k) {
+
+			return k === 1 ? 1 : 1 - Math.pow(2, -10 * k);
+		},
+
+		InOut: function (k) {
+
+			if (k === 0) return 0;
+			if (k === 1) return 1;
+			if ((k *= 2) < 1) return 0.5 * Math.pow(1024, k - 1);
+			return 0.5 * (-Math.pow(2, -10 * (k - 1)) + 2);
+		}
+
+	},
+
+	Circular: {
+
+		In: function (k) {
+
+			return 1 - Math.sqrt(1 - k * k);
+		},
+
+		Out: function (k) {
+
+			return Math.sqrt(1 - --k * k);
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) return -0.5 * (Math.sqrt(1 - k * k) - 1);
+			return 0.5 * (Math.sqrt(1 - (k -= 2) * k) + 1);
+		}
+
+	},
+
+	Elastic: {
+
+		In: function (k) {
+
+			var s,
+			    a = 0.1,
+			    p = 0.4;
+			if (k === 0) return 0;
+			if (k === 1) return 1;
+			if (!a || a < 1) {
+				a = 1;s = p / 4;
+			} else s = p * Math.asin(1 / a) / (2 * Math.PI);
+			return -(a * Math.pow(2, 10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p));
+		},
+
+		Out: function (k) {
+
+			var s,
+			    a = 0.1,
+			    p = 0.4;
+			if (k === 0) return 0;
+			if (k === 1) return 1;
+			if (!a || a < 1) {
+				a = 1;s = p / 4;
+			} else s = p * Math.asin(1 / a) / (2 * Math.PI);
+			return a * Math.pow(2, -10 * k) * Math.sin((k - s) * (2 * Math.PI) / p) + 1;
+		},
+
+		InOut: function (k) {
+
+			var s,
+			    a = 0.1,
+			    p = 0.4;
+			if (k === 0) return 0;
+			if (k === 1) return 1;
+			if (!a || a < 1) {
+				a = 1;s = p / 4;
+			} else s = p * Math.asin(1 / a) / (2 * Math.PI);
+			if ((k *= 2) < 1) return -0.5 * (a * Math.pow(2, 10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p));
+			return a * Math.pow(2, -10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p) * 0.5 + 1;
+		}
+
+	},
+
+	Back: {
+
+		In: function (k) {
+
+			var s = 1.70158;
+			return k * k * ((s + 1) * k - s);
+		},
+
+		Out: function (k) {
+
+			var s = 1.70158;
+			return --k * k * ((s + 1) * k + s) + 1;
+		},
+
+		InOut: function (k) {
+
+			var s = 1.70158 * 1.525;
+			if ((k *= 2) < 1) return 0.5 * (k * k * ((s + 1) * k - s));
+			return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+		}
+
+	},
+
+	Bounce: {
+
+		In: function (k) {
+
+			return 1 - TWEEN.Easing.Bounce.Out(1 - k);
+		},
+
+		Out: function (k) {
+
+			if (k < 1 / 2.75) {
+
+				return 7.5625 * k * k;
+			} else if (k < 2 / 2.75) {
+
+				return 7.5625 * (k -= 1.5 / 2.75) * k + 0.75;
+			} else if (k < 2.5 / 2.75) {
+
+				return 7.5625 * (k -= 2.25 / 2.75) * k + 0.9375;
+			} else {
+
+				return 7.5625 * (k -= 2.625 / 2.75) * k + 0.984375;
+			}
+		},
+
+		InOut: function (k) {
+
+			if (k < 0.5) return TWEEN.Easing.Bounce.In(k * 2) * 0.5;
+			return TWEEN.Easing.Bounce.Out(k * 2 - 1) * 0.5 + 0.5;
+		}
+
+	}
+
+};
+
+TWEEN.Interpolation = {
+
+	Linear: function (v, k) {
+
+		var m = v.length - 1,
+		    f = m * k,
+		    i = Math.floor(f),
+		    fn = TWEEN.Interpolation.Utils.Linear;
+
+		if (k < 0) return fn(v[0], v[1], f);
+		if (k > 1) return fn(v[m], v[m - 1], m - f);
+
+		return fn(v[i], v[i + 1 > m ? m : i + 1], f - i);
+	},
+
+	Bezier: function (v, k) {
+
+		var b = 0,
+		    n = v.length - 1,
+		    pw = Math.pow,
+		    bn = TWEEN.Interpolation.Utils.Bernstein,
+		    i;
+
+		for (i = 0; i <= n; i++) {
+			b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
+		}
+
+		return b;
+	},
+
+	CatmullRom: function (v, k) {
+
+		var m = v.length - 1,
+		    f = m * k,
+		    i = Math.floor(f),
+		    fn = TWEEN.Interpolation.Utils.CatmullRom;
+
+		if (v[0] === v[m]) {
+
+			if (k < 0) i = Math.floor(f = m * (1 + k));
+
+			return fn(v[(i - 1 + m) % m], v[i], v[(i + 1) % m], v[(i + 2) % m], f - i);
+		} else {
+
+			if (k < 0) return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
+			if (k > 1) return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
+
+			return fn(v[i ? i - 1 : 0], v[i], v[m < i + 1 ? m : i + 1], v[m < i + 2 ? m : i + 2], f - i);
+		}
+	},
+
+	Utils: {
+
+		Linear: function (p0, p1, t) {
+
+			return (p1 - p0) * t + p0;
+		},
+
+		Bernstein: function (n, i) {
+
+			var fc = TWEEN.Interpolation.Utils.Factorial;
+			return fc(n) / fc(i) / fc(n - i);
+		},
+
+		Factorial: function () {
+
+			var a = [1];
+
+			return function (n) {
+
+				var s = 1,
+				    i;
+				if (a[n]) return a[n];
+				for (i = n; i > 1; i--) s *= i;
+				return a[n] = s;
+			};
+		}(),
+
+		CatmullRom: function (p0, p1, p2, p3, t) {
+
+			var v0 = (p2 - p0) * 0.5,
+			    v1 = (p3 - p1) * 0.5,
+			    t2 = t * t,
+			    t3 = t * t2;
+			return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+		}
+
+	}
+
+};

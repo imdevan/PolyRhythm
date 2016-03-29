@@ -1,1 +1,574 @@
-function map(t,n,e,i,r){return i+(r-i)*((t-n)/(e-n))}function convertHex(t,n){return t=t.replace("#",""),r=parseInt(t.substring(0,2),16),g=parseInt(t.substring(2,4),16),b=parseInt(t.substring(4,6),16),result="rgba("+r+","+g+","+b+","+n/100+")",result}function lerp(t,n,e){return(n-t)*e+t}var type=/(canvas|webgl)/.test(url.type)?url.type:"svg",two=new Two({type:Two.Types[type],fullscreen:!0}).appendTo(document.querySelector("#two")),Easing=TWEEN.Easing,width=$(window).width(),height=$(window).height(),center={x:width/2,y:height/2},min_dimension=width>height?height:width,TWO_PI=2*Math.PI,duration=1e3,shortDuration=.3*duration,mediumDuration=.75*duration,rand=function(t,n){return Math.floor(Math.random()*(n-t))+t},colors={morning:["#FFE481","#FB8C8E","#C695FA"],afternoon:["#A6F4FE","#E9547D","#DFD4B8"],night:["#DE1157","#F2A600","#1F285E"]},currentPallette=colors.afternoon;document.querySelector("body").style.backgroundImage="linear-gradient(45deg, "+currentPallette[0]+", "+currentPallette[1]+", "+currentPallette[2]+")";var midCornerPositions=[{x:width-width/3,y:height/3/2},{x:width-width/3,y:height-height/3/2},{x:width/3,y:height/3/2},{x:width/3,y:height-height/3/2},{x:width-width/3/2,y:height/3},{x:width-width/3/2,y:height-height/3},{x:width/3/2,y:height/3},{x:width/3/2,y:height-height/3}],backGround=two.makeGroup(),veil=function(){function t(){o.visible=!1,o.fill=currentPallette[rand(0,currentPallette.length)],e=!1,i=Math.random()>.5,i?(o.translation.set(center.x,-center.y),u.y=1.5*height):(o.translation.set(center.x,1.5*height),u.y=-center.y),c.y=center.y,h.stop(),d.stop()}var n=_.identity,e=!1,i=!0,r=[new Two.Anchor(-center.x,-center.y),new Two.Anchor(center.x,-center.y),new Two.Anchor(center.x,center.y),new Two.Anchor(-center.x,center.y)],o=two.makePath(r);o.fill=currentPallette[rand(0,currentPallette.length)],o.noStroke();var a=function(t,i){e=!0,o.visible=!0,h.start(),!i&&g.sound&&g.sound.stop().play(),_.isFunction(t)&&(n=t)};a.onComplete=t;var l=function(){o.fill="#EEE"},s=function(){r[0].set(-center.x,-center.y),r[1].set(center.x,-center.y),r[2].set(center.x,center.y),r[3].set(-center.x,center.y)},c={y:center.y},u={y:0},h=new TWEEN.Tween(o.translation).to(c,.5*duration).easing(Easing.Exponential.Out).onComplete(function(){d.start()}),d=new TWEEN.Tween(o.translation).to(u,.5*duration).easing(Easing.Exponential.In).onComplete(function(){a.onComplete(),n()});t();var g={start:a,update:l,resize:s,clear:t,playing:function(){return e},hash:"1,1",filename:"veil"};return g}(),highRise=function(){function t(){var t={x:width/(rand(0,e)+1),y:height+height/2};r.translation.set(t.x,t.y),r.visible=!1,r.fill=currentPallette[0],i=!1,a.stop(),l.stop()}var n=_.identity,e=5,i=!1,r=two.makeRectangle(0,0,width/e*1.5,height);r.fill=currentPallette[0],r.noStroke(),r.visible=!0;var o=function(t,e){i=!0,r.visible=!0,a.start(),_.isFunction(t)&&(n=t)};o.onComplete=t;var a=new TWEEN.Tween(r.translation).to({y:center.y},shortDuration).easing(Easing.Cubic.Out).onComplete(function(){l.start()});console.log(Easing);var l=new TWEEN.Tween(r.translation).to({y:height+height/2},shortDuration).easing(Easing.Cubic.Out).onComplete(function(){o.onComplete(),n()});t();var s={start:o,clear:t,playing:function(){return i}};return s}(),flash=function(){var t,n=!1,e=_.identity,i=two.makeRectangle(center.x,center.y,width,height);i.noStroke().fill=currentPallette[0],i.visible=!1;var r=function(r,o){_.isUndefined(t)||(clearTimeout(t),t=void 0),n=!0,!o&&l.sound&&l.sound.stop().play(),t=setTimeout(function(){n=!1,e(),i.visible=!1},.25*duration),_.isFunction(r)&&(e=r)},o=function(){i.fill=currentPallette[0]},a=function(){var t=i.vertices;t[0].set(-center.x,-center.y),t[1].set(center.x,-center.y),t[2].set(center.x,center.y),t[3].set(-center.x,center.y),i.translation.copy(center)};two.bind("update",function(){n&&(i.visible=Math.random()>.5)});var l={start:r,update:o,clear:_.identity,resize:a,playing:function(){return n}};return l}(),starExplode=function(){function t(){i.rotation=Math.PI*Math.random()*10,i.visible=!0,e=!1,a.stop(),l.stop()}var n=_.identity,e=!1,i=two.makeStar(center.x,center.y,200,400,5),r=randomColor({luminosity:"light"});i.fill=convertHex(r,100),i.stroke=convertHex(r,100),i.linewidth=10,i.visible=!0,i.scale=0;var o=function(t,r){var o=randomColor({luminosity:"light"});i.fill=convertHex(o,100),i.stroke=convertHex(o,100),e=!0,i.visible=!0,a.start(),_.isFunction(t)&&(n=t)};o.onComplete=t;var a=new TWEEN.Tween(i).to({scale:1},.2*duration).easing(Easing.Exponential.Out).onComplete(function(){l.start()}),l=new TWEEN.Tween(i).to({scale:0},.2*duration).easing(Easing.Exponential.In).onComplete(function(){o.onComplete(),n()});t();var s={start:o,clear:t,playing:function(){return e}};return s}(),middleGround=two.makeGroup(),suspension=function(){function t(){for(n=Math.random()*TWO_PI,e=map(Math.random(),0,1,Math.PI/4,Math.PI/2),E.ending=0,g=0;o>g;g++)w=h[g],y=n+Math.random()*e*2-e,a=Math.random()*c,m=a*Math.cos(y),v=a*Math.sin(y),u[g].set(m,v),w.visible=!1,w.fill=randomColor(),w.translation.set(0,0);i=!1,x.stop()}var n,e,i=!1,r=_.identity,o=16,l=40*min_dimension/900,s=60*min_dimension/900,c=height,u=[],h=_.map(_.range(o),function(t){var n=Math.round(map(Math.random(),0,1,l,s)),e=two.makeCircle(0,0,n);return e.fill=colors.white,e.noStroke(),u.push(new Two.Vector),e}),d=two.makeGroup(h);d.translation.set(center.x,center.y);var g,w,p=function(t,n){for(g=0;o>g;g++)h[g].visible=!0;x.start(),!n&&C.sound&&C.sound.stop().play(),_.isFunction(t)&&(r=t)};p.onComplete=t;var y,f,m,v,E={ending:0},x=new TWEEN.Tween(E).to({ending:1},.5*duration).easing(Easing.Sinusoidal.Out).onStart(function(){i=!0}).onUpdate(function(){for(y=E.ending,g=0;o>g;g++)w=h[g],f=u[g],m=lerp(w.translation.x,f.x,y),v=lerp(w.translation.y,f.y,y),w.translation.set(m,v)}).onComplete(function(){p.onComplete(),r()});t();var C={start:p,clear:t,playing:function(){return i}};return C}(),foreGround=two.makeGroup(),circlePop=function(){function t(){var t=midCornerPositions[rand(0,midCornerPositions.length)];i.translation.set(t.x,t.y),i.visible=!1,i.fill=currentPallette[rand(0,currentPallette.length)],e=!1,o.stop(),a.stop()}var n=_.identity,e=!1,i=two.makeCircle(center.x,center.y,200,200);i.fill="#FFF",i.noStroke(),i.visible=!0;var r=function(t,r){e=!0,i.visible=!0,o.start(),_.isFunction(t)&&(n=t)};r.onComplete=t;var o=new TWEEN.Tween(i).to({scale:1},shortDuration).easing(Easing.Exponential.Out).onComplete(function(){a.start()}),a=new TWEEN.Tween(i).to({scale:0},shortDuration).easing(Easing.Exponential.Out).onComplete(function(){r.onComplete(),n()});t();var l={start:r,clear:t,playing:function(){return e}};return l}(),horizontalLines=function(){function t(){n=!1,a=Math.random(),i.linewidth=Math.round(5*a)+7,r.linewidth=Math.round(5*a)+7,i.translation.set(-width+width/2,i.translation.y),r.translation.set(width+width/2,r.translation.y),i.ending=i.beginning=0,i.ending=1,i.visible=!0,r.visible=!0,l.stop(),c.stop()}var n=!1,e=_.identity,i=two.makeLine(-width,center.y-.25*center.y,0,center.y-.25*center.y),r=two.makeLine(width,center.y+.25*center.y,2*width,center.y+.25*center.y);i.noFill().stroke="#333",i.visible=!0,r.noFill().stroke="#333",r.visible=!0;var o=function(t,r){i.visible=!0,n=!0,l.start(),s.start(),_.isFunction(t)&&(e=t)};o.onComplete=t;var a,l=new TWEEN.Tween(i.translation).to({x:2*width+width/2},.7*duration).easing(Easing.Circular.In).onComplete(function(){o.onComplete(),e()}),s=new TWEEN.Tween(r.translation).to({x:-2*width+width/2},.7*duration).easing(Easing.Circular.In).onComplete(function(){o.onComplete(),e()}),c=new TWEEN.Tween(i).to({beginning:1},.25*duration).easing(Easing.Circular.Out).onComplete(function(){o.onComplete(),e()}),u={start:o,clear:t,playing:function(){return n}};return t(),u}();
+// Environment Set Up
+var type = /(canvas|webgl)/.test(url.type) ? url.type : 'svg',
+    two = new Two({
+    type: Two.Types[type],
+    fullscreen: true
+}).appendTo(document.querySelector('#two')),
+    Easing = TWEEN.Easing;
+
+// Animation Related Variables and helpers
+var width = $(window).width(),
+    height = $(window).height();
+var center = { x: width / 2, y: height / 2 };
+var min_dimension = width > height ? height : width;
+var TWO_PI = Math.PI * 2;
+var duration = 1000;
+var shortDuration = duration * 0.3;
+var mediumDuration = duration * 0.75;
+var rand = function (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+
+function map(v, i1, i2, o1, o2) {
+    return o1 + (o2 - o1) * ((v - i1) / (i2 - i1));
+}
+
+var colors = {
+    // inspo: https://dribbble.com/shots/2590101-BeBright-App
+    morning: ["#FFE481", "#FB8C8E", "#C695FA"],
+    // inspo: varying
+    afternoon: ["#A6F4FE", "#E9547D", "#DFD4B8"],
+    // inspo: https://dribbble.com/shots/2590588-Login-Startup-Screen
+    night: ["#DE1157", "#F2A600", "#1F285E"]
+};
+
+function convertHex(hex, opacity) {
+    hex = hex.replace('#', '');
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+
+    result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
+    return result;
+}
+
+var currentPallette = colors.afternoon;
+
+document.querySelector('body').style.backgroundImage = 'linear-gradient(45deg' + ', ' + currentPallette[0] + ', ' + currentPallette[1] + ', ' + currentPallette[2] + ')';
+
+var midCornerPositions = [{
+    x: width - width / 3,
+    y: height / 3 / 2
+}, {
+    x: width - width / 3,
+    y: height - height / 3 / 2
+}, {
+    x: width / 3,
+    y: height / 3 / 2
+}, {
+    x: width / 3,
+    y: height - height / 3 / 2
+}, {
+    x: width - width / 3 / 2,
+    y: height / 3
+}, {
+    x: width - width / 3 / 2,
+    y: height - height / 3
+}, {
+    x: width / 3 / 2,
+    y: height / 3
+}, {
+    x: width / 3 / 2,
+    y: height - height / 3
+}];
+
+function lerp(a, b, t) {
+    return (b - a) * t + a;
+}
+
+// ======================================
+// BACK GROUND
+// ======================================
+var backGround = two.makeGroup();
+
+var veil = function () {
+
+    var callback = _.identity;
+    var playing = false;
+
+    var direction = true;
+    var points = [new Two.Anchor(-center.x, -center.y), new Two.Anchor(center.x, -center.y), new Two.Anchor(center.x, center.y), new Two.Anchor(-center.x, center.y)];
+    var shape = two.makePath(points);
+    shape.fill = currentPallette[rand(0, currentPallette.length)];
+    shape.noStroke();
+
+    var start = function (onComplete, silent) {
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+        if (!silent && exports.sound) {
+            exports.sound.stop().play();
+        }
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    start.onComplete = reset;
+
+    var update = function () {
+        shape.fill = "#EEE";
+    };
+    var resize = function () {
+        points[0].set(-center.x, -center.y);
+        points[1].set(center.x, -center.y);
+        points[2].set(center.x, center.y);
+        points[3].set(-center.x, center.y);
+    };
+
+    var dest_in = { y: center.y },
+        dest_out = { y: 0 };
+
+    var animate_in = new TWEEN.Tween(shape.translation).to(dest_in, duration * 0.5).easing(Easing.Exponential.Out).onComplete(function () {
+        animate_out.start();
+    });
+
+    var animate_out = new TWEEN.Tween(shape.translation).to(dest_out, duration * 0.5).easing(Easing.Exponential.In).onComplete(function () {
+        start.onComplete();
+        callback();
+    });
+
+    reset();
+
+    function reset() {
+        shape.visible = false;
+        shape.fill = currentPallette[rand(0, currentPallette.length)];
+        playing = false;
+        direction = Math.random() > 0.5;
+        if (direction) {
+            shape.translation.set(center.x, -center.y);
+            dest_out.y = height * 1.5;
+        } else {
+            shape.translation.set(center.x, height * 1.5);
+            dest_out.y = -center.y;
+        }
+        dest_in.y = center.y;
+        animate_in.stop();
+        animate_out.stop();
+    }
+
+    var exports = {
+        start: start,
+        update: update,
+        resize: resize,
+        clear: reset,
+        playing: function () {
+            return playing;
+        },
+        hash: '1,1',
+        filename: 'veil'
+    };
+
+    return exports;
+}();
+
+var highRise = function () {
+    var callback = _.identity,
+        colCount = 5,
+        playing = false,
+        shape = two.makeRectangle(0, 0, width / colCount * 1.5, height);
+    shape.fill = currentPallette[0];
+    shape.noStroke();
+    shape.visible = true;
+
+    var start = function (onComplete, silent) {
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(shape.translation).to({ y: center.y }, shortDuration).easing(Easing.Cubic.Out).onComplete(function () {
+        animate_out.start();
+    });
+    console.log(Easing);
+    var animate_out = new TWEEN.Tween(shape.translation).to({ y: height + height / 2 }, shortDuration).easing(Easing.Cubic.Out).onComplete(function () {
+        start.onComplete();
+        callback();
+    });
+
+    reset();
+
+    function reset() {
+        var newPos = { x: width / (rand(0, colCount) + 1), y: height + height / 2 };
+        shape.translation.set(newPos.x, newPos.y);
+        shape.visible = false;
+        shape.fill = currentPallette[0];
+        playing = false;
+        animate_in.stop();
+        animate_out.stop();
+    }
+
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function () {
+            return playing;
+        }
+    };
+
+    return exports;
+}();
+
+var flash = function () {
+
+    var playing = false;
+    var callback = _.identity;
+
+    var shape = two.makeRectangle(center.x, center.y, width, height);
+    var timeout;
+    shape.noStroke().fill = currentPallette[0];
+    shape.visible = false;
+
+    var start = function (onComplete, silent) {
+        if (!_.isUndefined(timeout)) {
+            clearTimeout(timeout);
+            timeout = undefined;
+        }
+        playing = true;
+        if (!silent && exports.sound) {
+            exports.sound.stop().play();
+        }
+        timeout = setTimeout(function () {
+            playing = false;
+            callback();
+            shape.visible = false;
+        }, duration * 0.25);
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    var update = function () {
+        shape.fill = currentPallette[0];
+    };
+
+    var resize = function () {
+        var vertices = shape.vertices;
+        vertices[0].set(-center.x, -center.y);
+        vertices[1].set(center.x, -center.y);
+        vertices[2].set(center.x, center.y);
+        vertices[3].set(-center.x, center.y);
+        shape.translation.copy(center);
+    };
+
+    two.bind('update', function () {
+        if (!playing) {
+            return;
+        }
+        shape.visible = Math.random() > 0.5;
+    });
+
+    var exports = {
+        start: start,
+        update: update,
+        clear: _.identity,
+        resize: resize,
+        playing: function () {
+            return playing;
+        }
+    };
+    return exports;
+}();
+
+var starExplode = function () {
+    var callback = _.identity;
+    var playing = false;
+
+    var shape = two.makeStar(center.x, center.y, 200, 400, 5);
+    var randColor = randomColor({ luminosity: 'light' });
+    shape.fill = convertHex(randColor, 100);
+    shape.stroke = convertHex(randColor, 100);
+    shape.linewidth = 10;
+    shape.visible = true;
+    shape.scale = 0;
+
+    var start = function (onComplete, silent) {
+        var randColor = randomColor({ luminosity: 'light' });
+        shape.fill = convertHex(randColor, 100);
+        shape.stroke = convertHex(randColor, 100);
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(shape).to({ scale: 1 }, duration * .2).easing(Easing.Exponential.Out).onComplete(function () {
+        animate_out.start();
+    });
+    var animate_out = new TWEEN.Tween(shape).to({ scale: 0 }, duration * .2).easing(Easing.Exponential.In).onComplete(function () {
+        start.onComplete();
+        callback();
+    });
+    reset();
+    function reset() {
+        shape.rotation = Math.PI * Math.random() * 10;
+        shape.visible = true;
+        playing = false;
+        animate_in.stop();
+        animate_out.stop();
+    }
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function () {
+            return playing;
+        }
+    };
+    return exports;
+}();
+
+// ======================================
+// MIDDLE GROUND
+// ======================================
+var middleGround = two.makeGroup();
+
+var suspension = function () {
+
+    var playing = false,
+        callback = _.identity,
+        amount = 16,
+        r1 = min_dimension * 40 / 900,
+        r2 = min_dimension * 60 / 900,
+        theta,
+        deviation,
+        distance = height,
+        destinations = [],
+        circles = _.map(_.range(amount), function (i) {
+        var r = Math.round(map(Math.random(), 0, 1, r1, r2));
+        var circle = two.makeCircle(0, 0, r);
+        circle.fill = colors.white;
+        circle.noStroke();
+        destinations.push(new Two.Vector());
+        return circle;
+    });
+
+    var group = two.makeGroup(circles);
+    group.translation.set(center.x, center.y);
+
+    var i, c;
+    var start = function (onComplete, silent) {
+        for (i = 0; i < amount; i++) {
+            circles[i].visible = true;
+        }
+        _in.start();
+        if (!silent && exports.sound) {
+            exports.sound.stop().play();
+        }
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    start.onComplete = reset;
+
+    var options = { ending: 0 },
+        t,
+        d,
+        x,
+        y;
+
+    var _in = new TWEEN.Tween(options).to({ ending: 1 }, duration * 0.5).easing(Easing.Sinusoidal.Out).onStart(function () {
+        playing = true;
+    }).onUpdate(function () {
+        t = options.ending;
+        for (i = 0; i < amount; i++) {
+            c = circles[i];
+            d = destinations[i];
+            x = lerp(c.translation.x, d.x, t);
+            y = lerp(c.translation.y, d.y, t);
+            c.translation.set(x, y);
+        }
+    }).onComplete(function () {
+        start.onComplete();
+        callback();
+    });
+
+    function reset() {
+        theta = Math.random() * TWO_PI;
+        deviation = map(Math.random(), 0, 1, Math.PI / 4, Math.PI / 2);
+        options.ending = 0;
+
+        for (i = 0; i < amount; i++) {
+            c = circles[i];
+            t = theta + Math.random() * deviation * 2 - deviation;
+            a = Math.random() * distance;
+            x = a * Math.cos(t);
+            y = a * Math.sin(t);
+            destinations[i].set(x, y);
+            c.visible = false;
+            c.fill = randomColor();
+            c.translation.set(0, 0);
+        }
+
+        playing = false;
+        _in.stop();
+    }
+
+    reset();
+
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function () {
+            return playing;
+        }
+    };
+
+    return exports;
+}();
+
+// ======================================
+// FORE GROUND
+// ======================================
+var foreGround = two.makeGroup();
+
+var circlePop = function () {
+    var callback = _.identity,
+        playing = false,
+        shape = two.makeCircle(center.x, center.y, 200, 200);
+    shape.fill = "#FFF";
+    shape.noStroke();
+    shape.visible = true;
+
+    var start = function (onComplete, silent) {
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(shape).to({ scale: 1 }, shortDuration).easing(Easing.Exponential.Out).onComplete(function () {
+        animate_out.start();
+    });
+
+    var animate_out = new TWEEN.Tween(shape).to({ scale: 0 }, shortDuration).easing(Easing.Exponential.Out).onComplete(function () {
+        start.onComplete();
+        callback();
+    });
+
+    reset();
+
+    function reset() {
+        var newPos = midCornerPositions[rand(0, midCornerPositions.length)];
+        shape.translation.set(newPos.x, newPos.y);
+        shape.visible = false;
+        shape.fill = currentPallette[rand(0, currentPallette.length)];
+        playing = false;
+        animate_in.stop();
+        animate_out.stop();
+    }
+
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function () {
+            return playing;
+        }
+    };
+    return exports;
+}();
+
+var horizontalLines = function () {
+
+    var playing = false;
+    var callback = _.identity;
+
+    var distance = min_dimension * 0.5;
+
+    var line = two.makeLine(-width, center.y - center.y * .25, 0, center.y - center.y * .25);
+    var line2 = two.makeLine(width, center.y + center.y * .25, 2 * width, center.y + center.y * .25);
+
+    line.noFill().stroke = "#333";
+    line.visible = true;
+
+    line2.noFill().stroke = "#333";
+    line2.visible = true;
+
+    var start = function (onComplete, silent) {
+        line.visible = true;
+        playing = true;
+        animate_in.start();
+        animate_in2.start();
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    };
+
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(line.translation).to({
+        x: 2 * width + width / 2
+    }, duration * 0.7).easing(Easing.Circular.In).onComplete(function () {
+        //animate_out.start();
+        start.onComplete();
+        callback();
+    });
+
+    var animate_in2 = new TWEEN.Tween(line2.translation).to({
+        x: -2 * width + width / 2
+    }, duration * 0.7).easing(Easing.Circular.In).onComplete(function () {
+        //animate_out.start();
+        start.onComplete();
+        callback();
+    });
+
+    var animate_out = new TWEEN.Tween(line).to({
+        beginning: 1.0
+    }, duration * 0.25).easing(Easing.Circular.Out).onComplete(function () {
+        start.onComplete();
+        callback();
+    });
+
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function () {
+            return playing;
+        }
+    };
+
+    var a = {
+        x: 0, y: 0
+    };
+    var b = {
+        x: 0, y: 0
+    };
+
+    var rando, theta, pct, i, p;
+    function reset() {
+
+        playing = false;
+        rando = Math.random();
+
+        line.linewidth = Math.round(rando * 5) + 7;
+        line2.linewidth = Math.round(rando * 5) + 7;
+        line.translation.set(-width + width / 2, line.translation.y);
+        line2.translation.set(width + width / 2, line2.translation.y);
+
+        line.ending = line.beginning = 0;
+        line.ending = 1;
+        line.visible = true;
+        line2.visible = true;
+
+        animate_in.stop();
+        animate_out.stop();
+    }
+
+    reset();
+
+    return exports;
+}();
