@@ -1,1 +1,32 @@
-!function(n){var r={},t=n.indexOf("#");n.substring(n.indexOf("?")).replace(/([^?=&]+)(=([^&]+))?/g,function(n,t,e,a){r[t]=a}),r["boolean"]=function(n,t){return r.hasOwnProperty(n)?"false"!==r[n]:t},r["float"]=function(n,t){var e=parseFloat(r[n]);return e!=e?t:e},r["int"]=function(n,t){var e=parseInt(r[n],10);return e!=e?t:e},r.hash=-1==t?void 0:n.substring(t+1),r.setUrl=arguments.callee,window.url=r}(location.href);
+(function (url) {
+
+  var result = {},
+      hashLoc = url.indexOf('#');
+
+  url.substring(url.indexOf('?')).replace(/([^?=&]+)(=([^&]+))?/g, function ($0, $1, $2, $3) {
+    result[$1] = $3;
+  });
+
+  result['boolean'] = function (name, defaultValue) {
+    if (!result.hasOwnProperty(name)) return defaultValue;
+    return result[name] !== 'false';
+  };
+
+  result['float'] = function (name, defaultValue) {
+    var r = parseFloat(result[name]);
+    if (r != r) return defaultValue;
+    return r;
+  };
+
+  result['int'] = function (name, defaultValue) {
+    var r = parseInt(result[name], 10);
+    if (r != r) return defaultValue;
+    return r;
+  };
+
+  result['hash'] = hashLoc == -1 ? undefined : url.substring(hashLoc + 1);
+
+  result['setUrl'] = arguments.callee;
+
+  window['url'] = result;
+})(location.href);

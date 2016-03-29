@@ -1,1 +1,54 @@
-!function(){var i=this,e=i.has||{},a=i.navigator.userAgent,r={Android:!!a.match(/Android/gi),Blackberry:!!a.match(/BlackBerry/gi),iOS:!!a.match(/iPhone|iPad|iPod/gi),OperaMini:!!a.match(/Opera Mini/gi),Windows:!!a.match(/IEMobile/gi),WebOS:!!a.match(/webOS/gi),Arora:!!a.match(/Arora/gi),Chrome:!!a.match(/Chrome/gi),Epiphany:!!a.match(/Epiphany/gi),Firefox:!!a.match(/Firefox/gi),InternetExplorer:!!a.match(/MSIE/gi),Midori:!!a.match(/Midori/gi),Opera:!!a.match(/Opera/gi),Safari:!!a.match(/Safari/gi),webgl:function(){try{return!(!window.WebGLRenderingContext||!document.createElement("canvas").getContext("webgl")&&!document.createElement("canvas").getContext("experimental-webgl"))}catch(i){return!1}}(),noConflict:function(){return e}};r.mobile=r.Android||r.Blackberry||r.iOS||r.OperaMini||r.Windows||r.WebOS,i.has=r}();
+/**
+ * @author jonobr1 / http://jonobr1.com
+ * 
+ */
+
+(function () {
+
+  var root = this;
+  var previousHas = root.has || {};
+
+  // Let's do a bunch of navigator detections shall we?
+
+  var ua = root.navigator.userAgent;
+
+  var has = {
+
+    // Mobile Detection
+
+    Android: !!ua.match(/Android/ig),
+    Blackberry: !!ua.match(/BlackBerry/ig),
+    iOS: !!ua.match(/iPhone|iPad|iPod/ig),
+    OperaMini: !!ua.match(/Opera Mini/ig),
+    Windows: !!ua.match(/IEMobile/ig),
+    WebOS: !!ua.match(/webOS/ig),
+
+    // Browser Detection
+
+    Arora: !!ua.match(/Arora/ig),
+    Chrome: !!ua.match(/Chrome/ig),
+    Epiphany: !!ua.match(/Epiphany/ig),
+    Firefox: !!ua.match(/Firefox/ig),
+    InternetExplorer: !!ua.match(/MSIE/ig),
+    Midori: !!ua.match(/Midori/ig),
+    Opera: !!ua.match(/Opera/ig),
+    Safari: !!ua.match(/Safari/ig),
+
+    webgl: function () {
+      try {
+        return !!window.WebGLRenderingContext && !!(document.createElement('canvas').getContext('webgl') || document.createElement('canvas').getContext('experimental-webgl'));
+      } catch (e) {
+        return false;
+      }
+    }(),
+
+    noConflict: function () {
+      return previousHas;
+    }
+
+  };
+
+  has.mobile = has.Android || has.Blackberry || has.iOS || has.OperaMini || has.Windows || has.WebOS;
+
+  root.has = has;
+})();

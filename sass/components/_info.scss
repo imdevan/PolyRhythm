@@ -5,36 +5,35 @@ $bp-lg: 900px;
     &--popup {
         position: fixed;
         top: 0;
-        bottom: 0;
         right: 0;
+        bottom: 0;
         left: 0;
         display: flex;
-        justify-content: center;
         align-items: top;
+        justify-content: center;
         cursor: none;
-
-        &.show {
-            cursor: default;;
-        }
 
         @media(min-width: $bp-lg) {
             align-items: center;
         }
-    }
 
+        &.show {
+            cursor: default;;
+        }
+    }
     &--window {
-        transition: transform 0.3s  cubic-bezier(0,1,1,1);
         display: flex;
         flex-flow: column;
-        transform: scale(0);
+        padding: 1rem;
+        max-width: 400px;
+        max-height: 300px;
+        width: 80%;
+        height: 80%;
         background: $bg;
         box-shadow: 0px 0px 20px rgba(#000, 0.1), 0px 0px 70px rgba(#333, 0.2);
-        width: 80%;
-        max-width: 400px;
-        padding: 1rem;
-        height: 80%;
-        max-height: 300px;
         cursor: default;
+        transition: transform 0.3s  cubic-bezier(0,1,1,1);
+        transform: scale(0);
 
         &.show {
             transform: scale(1);
