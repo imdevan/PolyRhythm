@@ -1,36 +1,6 @@
 extends ./layouts/default.jade
-include ./includes/clip-box.jade
+include ./includes/set.jade
 block content
-    .performance
-        #two
-    .info--popup
-        .info--window
-            .row
-                .col12
-                    h2(style="{text-align:center}") PolyRhythm
-                    p Press the following keys for a good time
-            .row
-                + clip-box({type:"info", triggers:["qwer", "asdf"]}, "info")
-            .row
-                p
-                    a(href="/about") Checkout our about page
-        
-      script(src="/socket.io/socket.io.js")
-      script(async="" src="//www.google-analytics.com/analytics.js")
-      script(src="js/third-party/has.js")
-      script(src="js/third-party/url.js")
-      script(src="js/third-party/jquery.js")
-      script(src="js/third-party/tween.js")
-      script(src="js/third-party/two.js")
-      script(src="js/third-party/randomcolor.js")
-      script(src="js/third-party/sound.js")
-      script(src="js/socket-init.js")
-      script(src="js/sounds.js")
-      script(src="js/sound-controller.js")
-      script(src="js/animations-og.js")
-      script(src="js/animations.js")
-      script(src="js/animation-controller.js")
-      script(src="js/midi-input.js")
-      script(src="js/key-input.js")
-      script(src="js/mouse-info.js")
-      script(src="js/socket-input.js")
+    h1 Hi there!
+    
+    + set(["I'm in a div", "me too!"])
