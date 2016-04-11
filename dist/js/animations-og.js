@@ -1,3 +1,5 @@
+'use strict';
+
 // Environment Set Up
 var type = /(canvas|webgl)/.test(url.type) ? url.type : 'svg',
     two = new Two({
@@ -15,7 +17,7 @@ var TWO_PI = Math.PI * 2;
 var duration = 1000;
 var shortDuration = duration * 0.3;
 var mediumDuration = duration * 0.75;
-var rand = function (min, max) {
+var rand = function rand(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
@@ -84,7 +86,7 @@ var backGround = two.makeGroup();
 var veil = function () {
 
     var callback = _.identity;
-    var playing = false;
+    var _playing = false;
 
     var direction = true;
     var points = [new Two.Anchor(-center.x, -center.y), new Two.Anchor(center.x, -center.y), new Two.Anchor(center.x, center.y), new Two.Anchor(-center.x, center.y)];
@@ -92,8 +94,8 @@ var veil = function () {
     shape.fill = currentPallette[rand(0, currentPallette.length)];
     shape.noStroke();
 
-    var start = function (onComplete, silent) {
-        playing = true;
+    var start = function start(onComplete, silent) {
+        _playing = true;
         shape.visible = true;
         animate_in.start();
         if (!silent && exports.sound) {
@@ -106,10 +108,10 @@ var veil = function () {
 
     start.onComplete = reset;
 
-    var update = function () {
+    var update = function update() {
         shape.fill = "#EEE";
     };
-    var resize = function () {
+    var resize = function resize() {
         points[0].set(-center.x, -center.y);
         points[1].set(center.x, -center.y);
         points[2].set(center.x, center.y);
@@ -133,7 +135,7 @@ var veil = function () {
     function reset() {
         shape.visible = false;
         shape.fill = currentPallette[rand(0, currentPallette.length)];
-        playing = false;
+        _playing = false;
         direction = Math.random() > 0.5;
         if (direction) {
             shape.translation.set(center.x, -center.y);
@@ -152,8 +154,8 @@ var veil = function () {
         update: update,
         resize: resize,
         clear: reset,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing;
         },
         hash: '1,1',
         filename: 'veil'
@@ -165,14 +167,14 @@ var veil = function () {
 var highRise = function () {
     var callback = _.identity,
         colCount = 5,
-        playing = false,
+        _playing2 = false,
         shape = two.makeRectangle(0, 0, width / colCount * 1.5, height);
     shape.fill = currentPallette[0];
     shape.noStroke();
     shape.visible = true;
 
-    var start = function (onComplete, silent) {
-        playing = true;
+    var start = function start(onComplete, silent) {
+        _playing2 = true;
         shape.visible = true;
         animate_in.start();
 
@@ -199,7 +201,7 @@ var highRise = function () {
         shape.translation.set(newPos.x, newPos.y);
         shape.visible = false;
         shape.fill = currentPallette[0];
-        playing = false;
+        _playing2 = false;
         animate_in.stop();
         animate_out.stop();
     }
@@ -207,8 +209,8 @@ var highRise = function () {
     var exports = {
         start: start,
         clear: reset,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing2;
         }
     };
 
@@ -217,7 +219,7 @@ var highRise = function () {
 
 var flash = function () {
 
-    var playing = false;
+    var _playing3 = false;
     var callback = _.identity;
 
     var shape = two.makeRectangle(center.x, center.y, width, height);
@@ -225,17 +227,17 @@ var flash = function () {
     shape.noStroke().fill = currentPallette[0];
     shape.visible = false;
 
-    var start = function (onComplete, silent) {
+    var start = function start(onComplete, silent) {
         if (!_.isUndefined(timeout)) {
             clearTimeout(timeout);
             timeout = undefined;
         }
-        playing = true;
+        _playing3 = true;
         if (!silent && exports.sound) {
             exports.sound.stop().play();
         }
         timeout = setTimeout(function () {
-            playing = false;
+            _playing3 = false;
             callback();
             shape.visible = false;
         }, duration * 0.25);
@@ -244,11 +246,11 @@ var flash = function () {
         }
     };
 
-    var update = function () {
+    var update = function update() {
         shape.fill = currentPallette[0];
     };
 
-    var resize = function () {
+    var resize = function resize() {
         var vertices = shape.vertices;
         vertices[0].set(-center.x, -center.y);
         vertices[1].set(center.x, -center.y);
@@ -258,7 +260,7 @@ var flash = function () {
     };
 
     two.bind('update', function () {
-        if (!playing) {
+        if (!_playing3) {
             return;
         }
         shape.visible = Math.random() > 0.5;
@@ -269,8 +271,8 @@ var flash = function () {
         update: update,
         clear: _.identity,
         resize: resize,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing3;
         }
     };
     return exports;
@@ -278,7 +280,7 @@ var flash = function () {
 
 var starExplode = function () {
     var callback = _.identity;
-    var playing = false;
+    var _playing4 = false;
 
     var shape = two.makeStar(center.x, center.y, 200, 400, 5);
     var randColor = randomColor({ luminosity: 'light' });
@@ -288,11 +290,11 @@ var starExplode = function () {
     shape.visible = true;
     shape.scale = 0;
 
-    var start = function (onComplete, silent) {
+    var start = function start(onComplete, silent) {
         var randColor = randomColor({ luminosity: 'light' });
         shape.fill = convertHex(randColor, 100);
         shape.stroke = convertHex(randColor, 100);
-        playing = true;
+        _playing4 = true;
         shape.visible = true;
         animate_in.start();
         if (_.isFunction(onComplete)) {
@@ -312,15 +314,15 @@ var starExplode = function () {
     function reset() {
         shape.rotation = Math.PI * Math.random() * 10;
         shape.visible = true;
-        playing = false;
+        _playing4 = false;
         animate_in.stop();
         animate_out.stop();
     }
     var exports = {
         start: start,
         clear: reset,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing4;
         }
     };
     return exports;
@@ -333,7 +335,7 @@ var middleGround = two.makeGroup();
 
 var suspension = function () {
 
-    var playing = false,
+    var _playing5 = false,
         callback = _.identity,
         amount = 16,
         r1 = min_dimension * 40 / 900,
@@ -355,7 +357,7 @@ var suspension = function () {
     group.translation.set(center.x, center.y);
 
     var i, c;
-    var start = function (onComplete, silent) {
+    var start = function start(onComplete, silent) {
         for (i = 0; i < amount; i++) {
             circles[i].visible = true;
         }
@@ -377,7 +379,7 @@ var suspension = function () {
         y;
 
     var _in = new TWEEN.Tween(options).to({ ending: 1 }, duration * 0.5).easing(Easing.Sinusoidal.Out).onStart(function () {
-        playing = true;
+        _playing5 = true;
     }).onUpdate(function () {
         t = options.ending;
         for (i = 0; i < amount; i++) {
@@ -409,7 +411,7 @@ var suspension = function () {
             c.translation.set(0, 0);
         }
 
-        playing = false;
+        _playing5 = false;
         _in.stop();
     }
 
@@ -418,8 +420,8 @@ var suspension = function () {
     var exports = {
         start: start,
         clear: reset,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing5;
         }
     };
 
@@ -433,14 +435,14 @@ var foreGround = two.makeGroup();
 
 var circlePop = function () {
     var callback = _.identity,
-        playing = false,
+        _playing6 = false,
         shape = two.makeCircle(center.x, center.y, 200, 200);
     shape.fill = "#FFF";
     shape.noStroke();
     shape.visible = true;
 
-    var start = function (onComplete, silent) {
-        playing = true;
+    var start = function start(onComplete, silent) {
+        _playing6 = true;
         shape.visible = true;
         animate_in.start();
 
@@ -467,7 +469,7 @@ var circlePop = function () {
         shape.translation.set(newPos.x, newPos.y);
         shape.visible = false;
         shape.fill = currentPallette[rand(0, currentPallette.length)];
-        playing = false;
+        _playing6 = false;
         animate_in.stop();
         animate_out.stop();
     }
@@ -475,8 +477,8 @@ var circlePop = function () {
     var exports = {
         start: start,
         clear: reset,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing6;
         }
     };
     return exports;
@@ -484,7 +486,7 @@ var circlePop = function () {
 
 var horizontalLines = function () {
 
-    var playing = false;
+    var _playing7 = false;
     var callback = _.identity;
 
     var distance = min_dimension * 0.5;
@@ -498,9 +500,9 @@ var horizontalLines = function () {
     line2.noFill().stroke = "#333";
     line2.visible = true;
 
-    var start = function (onComplete, silent) {
+    var start = function start(onComplete, silent) {
         line.visible = true;
-        playing = true;
+        _playing7 = true;
         animate_in.start();
         animate_in2.start();
         if (_.isFunction(onComplete)) {
@@ -536,8 +538,8 @@ var horizontalLines = function () {
     var exports = {
         start: start,
         clear: reset,
-        playing: function () {
-            return playing;
+        playing: function playing() {
+            return _playing7;
         }
     };
 
@@ -551,7 +553,7 @@ var horizontalLines = function () {
     var rando, theta, pct, i, p;
     function reset() {
 
-        playing = false;
+        _playing7 = false;
         rando = Math.random();
 
         line.linewidth = Math.round(rando * 5) + 7;

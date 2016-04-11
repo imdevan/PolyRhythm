@@ -27,10 +27,10 @@ var sourcemaps = require("gulp-sourcemaps");
 var babel = require("gulp-babel");
 var concat = require("gulp-concat");
 
-gulp.task("default", function () {
+gulp.task("default", ()=> {
 });
 // SASS
-gulp.task('sass', function () {
+gulp.task('sass', ()=> {
   return gulp.src('sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
 	.pipe(autoprefixer())
@@ -39,37 +39,42 @@ gulp.task('sass', function () {
 });
 
 // ASSETS
-gulp.task('assets', function () {
+gulp.task('assets', ()=> {
   return gulp.src('assets/**/*.*')
     .pipe(gulp.dest(outputDir.assets))
 });
 
-gulp.task('sass:watch', function () {
+gulp.task('sass:watch', ()=> {
   gulp.watch('sass/**/*.scss', ['sass']);
 });
 
 // SCRIPTS
-gulp.task('scripts', function() {
-    return gulp.src([
-        'js/**/*.js',
-        '!js/draft/*.js'
-    ])
-    // .pipe(sourcemaps.init())
-    .pipe(babel())
-    // .pipe(concat("all.js"))
-    // .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest(outputDir.js))
-    .pipe(browserSync.stream());
+// gulp.task('scripts',() =>{
+//     return gulp.src([
+//         'js/**/*.js',
+//         '!js/draft/*.js'
+//     ])
+//     .pipe(babel())
+//     .pipe(gulp.dest(outputDir.js))
+//     .pipe(browserSync.stream());
+// });
+
+gulp.task('scripts',() =>{
+  gulp.src('js/app.js')
+    .pipe(browserify({
+      transform: ['babelify'],
+    }))
+    .pipe(gulp.dest('./dist/js'))
 });
 
-gulp.task('scripts:watch', function () {
+gulp.task('scripts:watch', ()=> {
   gulp.watch([
           'js/**/*.js',
           '!js/draft/*.js'
       ], ['scripts']);
 });
 
-gulp.task('lint', function () {
+gulp.task('lint', ()=> {
     return gulp.src([
         'js/**/*.js',
         '!js/third-party/**/*.js'])
@@ -79,12 +84,12 @@ gulp.task('lint', function () {
 });
 
 // BROWSER-SYNC
-gulp.task('browser-sync', function () {
+gulp.task('browser-sync', ()=> {
   browserSync.init();
 });
 
 // START THE SERVER
-gulp.task('start', function () {
+gulp.task('start', ()=> {
   nodemon({
     script: 'app.js',
     env: { 'NODE_ENV': 'development' }

@@ -1,3 +1,5 @@
+var _this = this;
+
 var animationController = {
     dict: {
         "veil": veil,
@@ -16,9 +18,9 @@ var animationController = {
         // THIS ONE IS WEIRD
         "audienceShapes": audienceShapes
     },
-    trigger: function (animations) {
-        var that = this;
-        _.each(animations, function (key) {
+    trigger: animations => {
+        var that = _this;
+        _.each(animations, key => {
             animation = that.dict[key];
             if (animation) {
                 if (animation.playing()) {
@@ -30,7 +32,7 @@ var animationController = {
     }
 };
 
-two.bind('update', function () {
+two.bind('update', () => {
     TWEEN.update();
 }).play();
 // Environment Set Up
@@ -2153,6 +2155,7 @@ var iphone = function () {
 	};
 	return exports;
 }();
+
 var clips = {
     midi: document.querySelectorAll('.clip-box[data-type="midi"] .clip-box'),
     phone: document.querySelectorAll('.clip-box[data-type="phone"] .clip-box'),
@@ -2262,7 +2265,7 @@ function onStateChange(event) {
 }
 /**
  * @author jonobr1 / http://jonobr1.com
- * 
+ *
  */
 
 (function () {
@@ -6345,4 +6348,3 @@ index=_.indexOf(this.additions,child);if(index>=0){this.additions.splice(index,1
 
   window['url'] = result;
 })(location.href);
-//# sourceMappingURL=all.js.map

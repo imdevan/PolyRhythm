@@ -8,3 +8,5 @@ var test6 = require("./midi-input")
 var test7 = require("./key-input")
 var test8 = require("./mouse-info")
 var test9 = require("./socket-input")
+
+console.log("loaded");

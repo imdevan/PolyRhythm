@@ -18,8 +18,8 @@ a {
     text-decoration: line-through; }
 
 body {
-  background: #FFF9F0;
-  color: #6F6259; }
+  background: #EEEEEE;
+  color: #444; }
 
 a {
   color: #F599C0; }
@@ -224,6 +224,7 @@ a {
 .performance {
   display: block;
   position: fixed;
+  z-index: -1;
   top: 0;
   left: 0;
   right: 0;
@@ -277,11 +278,9 @@ a {
       -ms-flex-flow: column;
           flex-flow: column;
   padding: 1rem;
-  max-width: 400px;
-  max-height: 300px;
   width: 80%;
   height: 80%;
-  background: #FFF9F0;
+  background: rgba(238, 238, 238, 0.9);
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1), 0px 0px 70px rgba(51, 51, 51, 0.2);
   cursor: default;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 1, 1, 1);
@@ -360,10 +359,10 @@ a {
     margin-bottom: 6rem; }
   .clip-box--clip {
     background: #8EC1D6;
-    color: #FFF9F0;
+    color: #EEEEEE;
     height: 5rem;
     width: 5rem;
-    border: 1px solid #FFF9F0;
+    border: 1px solid #EEEEEE;
     box-sizing: border-box;
     -webkit-transform: scale(1);
             transform: scale(1);

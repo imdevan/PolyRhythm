@@ -1,3 +1,5 @@
+"use strict";
+
 socket.on("animation_input", function (msg) {
 	if (msg.animations) {
 		animationController.trigger(msg.animations);

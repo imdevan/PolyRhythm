@@ -1,15 +1,19 @@
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 (function (root, factory) {
   if (typeof define === "function" && define.amd) {
     define([], factory);
-  } else if (typeof exports === "object") {
-    var randomColor = factory();if (typeof module === "object" && module && module.exports) {
+  } else if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object") {
+    var randomColor = factory();if ((typeof module === "undefined" ? "undefined" : _typeof(module)) === "object" && module && module.exports) {
       exports = module.exports = randomColor;
     }exports.randomColor = randomColor;
   } else {
     root.randomColor = factory();
   }
-})(this, function () {
-  var seed = null;var colorDictionary = {};loadColorBounds();var randomColor = function (options) {
+})(undefined, function () {
+  var seed = null;var colorDictionary = {};loadColorBounds();var randomColor = function randomColor(options) {
     options = options || {};if (options.seed && options.seed === parseInt(options.seed, 10)) {
       seed = options.seed;
     } else if (typeof options.seed === "string") {

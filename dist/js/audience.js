@@ -1,3 +1,5 @@
+"use strict";
+
 var socket = io();
 socket.emit('audience_init');
 

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @author sole / http://soledadpenades.com
  * @author mrdoob / http://mrdoob.com
@@ -20,34 +22,34 @@ var TWEEN = TWEEN || function () {
 
 		REVISION: '10-br1',
 
-		generateId: function () {
+		generateId: function generateId() {
 
 			var result = _id;
 			_id++;
 			return result;
 		},
 
-		getAll: function () {
+		getAll: function getAll() {
 
 			return _tweens;
 		},
 
-		removeAll: function () {
+		removeAll: function removeAll() {
 
 			_tweens = {};
 		},
 
-		add: function (tween) {
+		add: function add(tween) {
 
 			_tweens[tween.id] = tween;
 		},
 
-		remove: function (tween) {
+		remove: function remove(tween) {
 
 			delete _tweens[tween.id];
 		},
 
-		update: function (time) {
+		update: function update(time) {
 
 			time = time !== undefined ? time : window.performance !== undefined && window.performance.now !== undefined ? window.performance.now() : Date.now();
 
@@ -284,7 +286,7 @@ TWEEN.Easing = {
 
 	Linear: {
 
-		None: function (k) {
+		None: function None(k) {
 
 			return k;
 		}
@@ -293,17 +295,17 @@ TWEEN.Easing = {
 
 	Quadratic: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return k * k;
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return k * (2 - k);
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if ((k *= 2) < 1) return 0.5 * k * k;
 			return -0.5 * (--k * (k - 2) - 1);
@@ -313,17 +315,17 @@ TWEEN.Easing = {
 
 	Cubic: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return k * k * k;
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return --k * k * k + 1;
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if ((k *= 2) < 1) return 0.5 * k * k * k;
 			return 0.5 * ((k -= 2) * k * k + 2);
@@ -333,17 +335,17 @@ TWEEN.Easing = {
 
 	Quartic: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return k * k * k * k;
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return 1 - --k * k * k * k;
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if ((k *= 2) < 1) return 0.5 * k * k * k * k;
 			return -0.5 * ((k -= 2) * k * k * k - 2);
@@ -353,17 +355,17 @@ TWEEN.Easing = {
 
 	Quintic: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return k * k * k * k * k;
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return --k * k * k * k * k + 1;
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if ((k *= 2) < 1) return 0.5 * k * k * k * k * k;
 			return 0.5 * ((k -= 2) * k * k * k * k + 2);
@@ -373,17 +375,17 @@ TWEEN.Easing = {
 
 	Sinusoidal: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return 1 - Math.cos(k * Math.PI / 2);
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return Math.sin(k * Math.PI / 2);
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			return 0.5 * (1 - Math.cos(Math.PI * k));
 		}
@@ -392,17 +394,17 @@ TWEEN.Easing = {
 
 	Exponential: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return k === 0 ? 0 : Math.pow(1024, k - 1);
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return k === 1 ? 1 : 1 - Math.pow(2, -10 * k);
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if (k === 0) return 0;
 			if (k === 1) return 1;
@@ -414,17 +416,17 @@ TWEEN.Easing = {
 
 	Circular: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return 1 - Math.sqrt(1 - k * k);
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			return Math.sqrt(1 - --k * k);
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if ((k *= 2) < 1) return -0.5 * (Math.sqrt(1 - k * k) - 1);
 			return 0.5 * (Math.sqrt(1 - (k -= 2) * k) + 1);
@@ -434,7 +436,7 @@ TWEEN.Easing = {
 
 	Elastic: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			var s,
 			    a = 0.1,
@@ -447,7 +449,7 @@ TWEEN.Easing = {
 			return -(a * Math.pow(2, 10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p));
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			var s,
 			    a = 0.1,
@@ -460,7 +462,7 @@ TWEEN.Easing = {
 			return a * Math.pow(2, -10 * k) * Math.sin((k - s) * (2 * Math.PI) / p) + 1;
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			var s,
 			    a = 0.1,
@@ -478,19 +480,19 @@ TWEEN.Easing = {
 
 	Back: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			var s = 1.70158;
 			return k * k * ((s + 1) * k - s);
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			var s = 1.70158;
 			return --k * k * ((s + 1) * k + s) + 1;
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			var s = 1.70158 * 1.525;
 			if ((k *= 2) < 1) return 0.5 * (k * k * ((s + 1) * k - s));
@@ -501,12 +503,12 @@ TWEEN.Easing = {
 
 	Bounce: {
 
-		In: function (k) {
+		In: function In(k) {
 
 			return 1 - TWEEN.Easing.Bounce.Out(1 - k);
 		},
 
-		Out: function (k) {
+		Out: function Out(k) {
 
 			if (k < 1 / 2.75) {
 
@@ -523,7 +525,7 @@ TWEEN.Easing = {
 			}
 		},
 
-		InOut: function (k) {
+		InOut: function InOut(k) {
 
 			if (k < 0.5) return TWEEN.Easing.Bounce.In(k * 2) * 0.5;
 			return TWEEN.Easing.Bounce.Out(k * 2 - 1) * 0.5 + 0.5;
@@ -535,7 +537,7 @@ TWEEN.Easing = {
 
 TWEEN.Interpolation = {
 
-	Linear: function (v, k) {
+	Linear: function Linear(v, k) {
 
 		var m = v.length - 1,
 		    f = m * k,
@@ -548,7 +550,7 @@ TWEEN.Interpolation = {
 		return fn(v[i], v[i + 1 > m ? m : i + 1], f - i);
 	},
 
-	Bezier: function (v, k) {
+	Bezier: function Bezier(v, k) {
 
 		var b = 0,
 		    n = v.length - 1,
@@ -563,7 +565,7 @@ TWEEN.Interpolation = {
 		return b;
 	},
 
-	CatmullRom: function (v, k) {
+	CatmullRom: function CatmullRom(v, k) {
 
 		var m = v.length - 1,
 		    f = m * k,
@@ -586,12 +588,12 @@ TWEEN.Interpolation = {
 
 	Utils: {
 
-		Linear: function (p0, p1, t) {
+		Linear: function Linear(p0, p1, t) {
 
 			return (p1 - p0) * t + p0;
 		},
 
-		Bernstein: function (n, i) {
+		Bernstein: function Bernstein(n, i) {
 
 			var fc = TWEEN.Interpolation.Utils.Factorial;
 			return fc(n) / fc(i) / fc(n - i);
@@ -606,12 +608,13 @@ TWEEN.Interpolation = {
 				var s = 1,
 				    i;
 				if (a[n]) return a[n];
-				for (i = n; i > 1; i--) s *= i;
-				return a[n] = s;
+				for (i = n; i > 1; i--) {
+					s *= i;
+				}return a[n] = s;
 			};
 		}(),
 
-		CatmullRom: function (p0, p1, p2, p3, t) {
+		CatmullRom: function CatmullRom(p0, p1, p2, p3, t) {
 
 			var v0 = (p2 - p0) * 0.5,
 			    v1 = (p3 - p1) * 0.5,

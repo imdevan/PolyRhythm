@@ -1,3 +1,5 @@
+"use strict";
+
 var socket = io();
 
 var buttons = document.querySelector(".phone-container");

@@ -1,3 +1,5 @@
+"use strict";
+
 // this takes in events of all sorts
 // if the event is midi, pass the identifier to triggered
 // sets up the event listener which eventually triggers animationController

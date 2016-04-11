@@ -1,3 +1,5 @@
+'use strict';
+
 var infoPopUp = document.querySelector('.info--popup');
 var infoWindow = document.querySelector('.info--window');
 var idleTime = 0;

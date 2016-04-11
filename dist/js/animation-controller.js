@@ -1,3 +1,5 @@
+"use strict";
+
 var animationController = {
     dict: {
         "veil": veil,
@@ -16,8 +18,8 @@ var animationController = {
         // THIS ONE IS WEIRD
         "audienceShapes": audienceShapes
     },
-    trigger: function (animations) {
-        var that = this;
+    trigger: function trigger(animations) {
+        var that = undefined;
         _.each(animations, function (key) {
             animation = that.dict[key];
             if (animation) {

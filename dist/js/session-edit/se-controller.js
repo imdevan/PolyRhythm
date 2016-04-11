@@ -1,3 +1,4 @@
+'use strict';
 
 var clips = {
     midi: document.querySelectorAll('.clip-box[data-type="midi"] .clip-box'),
@@ -5,21 +6,21 @@ var clips = {
     keyboard: document.querySelectorAll('.clip-box[data-type="keyboard"] .clip-box')
 };
 
-var getChar = e => {
+var getChar = function getChar(e) {
     console.log(String.fromCharCode(e.keyCode).toLowerCase());
     return String.fromCharCode(e.keyCode).toLowerCase();
 };
 
-var getClipBox = (e, type) => {
+var getClipBox = function getClipBox(e, type) {
     return type === "keyboard" ? document.querySelector("[data-type='keyboard'][data-name='" + getChar(e) + "']") : document.querySelector("[data-type=" + type + "][data-name='" + e + "']");
 };
 
-window.addEventListener("keydown", (e, data) => {
+window.addEventListener("keydown", function (e, data) {
     var clipBox = getClipBox(e, "keyboard");
     if (clipBox) clipBox.classList.add("active");
 });
 
-window.addEventListener("keyup", (e, data) => {
+window.addEventListener("keyup", function (e, data) {
     var clipBox = getClipBox(e, "keyboard");
     if (clipBox) clipBox.classList.remove("active");
 });

@@ -1,3 +1,5 @@
+"use strict";
+
 var soundController = {
     dict: {
         "kick": kick,
@@ -9,13 +11,13 @@ var soundController = {
         "kirby": kirby,
         "iphone": iphone
     },
-    init: function () {
+    init: function init() {
         $.each(this.dict, function (key, val) {
             console.log(val);
             val.init();
         });
     },
-    trigger: function (sounds) {
+    trigger: function trigger(sounds) {
         var that = this;
         _.each(sounds, function (key) {
             sound = that.dict[key];

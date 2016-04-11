@@ -1,3 +1,5 @@
+"use strict";
+
 var AudioContext = AudioContext || webkitAudioContext,
     // for ios/safari
 context = new AudioContext(),

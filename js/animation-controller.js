@@ -16,9 +16,9 @@ var animationController = {
         // THIS ONE IS WEIRD
         "audienceShapes": audienceShapes
     },
-    trigger: function (animations) {
+    trigger: animations => {
         var that = this;
-        _.each(animations, function(key){
+        _.each(animations, key => {
             animation = that.dict[key];
             if (animation) {
                 if (animation.playing()) {
@@ -30,6 +30,6 @@ var animationController = {
     }
 };
 
-two.bind('update', function() {
+two.bind('update', () => {
   TWEEN.update();
 }).play();

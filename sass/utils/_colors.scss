@@ -1,8 +1,10 @@
-$bg: #FFF9F0;
+$bg: #EEEEEE;
+$bg-trans: rgba($bg, 0.9);
 $bg-accent: #8EC1D6;
 $bg-accent--light: lighten(#8EC1D6, 10%);
-$text-main: #6F6259;
+$text-main: #444;
 $link-main: #F599C0;
+
 
 body {
     background: $bg;

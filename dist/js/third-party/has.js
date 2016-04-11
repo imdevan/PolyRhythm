@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @author jonobr1 / http://jonobr1.com
  * 
@@ -42,7 +44,7 @@
       }
     }(),
 
-    noConflict: function () {
+    noConflict: function noConflict() {
       return previousHas;
     }
 

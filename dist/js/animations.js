@@ -1,3 +1,4 @@
+"use strict";
 
 // Util functions
 function angleBetween(v1, v2) {
@@ -6,10 +7,10 @@ function angleBetween(v1, v2) {
   return Math.atan2(dy, dx);
 }
 
-var audienceShapes = function (type, color) {
+var audienceShapes = function audienceShapes(type, color) {
   return function () {
     var callback = _.identity;
-    var playing = false;
+    var _playing = false;
     var actual = type;
     var shape;
     type = type || "star";
@@ -53,8 +54,8 @@ var audienceShapes = function (type, color) {
     posx += center.x;
     posy += center.y;
 
-    var start = function (onComplete, silent) {
-      playing = true;
+    var start = function start(onComplete, silent) {
+      _playing = true;
       shape.visible = true;
       animate_in.start();
       if (_.isFunction(onComplete)) {
@@ -76,15 +77,15 @@ var audienceShapes = function (type, color) {
     reset();
     function reset() {
       shape.visible = true;
-      playing = false;
+      _playing = false;
       animate_in.stop();
       animate_out.stop();
     }
     var exports = {
       start: start,
       clear: reset,
-      playing: function () {
-        return playing;
+      playing: function playing() {
+        return _playing;
       }
     };
     return exports;
@@ -93,7 +94,7 @@ var audienceShapes = function (type, color) {
 
 var centerCircle = function () {
   var callback = _.identity;
-  var playing = false;
+  var _playing2 = false;
   var direction = true;
   var pulseMin = 0.50;
   var pulseDistance = 0.5;
@@ -104,7 +105,7 @@ var centerCircle = function () {
   shape.noStroke();
   shape.visible = true;
   shape.scale = pulseMin;
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     var x = acceleration / 40 * 1.5;
     if (x > 2) x = 2;
     if (x < pulseMin) x = pulseMin;
@@ -115,7 +116,7 @@ var centerCircle = function () {
       pulseIn = pulseIn;
       pulseOut = x;
     }
-    playing = true;
+    _playing2 = true;
     shape.visible = true;
     animate_in.start();
     if (_.isFunction(onComplete)) {
@@ -137,15 +138,15 @@ var centerCircle = function () {
     pI.scale = pulseIn;
     pO.scale = pulseOut;
     shape.visible = true;
-    playing = false;
+    _playing2 = false;
     animate_in.stop();
     animate_out.stop();
   }
   var exports = {
     start: start,
     clear: reset,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing2;
     }
   };
   return exports;
@@ -153,15 +154,15 @@ var centerCircle = function () {
 
 var ufo = function () {
 
-  var playing = false;
+  var _playing3 = false;
   var callback = _.identity;
 
   var radius = min_dimension * 0.25;
   var circle = two.makeCircle(0, 0, radius);
   circle.noStroke().fill = "#6ECCFA";
 
-  var start = function (onComplete, silent) {
-    playing = true;
+  var start = function start(onComplete, silent) {
+    _playing3 = true;
     _in.start();
     circle.visible = true;
     if (!silent && exports.sound) {
@@ -174,10 +175,10 @@ var ufo = function () {
 
   start.onComplete = reset;
 
-  var update = function () {
+  var update = function update() {
     circle.fill = "#6ECCFA";
   };
-  var resize = function () {
+  var resize = function resize() {
     radius = min_dimension * 0.25;
   };
 
@@ -188,7 +189,7 @@ var ufo = function () {
   });
 
   var _out = new TWEEN.Tween(circle).to({ scale: 0 }, duration / 2).easing(Easing.Circular.Out).onComplete(function () {
-    playing = false;
+    _playing3 = false;
     start.onComplete();
     callback();
   });
@@ -221,8 +222,8 @@ var ufo = function () {
     update: update,
     clear: reset,
     start: start,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing3;
     },
     hash: '1,2',
     filename: 'ufo'
@@ -233,7 +234,7 @@ var ufo = function () {
 
 var dotted_spiral = function () {
 
-  var playing = false;
+  var _playing4 = false;
   var callback = _.identity;
   var amount = 120,
       linewidth = min_dimension / amount,
@@ -264,7 +265,7 @@ var dotted_spiral = function () {
     return line;
   });
 
-  var updateLinewidth = function (line, i) {
+  var updateLinewidth = function updateLinewidth(line, i) {
     var pct = i / amount;
     line.linewidth = Math.sqrt(1 - pct) * linewidth;
   };
@@ -274,7 +275,7 @@ var dotted_spiral = function () {
   var group = two.makeGroup(lines);
   group.translation.set(center.x, center.y);
 
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     _in.start();
     if (!silent && exports.sound) {
       exports.sound.stop().play();
@@ -286,10 +287,10 @@ var dotted_spiral = function () {
 
   start.onComplete = reset;
 
-  var update = function () {
+  var update = function update() {
     group.stroke = currentPallette[rand(0, currentPallette.length)];
   };
-  var resize = function () {
+  var resize = function resize() {
     group.translation.set(center.x, center.y);
     linewidth = min_dimension / amount;
     _.each(lines, updateLinewidth);
@@ -297,7 +298,7 @@ var dotted_spiral = function () {
 
   var i, t, index;
   var _in = new TWEEN.Tween(group).onStart(function () {
-    playing = true;
+    _playing4 = true;
   }).easing(Easing.Circular.In).to({ rotation: Math.PI / 8, scale: 8 }, duration * 2).onUpdate(function (u) {
     t = Math.min(map(u, 0, 0.25, 0, 1), 1);
     index = Math.floor(t * amount);
@@ -309,7 +310,7 @@ var dotted_spiral = function () {
     callback();
   });
 
-  var resetLine = function (l) {
+  var resetLine = function resetLine(l) {
     l.visible = false;
   };
 
@@ -322,7 +323,7 @@ var dotted_spiral = function () {
 
     _in.to({ rotation: group.rotation + Math.PI / 8, scale: Math.random() * 2 + 10 }, duration * 2).stop();
 
-    playing = false;
+    _playing4 = false;
   }
 
   reset();
@@ -332,8 +333,8 @@ var dotted_spiral = function () {
     update: update,
     clear: reset,
     resize: resize,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing4;
     },
     hash: '0,9',
     filename: 'dotted-spiral'
@@ -345,7 +346,7 @@ var dotted_spiral = function () {
 var clay = function () {
 
   var callback = _.identity;
-  var playing = false;
+  var _playing5 = false;
 
   var amount = Math.floor(Math.random()) * 8 + 8,
       w = width * Math.random(),
@@ -369,7 +370,7 @@ var clay = function () {
 
   points = clay.vertices;
 
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     clay.visible = true;
     _in.start();
     if (!silent && exports.sound) {
@@ -382,16 +383,16 @@ var clay = function () {
 
   start.onComplete = reset;
 
-  var update = function () {
+  var update = function update() {
     clay.fill = currentPallette[1];
   };
-  var resize = function () {};
+  var resize = function resize() {};
 
   var options = { ending: 0 };
 
   var v, i, l, d, x, y, a, theta, ptheta;
   var _in = new TWEEN.Tween(options).to({ ending: 1 }, duration * 0.75).easing(Easing.Circular.In).onStart(function () {
-    playing = true;
+    _playing5 = true;
   }).onUpdate(function () {
     var t = options.ending;
     for (i = 0; i < amount; i++) {
@@ -465,7 +466,7 @@ var clay = function () {
       destinations[i].set(x, y);
     }
 
-    playing = false;
+    _playing5 = false;
     _in.stop();
   }
 
@@ -476,8 +477,8 @@ var clay = function () {
     update: update,
     clear: reset,
     resize: resize,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing5;
     },
     hash: '0,1',
     filename: 'clay'
@@ -488,7 +489,7 @@ var clay = function () {
 
 var strike = function () {
 
-  var playing = false;
+  var _playing6 = false;
   var callback = _.identity;
 
   var amount = 32;
@@ -502,9 +503,9 @@ var strike = function () {
   line.translation.set(center.x, center.y);
   line.cap = 'round';
 
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     line.visible = true;
-    playing = true;
+    _playing6 = true;
     animate_in.start();
     if (!silent && exports.sound) {
       exports.sound.stop().play();
@@ -516,11 +517,11 @@ var strike = function () {
 
   start.onComplete = reset;
 
-  var resize = function () {
+  var resize = function resize() {
     // distance = height * 0.5;
     line.translation.set(center.x, center.y);
   };
-  var update = function () {
+  var update = function update() {
     line.stroke = currentPallette[2];
   };
 
@@ -544,8 +545,8 @@ var strike = function () {
     update: update,
     clear: reset,
     resize: resize,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing6;
     },
     hash: '1,5',
     filename: 'strike'
@@ -560,7 +561,7 @@ var strike = function () {
 
   var rando, theta, pct, i, p;
   function reset() {
-    playing = false;
+    _playing6 = false;
     rando = Math.random();
     line.stroke = currentPallette[rand(0, currentPallette.length)];
     line.linewidth = Math.round(rando * 7) + 3;
@@ -590,7 +591,7 @@ var strike = function () {
 
 var squiggle = function () {
 
-  var playing = false;
+  var _playing7 = false;
   var callback = _.identity;
   var amount = 200,
       w = center.x,
@@ -615,9 +616,9 @@ var squiggle = function () {
 
   // points = squiggle.vertices;
 
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     squiggle.visible = true;
-    playing = true;
+    _playing7 = true;
     _in.start();
     if (!silent && exports.sound) {
       exports.sound.stop().play();
@@ -629,10 +630,10 @@ var squiggle = function () {
 
   start.onComplete = reset;
 
-  var update = function () {
+  var update = function update() {
     squiggle.stroke = currentPallette[1];
   };
-  var resize = function () {
+  var resize = function resize() {
     w = center.x;
     h = height * 0.33;
     squiggle.linewidth = min_dimension / 40;
@@ -665,7 +666,7 @@ var squiggle = function () {
       y = h * Math.sin(theta);
       v.set(x, y);
     }
-    playing = false;
+    _playing7 = false;
     _in.stop();
     _out.stop();
   }
@@ -677,8 +678,8 @@ var squiggle = function () {
     update: update,
     clear: reset,
     resize: resize,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing7;
     },
     hash: '0,7',
     filename: 'squiggle'
@@ -689,7 +690,7 @@ var squiggle = function () {
 
 var pistons = function () {
   var i = 1;
-  var playing = false;
+  var _playing8 = false;
   var callback = _.identity;
 
   var amount = i * 4 + 1,
@@ -718,11 +719,11 @@ var pistons = function () {
 
   var options = { ending: 0, beginning: 0 };
 
-  var showShape = function (shape) {
+  var showShape = function showShape(shape) {
     shape.visible = true;
   };
 
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     _.each(shapes, showShape);
     _in.start();
     if (!silent && exports.sound) {
@@ -736,18 +737,18 @@ var pistons = function () {
   start.onComplete = reset;
 
   var s, points;
-  var update = function () {
+  var update = function update() {
     for (i = 0; i < amount; i++) {
       shapes[i].fill = currentPallette[0];
     }
   }; // Mainly for color in the future
-  var resize = function () {
+  var resize = function resize() {
     w = width * 0.75, h = center.y;
     group.translation.copy(center);
   };
 
   var _in = new TWEEN.Tween(options).to({ ending: 1.0 }, duration * 0.125).easing(Easing.Sinusoidal.Out).onStart(function () {
-    playing = true;
+    _playing8 = true;
   }).onUpdate(function () {
     for (i = 0; i < amount; i++) {
       s = shapes[i];
@@ -789,7 +790,7 @@ var pistons = function () {
       points[0].x = points[1].x = points[2].x = points[3].x = begin;
     }
 
-    playing = false;
+    _playing8 = false;
 
     _in.stop();
     _out.stop();
@@ -800,8 +801,8 @@ var pistons = function () {
     update: update,
     clear: reset,
     resize: resize,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing8;
     }
   };
 
@@ -812,7 +813,7 @@ var pistons = function () {
 
 var pistons = function () {
   var i = 1;
-  var playing = false;
+  var _playing9 = false;
   var callback = _.identity;
 
   var amount = i * 4 + 1,
@@ -841,11 +842,11 @@ var pistons = function () {
 
   var options = { ending: 0, beginning: 0 };
 
-  var showShape = function (shape) {
+  var showShape = function showShape(shape) {
     shape.visible = true;
   };
 
-  var start = function (onComplete, silent) {
+  var start = function start(onComplete, silent) {
     _.each(shapes, showShape);
     _in.start();
     if (!silent && exports.sound) {
@@ -859,18 +860,18 @@ var pistons = function () {
   start.onComplete = reset;
 
   var s, points;
-  var update = function () {
+  var update = function update() {
     for (i = 0; i < amount; i++) {
       shapes[i].fill = currentPallette[rand(0, currentPallette.length)];
     }
   }; // Mainly for color in the future
-  var resize = function () {
+  var resize = function resize() {
     w = width * 0.75, h = center.y;
     group.translation.copy(center);
   };
 
   var _in = new TWEEN.Tween(options).to({ ending: 1.0 }, duration * 0.125).easing(Easing.Sinusoidal.Out).onStart(function () {
-    playing = true;
+    _playing9 = true;
   }).onUpdate(function () {
     for (i = 0; i < amount; i++) {
       s = shapes[i];
@@ -912,7 +913,7 @@ var pistons = function () {
       points[0].x = points[1].x = points[2].x = points[3].x = begin;
     }
 
-    playing = false;
+    _playing9 = false;
 
     _in.stop();
     _out.stop();
@@ -923,8 +924,8 @@ var pistons = function () {
     update: update,
     clear: reset,
     resize: resize,
-    playing: function () {
-      return playing;
+    playing: function playing() {
+      return _playing9;
     }
   };
 
