@@ -1,19 +1,30 @@
-extends ./layouts/branding.jade
+extends ./layouts/default.jade
 block content
     main.band
         section._tight
-            h1 PolyRhythm
-            p The goal of PolyRhythm is to immerse audiences in a mosaic of color and sounds.
-            p PolyRhythm works with existing midi controllers and music software such as
-                <a href="https://www.ableton.com/" target="_blank">Ableton Live</a> and
-                <a href="http://www.apple.com/logic-pro/">Logic</a>.
-            p 
-                a(href="/") Checkout our demo
+            h1 PolyRhythm - About
+            p.
+                When PolyRhythm is in it's <a href="https://www.youtube.com/watch?v=zGdFXUJ1o1U">final form</a>
+                it will be a way for artists to create visual effects that are connected with sockets and midi
+                controllers. PolyRhythm will work with existing midi controllers and music software such as
+                    <a href="https://www.ableton.com/" target="_blank">Ableton Live</a> and
+                    <a href="http://www.apple.com/logic-pro/">Logic</a>.
+            p.
+                PolyRhythm is currently undergoing some heavey refactoring because
+                we thought that we could build it better. If your curious you can
+                checkout our <a href="/status">status page</a>
+                for more info on our plans.
+        
             p. 
                 PolyRhythm started as a project at the 2016 SXSW Music hackathon.
                 It is our hope that we will be able use PolyRhythm in order to make 
                 really awesome visual performances, and change the way (slightly) 
-                how people play music. and compose audio visual performances
-            h3(style="margin-top:5rem") This is what we have so far
-            iframe(width="560" height="315" src="https://www.youtube.com/embed/L_HLsiUQ3_E" frameborder="0" allowfullscreen)
-            p It's not much, but we're working on it :P
+                how people play music. and compose audio visual performances.
+            p 
+                a(href="/") Checkout our demo
+            p 
+                a(href="/status") Checkout our status page
+            p 
+                a(href="http://devpost.com/software/polyrhythm" target="_blank") Checkout our hackathon project
+            .flex--CENTERED.mt5
+                a(href="https://www.youtube.com/watch?v=1TO48Cnl66w" target="_blank") Thanks for stopping by!

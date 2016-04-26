@@ -1,0 +1,14 @@
+$padding-list: 1, 4;
+$padding-right-list: 1, 4;
+
+@each $pad in $padding-list {
+    .p#{$pad} {
+        padding: #{$pad}rem;
+    }
+}
+
+@each $pad in $padding-right-list {
+    .pr#{$pad} {
+        padding-right: #{$pad}rem;
+    }
+}

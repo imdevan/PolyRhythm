@@ -1,24 +1,12 @@
 var soundController = {
-    dict: {
-        "kick": kick,
-        "snare": snare,
-        "droplet": droplet,
-        "carSound": carSound,
-        "pikaHi": pikaHi,
-        "pikaLow": pikaLow,
-        "kirby": kirby,
-        "iphone": iphone
-    },
     init: function () {
-        $.each(this.dict, function (key, val) {
-            console.log(val);
-            val.init();
-        });
+        for (var id in sounds) {
+            sounds[id].init();
+        }
     },
-    trigger: function (sounds) {
-        var that = this;
-        _.each(sounds, function (key) {
-            sound = that.dict[key];
+    trigger: function (_sounds) {
+        _sounds.forEach(function (element, index, array) {
+            var sound = sounds[element];
             if (sound) {
                 sound.play();
             }

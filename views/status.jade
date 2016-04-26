@@ -1,0 +1,90 @@
+extends ./layouts/default.jade
+block content
+    main.band
+        section._tight
+            h1 PolyRhythm - Status
+            p Code refactoring
+            ul
+                li
+                    input(type='checkbox')
+                    label  Refactor SCSS
+                li
+                    input(type='checkbox')
+                    label  Remove legacy javascript
+                li
+                    input(type='checkbox')
+                    label  Refactor build system
+            p Set up website for project
+            ul 
+                li
+                    input(type='checkbox' checked)
+                    label  Create about page
+                li
+                    input(type='checkbox' checked)
+                    label  Create status page
+                li
+                    input(type='checkbox')
+                    label  Create navigation menu / bar / other
+                li
+                    input(type='checkbox')
+                    label  Create landing page
+            p Getting familiar with Audio
+            ul 
+                li
+                    input(type='checkbox' checked)
+                    label  Add audio samples to sounds.js
+                li
+                    input(type='checkbox' checked)
+                    label  Remove singleton sound objects
+                li
+                    input(type='checkbox' checked)
+                    label  Register audio files in createjs.Sound
+                li
+                    input(type='checkbox' checked)
+                    label  Initialize audio when performance page loads
+                li
+                    input(type='checkbox')
+                    label  Be able to manipulate audio (loop and overdub)
+                li
+                    input(type='checkbox')
+                    label  Integrate "choke" groups for similar sounds (open & close hihat)
+                li
+                    input(type='checkbox')
+                    label  Remove audio from github project
+                li
+                    input(type='checkbox')
+                    label  Trigger audio with midi input
+            p Create "session edit" page
+            ul 
+                li
+                    input(type='checkbox' )
+                    label  Create UI for sessio edit
+            p Create "trigger edit" page
+            ul 
+                li
+                    input(type='checkbox' )
+                    label  Connect all sound / animation profiles to one set of data
+                li
+                    input(type='checkbox' )
+                    label  Create 'trigger' edit page
+            p Add three.js to the project
+            ul 
+                li
+                    input(type='checkbox')
+                    label  Add three.js dependency to project
+                li
+                    input(type='checkbox')
+                    label  Add simple animations to test three.js in project
+            p Create UI for editing animations
+            ul 
+                li
+                    input(type='checkbox')
+                    label  Add three.js dependency to project
+                li
+                    input(type='checkbox')
+                    label  Add simple animations to test three.js in project
+            p
+                a(href="/") Back to Demo
+            p
+                a(href="/about") Back to About page
+            

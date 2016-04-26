@@ -1,36 +1,38 @@
 extends ./layouts/default.jade
-include ./includes/clip-box.jade
+
 block content
-    .performance
-        #two
-    .info--popup
-        .info--window
-            .row
-                .col12
-                    h2(style="{text-align:center}") PolyRhythm
-                    p Press the following keys for a good time
-            .row
-                + clip-box({type:"info", triggers:["qwer", "asdf"]}, "info")
-            .row
-                p
-                    a(href="/about") Checkout our about page
-        
-      script(src="/socket.io/socket.io.js")
-      script(async="" src="//www.google-analytics.com/analytics.js")
-      script(src="js/third-party/has.js")
-      script(src="js/third-party/url.js")
-      script(src="js/third-party/jquery.js")
-      script(src="js/third-party/tween.js")
-      script(src="js/third-party/two.js")
-      script(src="js/third-party/randomcolor.js")
-      script(src="js/third-party/sound.js")
-      script(src="js/socket-init.js")
-      script(src="js/sounds.js")
-      script(src="js/sound-controller.js")
-      script(src="js/animations-og.js")
-      script(src="js/animations.js")
-      script(src="js/animation-controller.js")
-      script(src="js/midi-input.js")
-      script(src="js/key-input.js")
-      script(src="js/mouse-info.js")
-      script(src="js/socket-input.js")
+    -
+        var controlsMatrix = [
+            [{key:"a", id:"BNK 1"}, {key:"s", id:"BNK 2"}, {key:"e", id:"EDIT"}, {key:"d", id:"STP"}, {key:"f", id:"REC"}]
+        ];
+        var soundsMatrix = [
+            [{key:"7", id:"kick"}, {key:"8", id:"snare"}, {key:"9", id:"droplet"}, {key:"0", id:"carSound"}], 
+            [{key:"u", id:"pikaHi"}, {key:"i", id:"pikaLow"}, {key:"o", id:"kirby"}, {key:"p", id:"iphone"}], 
+            [{key:"j", id:"rideBell"}, {key:"k", id:"hhClosed"}, {key:"l", id:"hhOpen"}, {key:";", id:"hhOpenShake"}], 
+            [{key:"n", id:"kickRoom"}, {key:"m", id:"rim"},  {key:",", id:"rim10"}, {key:".", id:"snare10"}]
+        ];
+    .app-container.flex--row
+        .f1.flex--col--CENTERED.pr4
+            //- .f1.flex--col--CENTERED.trans50
+            //-     each arr in controlsMatrix
+            //-         .f1.flex--row
+            //-             each control in arr
+            //-                 .f1.pr-button.flex--col--CENTERED(data-id="#{control.id}")
+            //-                     div= control.id
+            //-                     .trans30= '[  ' + control.key + '  ]'
+            .f1.flex--col--CENTERED 
+                h1 PolyRhythm
+                span Use your keyboard to make some noise
+                a(href="/about").mt5 Click here for more info
+        .f1.flex--col
+            each arr in soundsMatrix
+                .f1.flex--row
+                    each sound in arr
+                        .f1.pr-button.flex--col--CENTERED(data-id="#{sound.id}")
+                            div= sound.id
+                            .trans30= '[  ' + sound.key + '  ]'
+
+    script(src="js/third-party/sound.js")
+    script(src="js/sounds.js")
+    script(src="js/sound-controller.js")
+    script(src="js/key-input.js")

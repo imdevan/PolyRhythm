@@ -1,100 +1,120 @@
 // this takes in events of all sorts
 // if the event is midi, pass the identifier to triggered
 // sets up the event listener which eventually triggers animationController
+var keysToTrigger = {};
+var setActive = function(_id) {
+    document.querySelector("[data-id='"+_id+"']").classList.add("active");
+};
+var removeActive = function(_id) {
+    document.querySelector("[data-id='"+_id+"']").classList.remove("active");
+};
+
 window.addEventListener("keydown", function (e, data){
     if (e.metaKey || e.ctrlKey) {
       return;
     }
 
     console.log(e.which);
+    // 55 56 57 48 [7 - 0]
     // 85 73 79 80 [u - p]
     // 74 45 76 186 [j - ;]
     // 78 77 188 190 [n - .]
     // 81 87 69 82 [q - r]
     // 65 83 68 70 [a - f]
     // 90 88 67 86 [z - v]
-    var animationsToTrigger = [];
     var soundsToTrigger = [];
     switch(e.which){
+        // 55 56 57 48 [7 - 0]
+        case 55:
+            soundsToTrigger.push("kick");
+            keysToTrigger[55] = "kick";
+            break;
+        case 56:
+            soundsToTrigger.push("snare");
+            keysToTrigger[56] = "snare";
+            break;
+        case 57:
+            soundsToTrigger.push("droplet");
+            keysToTrigger[57] = "droplet";
+            break;
+        case 48:
+            soundsToTrigger.push("carSound");
+            keysToTrigger[48] = "carSound";
+            break;
+        // 85 73 79 80 [u - p]
         case 85:
-            animationsToTrigger.push("veil");
+            soundsToTrigger.push("pikaHi");
+            keysToTrigger[85] = "pikaHi";
             break;
         case 73:
-            animationsToTrigger.push("ufo");
-            animationsToTrigger.push("centerCircle");
+            soundsToTrigger.push("pikaLow");
+            keysToTrigger[73] = "pikaLow";
             break;
         case 79:
-            animationsToTrigger.push("suspension");
+            soundsToTrigger.push("kirby");
+            keysToTrigger[79] = "kirby";
             break;
         case 80:
-            animationsToTrigger.push("ufo");
-            animationsToTrigger.push("centerCircle");
+            soundsToTrigger.push("iphone");
+            keysToTrigger[80] = "iphone";
             break;
+        // 74 75 76 186 [j - ;]
         case 74:
-            animationsToTrigger.push("starExplode");
+            soundsToTrigger.push("rideBell");
+            keysToTrigger[74] = "rideBell";
             break;
-        case 45:
-            animationsToTrigger.push("clay");
-            animationsToTrigger.push("centerCircle");
+        case 75:
+            soundsToTrigger.push("hhClosed");
+            keysToTrigger[75] = "hhClosed";
             break;
         case 76:
-            animationsToTrigger.push("circlePop");
+            soundsToTrigger.push("hhOpen");
+            keysToTrigger[76] = "hhOpen";
             break;
         case 186:
-            animationsToTrigger.push("horizontalLines");
-            animationsToTrigger.push("centerCircle");
+            soundsToTrigger.push("hhOpenShake");
+            keysToTrigger[186] = "hhOpenShake";
             break;
+        // 78 77 188 190 [n - .]
         case 78:
-            animationsToTrigger.push("strike");
+            soundsToTrigger.push("kickRoom");
+            keysToTrigger[78] = "kickRoom";
             break;
         case 77:
-            animationsToTrigger.push("strike");
-            animationsToTrigger.push("centerCircle");
-            break;
-        case 34:
-            animationsToTrigger.push("flash");
+            soundsToTrigger.push("rim");
+            keysToTrigger[77] = "rim";
             break;
         case 188:
-            animationsToTrigger.push("dotted_spiral");
+            soundsToTrigger.push("rim10");
+            keysToTrigger[188] = "rim10";
             break;
         case 190:
-            animationsToTrigger.push("centerCircle");
-            break;
-        case 81:
-            animationsToTrigger.push("centerCircle");
-            soundsToTrigger.push("kick");
-            break;
-        case 87:
-            animationsToTrigger.push("strike");
-            soundsToTrigger.push("snare");
-            break;
-        case 69:
-            animationsToTrigger.push("suspension");
-            soundsToTrigger.push("droplet");
-            break;
-        case 82:
-            animationsToTrigger.push("starExplode");
-            soundsToTrigger.push("carSound");
-            break;
-        case 65:
-            animationsToTrigger.push("ufo");
-            soundsToTrigger.push("pikaHi");
-            break;
-        case 83:
-            animationsToTrigger.push("circlePop");
-            soundsToTrigger.push("pikaLow");
-            break;
-        case 68:
-            animationsToTrigger.push("veil");
-            soundsToTrigger.push("kirby");
-            break;
-        case 70:
-            animationsToTrigger.push("horizontalLines");
-            soundsToTrigger.push("iphone");
+            soundsToTrigger.push("snare10");
+            keysToTrigger[190] = "snare10";
             break;
     }
-
-    animationController.trigger(animationsToTrigger);
+    // animationController.trigger(animationsToTrigger);
+    for(var key in keysToTrigger) {
+        setActive(keysToTrigger[key]);
+    }
     soundController.trigger(soundsToTrigger);
     e.preventDefault();
 });
+
+window.addEventListener("keyup", function (e, data){
+    if(keysToTrigger[e.which]) {
+        removeActive(keysToTrigger[e.which]);
+        delete keysToTrigger[e.which];
+    }
+});
+
+var buttonEvent = function(button) {
+    button.addEventListener("mousedown", function(){
+        console.log(button);
+        soundController.trigger([button.dataset.id]);
+    });
+}
+var buttons = document.querySelectorAll(".pr-button");
+for(var i = 0; i < buttons.length; i++){
+    buttonEvent(buttons[i]);
+}

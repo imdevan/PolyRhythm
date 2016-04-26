@@ -1,0 +1,49 @@
+$flex-sizes: 1, 2, 4;
+
+.flex {
+    display: flex;
+
+    &--CENTERED {
+        @extend .flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &--INLINE {
+        display: inline-flex;
+    }
+
+    &--col {
+        @extend .flex;
+        flex-flow: column;
+        justify-content: space-between;
+        &--CENTERED {
+            @extend .flex--col;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &--row {
+        @extend .flex;
+        flex-flow: row;
+        justify-content: space-between;
+
+        &--WRAP {
+            @extend .flex--row;
+            flex-wrap: wrap;
+        }
+    }
+
+    &--center {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@each $size in $flex-sizes {
+    .f#{$size} {
+        flex: $size;
+        width: 100%;
+    }
+}

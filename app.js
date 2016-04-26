@@ -12,33 +12,10 @@ var total_acceleration = 0;
 
 app.use(express.static(__dirname+ '/dist'));
 
-// app.use(jade_browser('./public/js/templates.js', './source/test.jade'));
-
 app.set('view engine', 'jade');	//using Jade
 
-app.get('/', function(req, res)
-{
-	res.render('index.jade');
-});
-
-app.get('/about', function(req, res) {
-    res.render('about.jade');
-});
-
-app.get('/session-edit', function(req, res) {
-    res.render('session-edit.jade');
-});
-
-app.get('/phone-midi', function(req, res)
-{
-	res.render('phone-midi.jade');
-});
-
-app.get('/audience', function(req, res)
-{
-	res.render('audience.jade');
-});
-
+app.get('/', function(req, res){ res.render('index.jade');});
+app.get('/:page', function(req, res){ res.render(req.params.page + '.jade');});
 app.get('/acceleration', function(req, res)
 {
 	res.json({acceleration: (total_acceleration/users)});

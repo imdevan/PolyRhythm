@@ -1,0 +1,14 @@
+$margin-top-list: 5;
+$margin-right-list: 5;
+
+@each $marg in $margin-top-list {
+    .mt#{$marg}{
+        margin-top: #{$marg}rem;
+    }
+}
+
+@each $marg in $margin-right-list {
+    .mr#{$marg}{
+        margin-top: #{$marg}rem;
+    }
+}

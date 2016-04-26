@@ -1,0 +1,17 @@
+$pr-timing-function: .15s cubic-bezier(0,1,1,1);
+
+.pr-button {
+    background: $black;
+    color: $white;
+    transform: scale(1);
+    transition: transform $pr-timing-function, background $pr-timing-function;
+    cursor: pointer;
+    user-select: none;
+
+    &:active,
+    &.active {
+        transform: scale(0.4);
+        background: $purple;
+    }
+
+}

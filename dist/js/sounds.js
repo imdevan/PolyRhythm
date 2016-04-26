@@ -1,139 +1,40 @@
-// the organization of this is so redundant
-// that we should probably use actual classes instead of singletons
-// I'll look into that later :3
+// List of sounds used in the project
+var sounds = {
 
-var kick = function () {
-	var id = 'kick';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/kick.wav', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
+    // From OG mix
+    "kick": { path: "../../assets/kick.wav" },
+    "snare": { path: "../../assets/snare.mp3" },
+    'droplet': { path: '../../assets/droplet.mp3' },
+    'carSound': { path: '../../assets/car_tweet.mp3' },
 
-var snare = function () {
-	var id = 'snare';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/snare.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
+    'pikaHi': { path: '../../assets/pika_hi.mp3' },
+    'pikaLow': { path: '../../assets/pika_low.mp3' },
+    'kirby': { path: '../../assets/kirby.mp3' },
+    'iphone': { path: '../../assets/iphone_text.mp3' },
 
-var droplet = function () {
-	var id = 'droplet';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/droplet.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
+    // Brush kit
+    "rideBell": { path: "../../assets/ride-bell.wav" },
+    'hhClosed': { path: '../../assets/hh-closed.wav' },
+    'hhOpen': { path: '../../assets/hh-open.wav' },
+    'hhOpenShake': { path: '../../assets/hh-open-shake.wav' },
 
-var carSound = function () {
-	var id = 'carSound';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/car_tweet.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
+    'kickRoom': { path: '../../assets/kick-room.wav' },
+    "rim": { path: "../../assets/rim.wav" },
+    "rim10": { path: "../../assets/rim-10.wav" },
+    "snare10": { path: "../../assets/snare-10.wav" }
+};
 
-var pikaHi = function () {
-	var id = 'pikaHi';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/pika_hi.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
+// Function to register sounds in createjs.Sound
+var registerSound = function (_sound, _id) {
+    _sound.init = function () {
+        createjs.Sound.registerSound(_sound.path, _id);
+    };
+    _sound.play = function () {
+        createjs.Sound.play(_id);
+    };
+};
 
-var pikaLow = function () {
-	var id = 'pikaLow';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/pika_low.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
-
-var kirby = function () {
-	var id = 'kirby';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/kirby.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
-
-var iphone = function () {
-	var id = 'iphone';
-	var init = function () {
-		console.log(init, id);
-		createjs.Sound.registerSound('../../assets/iphone_text.mp3', id);
-	};
-	var play = function () {
-		createjs.Sound.play(id);
-	};
-	var exports = {
-		id: id,
-		init: init,
-		play: play
-	};
-	return exports;
-}();
+// Register each sound in Sounds
+for (var id in sounds) {
+    registerSound(sounds[id], id);
+}
