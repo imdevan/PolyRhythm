@@ -3,7 +3,7 @@ extends ./layouts/default.jade
 block content
     -
         var controlsMatrix = [
-            [{key:"a", id:"BNK 1"}, {key:"s", id:"BNK 2"}, {key:"e", id:"EDIT"}, {key:"d", id:"STP"}, {key:"f", id:"REC"}]
+            [{key:"a, c1", id:"BNK 1"}, {key:"s", id:"BNK 2"}, {key:"e", id:"EDIT"}, {key:"d", id:"STP"}, {key:"f", id:"REC"}]
         ];
         var soundsMatrix = [
             [{key:"7", id:"kick"}, {key:"8", id:"snare"}, {key:"9", id:"droplet"}, {key:"0", id:"carSound"}], 
@@ -36,3 +36,4 @@ block content
     script(src="js/sounds.js")
     script(src="js/sound-controller.js")
     script(src="js/key-input.js")
+    script(src="js/midi-input.js")

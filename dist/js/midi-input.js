@@ -55,6 +55,7 @@ function onMIDIMessage(event) {
             break;
         case 128:
             // noteOff message
+            noteOff(note, velocity);
             break;
     }
 }
@@ -65,6 +66,11 @@ function listInputs(inputs) {
 }
 
 function noteOn(midiNote, velocity) {
+    // lpd8 layout
+    // 48 41 86 51
+    // 44 45 46 47
+    // 40 41 42 43
+    // 36 37 38 39
     // mpk mini layout
     // 36 38 40 41
     // 43 45 47 48
@@ -76,58 +82,90 @@ function noteOn(midiNote, velocity) {
     // 16 17 18 19
     // 32 33 34 35
     // 48 49 50 51
-    var animationsToTrigger = [];
     var soundsToTrigger = [];
     switch (midiNote) {
-        case 0:
-            animationsToTrigger.push("veil");
-            break;
-        case 97:
-            soundsToTrigger.push("pikaHi");
-            animationsToTrigger.push("starExplode");
-            break;
-        case 98:
-            animationsToTrigger.push("suspension");
-            break;
-        case 99:
-            animationsToTrigger.push("ufo");
-            animationsToTrigger.push("centerCircle");
-            break;
-        case 16:
-            animationsToTrigger.push("starExplode");
-            break;
-        case 17:
-            animationsToTrigger.push("clay");
-            animationsToTrigger.push("centerCircle");
-            break;
-        case 18:
-            animationsToTrigger.push("circlePop");
-            break;
-        case 19:
-            animationsToTrigger.push("horizontalLines");
-            animationsToTrigger.push("centerCircle");
-            break;
-        case 32:
-            animationsToTrigger.push("strike");
-            break;
-        case 33:
-            animationsToTrigger.push("strike");
-            animationsToTrigger.push("centerCircle");
-            break;
-        case 34:
-            animationsToTrigger.push("flash");
-            break;
-        case 35:
-            animationsToTrigger.push("dotted_spiral");
-            break;
+        // 48 49 50 51 [c2 - d#2]
         case 48:
-            animationsToTrigger.push("centerCircle");
+            soundsToTrigger.push("kick");
+            keysToTrigger[midiNote] = "kick";
+            break;
+        case 49:
+            soundsToTrigger.push("snare");
+            keysToTrigger[midiNote] = "snare";
+            break;
+        case 50:
+            soundsToTrigger.push("droplet");
+            keysToTrigger[midiNote] = "droplet";
+            break;
+        case 51:
+            soundsToTrigger.push("carSound");
+            keysToTrigger[midiNote] = "carSound";
+            break;
+        // 44 45 46 47 [g#1 - b1]
+        case 44:
+            soundsToTrigger.push("pikaHi");
+            keysToTrigger[midiNote] = "pikaHi";
+            break;
+        case 45:
+            soundsToTrigger.push("pikaLow");
+            keysToTrigger[midiNote] = "pikaLow";
+            break;
+        case 46:
+            soundsToTrigger.push("kirby");
+            keysToTrigger[midiNote] = "kirby";
+            break;
+        case 47:
+            soundsToTrigger.push("iphone");
+            keysToTrigger[midiNote] = "iphone";
+            break;
+        // 40 41 42 43 [e1 - g1]
+        case 40:
+            soundsToTrigger.push("rideBell");
+            keysToTrigger[midiNote] = "rideBell";
+            break;
+        case 41:
+            soundsToTrigger.push("hhClosed");
+            keysToTrigger[midiNote] = "hhClosed";
+            break;
+        case 42:
+            soundsToTrigger.push("hhOpen");
+            keysToTrigger[midiNote] = "hhOpen";
+            break;
+        case 43:
+            soundsToTrigger.push("hhOpenShake");
+            keysToTrigger[midiNote] = "hhOpenShake";
+            break;
+        // 36 37 38 39 [c1 - d#1]
+        case 36:
+            soundsToTrigger.push("kickRoom");
+            keysToTrigger[midiNote] = "kickRoom";
+            break;
+        case 37:
+            soundsToTrigger.push("rim");
+            keysToTrigger[midiNote] = "rim";
+            break;
+        case 38:
+            soundsToTrigger.push("rim10");
+            keysToTrigger[midiNote] = "rim10";
+            break;
+        case 39:
+            soundsToTrigger.push("snare10");
+            keysToTrigger[midiNote] = "snare10";
             break;
     }
     console.log("MIDI Note", midiNote);
-    animationController.trigger(animationsToTrigger);
     soundController.trigger(soundsToTrigger);
-    // socket.emit('animation_output', {animations: animationsToTrigger});
+    // animationController.trigger(animationsToTrigger);
+    for (var key in keysToTrigger) {
+        setActive(keysToTrigger[key]);
+    }
+}
+
+function noteOff(midiNote, velocity) {
+    if (keysToTrigger[midiNote]) {
+        removeActive(keysToTrigger[midiNote]);
+        delete keysToTrigger[midiNote];
+    }
 }
 
 function logger(data) {
