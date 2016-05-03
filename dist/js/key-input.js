@@ -110,7 +110,9 @@ window.addEventListener("keyup", function (e, data) {
 
 var buttonEvent = function (button) {
     button.addEventListener("mousedown", function () {
-        console.log(button);
+        soundController.trigger([button.dataset.id]);
+    });
+    button.addEventListener("end", function () {
         soundController.trigger([button.dataset.id]);
     });
 };

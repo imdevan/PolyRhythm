@@ -1,6 +1,11 @@
-$app-padding: 5rem;
+$app-padding: 5rem 0.5rem 5rem 0.5rem;
+$app-padding-lg: 5rem;
 .app-container {
     position: absolute;
     top: 0; right: 0; left: 0; bottom: 0;
     padding: $app-padding;
+
+    @media (min-width: $lg) {
+        padding: $app-padding-lg;
+    }
 }

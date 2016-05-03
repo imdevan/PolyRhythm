@@ -1,17 +1,32 @@
 $pr-timing-function: .15s cubic-bezier(0,1,1,1);
+$pr-colors: #3A3E47, #47D6D7, #829FA7, #9DD9E0,
+    #FFF0D0, #176191, #FE8170, #F2D19C,
+    #EA5891, #FF87B7, #FC95AF, #E94989,
+    #F2F1ED, #F8AA98, #D7E7E7, #B4C7D9;
 
 .pr-button {
     background: $black;
-    color: $white;
+    color: transparent;
+    font-size: 0px;
     transform: scale(1);
-    transition: transform $pr-timing-function, background $pr-timing-function;
+    transition: transform $pr-timing-function, opacity $pr-timing-function;
     cursor: pointer;
     user-select: none;
 
     &:active,
     &.active {
         transform: scale(0.4);
-        background: $purple;
+        opacity: 0.6;
     }
 
+    @media (min-width: $xl) {
+        color: $white;
+        font-size: $base-font-size;
+    }
+
+    @for $i from 1 through length($pr-colors) {
+        &[data-color-id="#{$i}"]{
+            background: nth($pr-colors, $i);
+        }
+    }
 }

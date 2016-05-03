@@ -11,26 +11,19 @@ block content
             [{key:"j", id:"rideBell"}, {key:"k", id:"hhClosed"}, {key:"l", id:"hhOpen"}, {key:";", id:"hhOpenShake"}], 
             [{key:"n", id:"kickRoom"}, {key:"m", id:"rim"},  {key:",", id:"rim10"}, {key:".", id:"snare10"}]
         ];
-    .app-container.flex--row
-        .f1.flex--col--CENTERED.pr4
-            //- .f1.flex--col--CENTERED.trans50
-            //-     each arr in controlsMatrix
-            //-         .f1.flex--row
-            //-             each control in arr
-            //-                 .f1.pr-button.flex--col--CENTERED(data-id="#{control.id}")
-            //-                     div= control.id
-            //-                     .trans30= '[  ' + control.key + '  ]'
-            .f1.flex--col--CENTERED 
-                h1 PolyRhythm
-                span Use your keyboard to make some noise
-                a(href="/about").mt5 Click here for more info
+    .app-container.flex--col.lg-flex--row
         .f1.flex--col
+            - var i = 1
             each arr in soundsMatrix
                 .f1.flex--row
                     each sound in arr
-                        .f1.pr-button.flex--col--CENTERED(data-id="#{sound.id}")
+                        .f1.pr-button.flex--col--CENTERED(data-id="#{sound.id}" data-color-id="#{i++}")
                             div= sound.id
                             .trans30= '[  ' + sound.key + '  ]'
+        .f1.flex--col--CENTERED
+            h1 PolyRhythm
+            span Use your keyboard / mouse / midi-input to make some noise
+            a(href="/about").mt5 Click here for more info
 
     script(src="js/third-party/sound.js")
     script(src="js/sounds.js")

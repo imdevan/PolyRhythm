@@ -47,3 +47,9 @@ $flex-sizes: 1, 2, 4;
         width: 100%;
     }
 }
+
+.lg-flex--row {
+    @media (min-width: $lg) {
+        flex-direction: row-reverse 
+    }
+}
