@@ -17,7 +17,7 @@ block content
             each arr in soundsMatrix
                 .f1.flex--row
                     each sound in arr
-                        .f1.pr-button.flex--col--CENTERED(data-id="#{sound.id}" data-color-id="#{i++}")
+                        .pr-button.f1.flex--col--CENTERED(data-id="#{sound.id}" data-color-id="#{i++}")
                             div= sound.id
                             .trans30= '[  ' + sound.key + '  ]'
         .f1.flex--col--CENTERED

@@ -1,22 +1,27 @@
 $pr-timing-function: .15s cubic-bezier(0,1,1,1);
-$pr-colors: #3A3E47, #47D6D7, #829FA7, #9DD9E0,
-    #FFF0D0, #176191, #FE8170, #F2D19C,
-    #EA5891, #FF87B7, #FC95AF, #E94989,
-    #F2F1ED, #F8AA98, #D7E7E7, #B4C7D9;
+$pr-colors: #3A3E47, #3199B0, #52CBF3, #009BC9,
+    #FCD458, #DFAA54, #F4899D, #D6D6D6,
+    #D19E67, #FDC47B, #F6C37B, #F0D9B3,
+    #62666D, #829FA7, #B4C7D9, #E3DAD0;
+// #FFF0D0 #F2D19C #9DD9E0 #FF87B7 #47D6D7
+// #A7D1CA #F8AA98 #D7E7E7 #B4C7D9
+// #EA5891, #829FA7, #FC95AF, #FE8170;
 
 .pr-button {
     background: $black;
     color: transparent;
     font-size: 0px;
     transform: scale(1);
-    transition: transform $pr-timing-function, opacity $pr-timing-function;
+    transition: transform $pr-timing-function, opacity $pr-timing-function, box-shadow $pr-timing-function;
     cursor: pointer;
     user-select: none;
+    box-shadow: $big-shadow;
 
     &:active,
     &.active {
         transform: scale(0.4);
         opacity: 0.6;
+        box-shadow: none;
     }
 
     @media (min-width: $xl) {
