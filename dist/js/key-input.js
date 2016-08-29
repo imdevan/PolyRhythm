@@ -93,11 +93,13 @@ window.addEventListener("keydown", function (e, data) {
             keysToTrigger[190] = "snare10";
             break;
     }
-    // animationController.trigger(animationsToTrigger);
+
+    socket.emit('keyboard-triggered', { keysToTrigger: keysToTrigger });
     for (var key in keysToTrigger) {
         setActive(keysToTrigger[key]);
     }
     soundController.trigger(soundsToTrigger);
+
     e.preventDefault();
 });
 
