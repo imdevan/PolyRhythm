@@ -23,7 +23,7 @@ app.get('/drums', (req, res) => res.render('index.jade'));
 
 // Initiate socket io
 io.on('connection',  (socket) => {
-    socket.on('midi_input', (msg) => {
+    socket.on('keyboard-triggered', (msg) => {
 		console.log(msg);
 	});
 

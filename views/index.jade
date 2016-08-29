@@ -6,9 +6,9 @@ block content
             [{key:"a, c1", id:"BNK 1"}, {key:"s", id:"BNK 2"}, {key:"e", id:"EDIT"}, {key:"d", id:"STP"}, {key:"f", id:"REC"}]
         ];
         var soundsMatrix = [
-            [{key:"7", id:"kick"}, {key:"8", id:"snare"}, {key:"9", id:"droplet"}, {key:"0", id:"carSound"}], 
-            [{key:"u", id:"pikaHi"}, {key:"i", id:"pikaLow"}, {key:"o", id:"kirby"}, {key:"p", id:"iphone"}], 
-            [{key:"j", id:"rideBell"}, {key:"k", id:"hhClosed"}, {key:"l", id:"hhOpen"}, {key:";", id:"hhOpenShake"}], 
+            [{key:"7", id:"kick"}, {key:"8", id:"snare"}, {key:"9", id:"droplet"}, {key:"0", id:"carSound"}],
+            [{key:"u", id:"pikaHi"}, {key:"i", id:"pikaLow"}, {key:"o", id:"kirby"}, {key:"p", id:"iphone"}],
+            [{key:"j", id:"rideBell"}, {key:"k", id:"hhClosed"}, {key:"l", id:"hhOpen"}, {key:";", id:"hhOpenShake"}],
             [{key:"n", id:"kickRoom"}, {key:"m", id:"rim"},  {key:",", id:"rim10"}, {key:".", id:"snare10"}]
         ];
     .app-container.flex--col.lg-flex--row
@@ -24,6 +24,11 @@ block content
             h1 PolyRhythm
             span Use your keyboard / mouse / midi-input to make some noise
             a(href="/about").mt5 Click here for more info
+
+
+    script(src="/socket.io/socket.io.js")
+    script(type='text/javascript').
+        var socket = io();
 
     script(src="js/third-party/sound.js")
     script(src="js/sounds.js")
