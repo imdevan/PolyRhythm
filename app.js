@@ -10,77 +10,32 @@ var express = require('express'),
 var users = 0;
 var total_acceleration = 0;
 
-app.use(express.static(__dirname+ '/dist'));
+app.use(express.static(__dirname + '/dist'));
 
-app.set('view engine', 'jade');	//using Jade
+// using Jade
+app.set('view engine', 'jade');
 
-app.get('/', function(req, res){ res.render('index.jade');});
-app.get('/:page', function(req, res){ res.render(req.params.page + '.jade');});
-app.get('/acceleration', function(req, res)
-{
-	res.json({acceleration: (total_acceleration/users)});
-});
+// Page routes
+app.get('/', (req, res) => res.render('index.jade'));
+app.get('/about', (req, res) => res.render('about.jade'));
+app.get('/status', (req, res) => res.render('status.jade'));
+app.get('/drums', (req, res) => res.render('index.jade'));
 
-setInterval(function() {
-		var accavg = total_acceleration/users || 0
-		if(!isFinite(accavg)) { accavg = 0; }
-		io.emit('acceleration_input', accavg)
-	}, 750);
-
-setInterval(function() {
-	io.emit('user_input', users);
-});
-
-setInterval(function() {
-	total_acceleration = 0;
-}, 750)
-
-
-var phone_users = [];
-io.on('connection', function(socket)
-{
-	socket.on('audience_init', function(msg)
-	{
-		users++;
-		console.log(users + " number of users");
-		phone_users.push(socket);
-	});
-
-	socket.on('audience_acceleration', function(msg)
-	{
-		total_acceleration += msg;
-	});
-
-	socket.on('audience_input', function(msg)
-	{
+// Initiate socket io
+io.on('connection',  (socket) => {
+    socket.on('midi_input', (msg) => {
 		console.log(msg);
 	});
 
-	socket.on('audience_shape', function(msg)
-	{
-		io.emit('audience_shape_input', msg);
-	});
-
-	socket.on('midi_input', function(msg)
-	{
-		console.log(msg);
-	});
-
-	socket.on('animation_output', function(msg)
-	{
+	socket.on('animation_output', (msg) => {
 		io.emit('animation_input', msg);
 	});
-
-	socket.on('disconnect', function() {
-		if(phone_users.indexOf(socket) !== -1) {
-			users--;
-			console.log(users + " number of users");
-		}
-	});
 });
 
+// Listen on port
 app.set('port', (process.env.PORT || 4000));
 
-http.listen(app.get('port'), function() {
+// Notfy port
+http.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'));
 });
