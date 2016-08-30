@@ -12,9 +12,7 @@ var animationController = {
         "squiggle": squiggle,
         "flash": flash,
         "dotted_spiral": dotted_spiral,
-        "centerCircle": centerCircle,
-        // THIS ONE IS WEIRD
-        "audienceShapes": audienceShapes
+        "centerCircle": centerCircle
     },
     trigger: function (animations) {
         var that = this;
