@@ -14,7 +14,6 @@ window.addEventListener("keydown", function (e, data) {
         return;
     }
 
-    console.log(e.which);
     // 55 56 57 48 [7 - 0]
     // 85 73 79 80 [u - p]
     // 74 45 76 186 [j - ;]

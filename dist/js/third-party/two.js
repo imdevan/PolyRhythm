@@ -482,8 +482,7 @@ d2*=0.33;if(a2<a1){mid+=HALF_PI;}else{mid-=HALF_PI;}b.controls.left.x=cos(mid)*d
        * absolute space and "b" is relative to "a".
        *
        * http://www.w3.org/TR/SVG11/implnote.html#PathElementImplementationNotes
-       */getReflection:function(a,b,relative){return new Two.Vector(2*a.x-(b.x+a.x)-(relative?a.x:0),2*a.y-(b.y+a.y)-(relative?a.y:0));},getAnchorsFromArcData:function(center,xAxisRotation,rx,ry,ts,td,ccw){var matrix=new Two.Matrix().translate(center.x,center.y).rotate(xAxisRotation);var l=Two.Resolution;// console.log(arguments);
-return _.map(_.range(l),function(i){var pct=(i+1)/l;if(!!ccw){pct=1-pct;}var theta=pct*td+ts;var x=rx*Math.cos(theta);var y=ry*Math.sin(theta);// x += center.x;
+       */getReflection:function(a,b,relative){return new Two.Vector(2*a.x-(b.x+a.x)-(relative?a.x:0),2*a.y-(b.y+a.y)-(relative?a.y:0));},getAnchorsFromArcData:function(center,xAxisRotation,rx,ry,ts,td,ccw){var matrix=new Two.Matrix().translate(center.x,center.y).rotate(xAxisRotation);var l=Two.Resolution;return _.map(_.range(l),function(i){var pct=(i+1)/l;if(!!ccw){pct=1-pct;}var theta=pct*td+ts;var x=rx*Math.cos(theta);var y=ry*Math.sin(theta);// x += center.x;
 // y += center.y;
 var anchor=new Two.Anchor(x,y);Two.Anchor.AppendCurveProperties(anchor);anchor.command=Two.Commands.line;// TODO: Calculate control points here...
 return anchor;});},ratioBetween:function(A,B){return(A.x*B.x+A.y*B.y)/(A.length()*B.length());},angleBetween:function(A,B){var dx,dy;if(arguments.length>=4){dx=arguments[0]-arguments[2];dy=arguments[1]-arguments[3];return atan2(dy,dx);}dx=A.x-B.x;dy=A.y-B.y;return atan2(dy,dx);},distanceBetweenSquared:function(p1,p2){var dx=p1.x-p2.x;var dy=p1.y-p2.y;return dx*dx+dy*dy;},distanceBetween:function(p1,p2){return sqrt(distanceBetweenSquared(p1,p2));},// A pretty fast toFixed(3) alternative

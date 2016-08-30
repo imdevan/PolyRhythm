@@ -114,7 +114,6 @@ var highRise = function () {
     }, shortDuration).easing(Easing.Cubic.Out).onComplete(function () {
         animate_out.start();
     });
-    console.log(Easing);
     var animate_out = new TWEEN.Tween(shape.translation).to({
         y: height + height / 2
     }, shortDuration).easing(Easing.Cubic.Out).onComplete(function () {
@@ -973,14 +972,12 @@ var strike = function () {
     var animate_in = new TWEEN.Tween(line).to({
         ending: 1.0
     }, duration * 0.25).easing(Easing.Circular.In).onComplete(function () {
-        console.log("End of in");
         animate_out.start();
     });
 
     var animate_out = new TWEEN.Tween(line).to({
         beginning: 1.0
     }, duration * 0.25).easing(Easing.Circular.Out).onComplete(function () {
-        console.log("End of out");
         start.onComplete();
         callback();
     });

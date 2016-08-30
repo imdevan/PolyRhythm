@@ -1,4 +1,4 @@
-$margin-top-list: 5;
+$margin-top-list: 2, 3, 5;
 $margin-right-list: 5;
 
 @each $marg in $margin-top-list {
