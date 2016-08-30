@@ -560,7 +560,8 @@ var horizontalLines = function () {
         line2.translation.set(width + width / 2, line2.translation.y);
 
         line.ending = line.beginning = 0;
-        line.ending = 1;Hello.line.visible = true;
+        line.ending = 1;
+        line.visible = true;
         line2.visible = true;
 
         animate_in.stop();

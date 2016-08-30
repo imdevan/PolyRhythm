@@ -19,12 +19,13 @@ app.set('view engine', 'jade');
 app.get('/', (req, res) => res.render('index.jade'));
 app.get('/about', (req, res) => res.render('about.jade'));
 app.get('/status', (req, res) => res.render('status.jade'));
-app.get('/drums', (req, res) => res.render('index.jade'));
+app.get('/canvas', (req, res) => res.render('canvas.jade'));
 
 // Initiate socket io
 io.on('connection',  (socket) => {
     socket.on('keyboard-triggered', (msg) => {
 		console.log(msg);
+        io.emit('animation-triggered', msg);
 	});
 
 	socket.on('animation_output', (msg) => {
