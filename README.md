@@ -18,4 +18,4 @@ To full screen canvas image in chrome:
 
 Have fun!
 
-![Working app](http://g.recordit.co/X7QssQCCuR.gif)
+![Working app](https://cloud.githubusercontent.com/assets/3521824/18075603/def7952a-6e3b-11e6-8374-68caa1149472.gif)
