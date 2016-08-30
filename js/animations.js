@@ -130,7 +130,6 @@ var highRise = (function() {
         .onComplete(function() {
             animate_out.start();
         });
-    console.log(Easing);
     var animate_out = new TWEEN.Tween(shape.translation)
         .to({
             y: height + height / 2
@@ -1052,7 +1051,6 @@ var strike = (function() {
         }, duration * 0.25)
         .easing(Easing.Circular.In)
         .onComplete(function() {
-            console.log("End of in");
             animate_out.start();
         });
 
@@ -1062,7 +1060,6 @@ var strike = (function() {
         }, duration * 0.25)
         .easing(Easing.Circular.Out)
         .onComplete(function() {
-            console.log("End of out");
             start.onComplete();
             callback();
         });

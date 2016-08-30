@@ -30,10 +30,9 @@ function onMIDISuccess(midiAccess) {
 }
 
 function onMIDIFailure(midiAccess){
-    console.log("Shit's broke - midi - ", midiAccess);
+    console.log("Midi failure - ", midiAccess);
 }
 function onMIDIMessage(event) {
-    console.log(event);
     data = event.data,
     cmd = data[0] >> 4,
     channel = data[0] & 0xf,
@@ -154,7 +153,6 @@ function noteOn(midiNote, velocity) {
             keysToTrigger[midiNote] = "snare10";
             break;
     }
-    console.log("MIDI Note", midiNote);
     soundController.trigger(soundsToTrigger);
     // animationController.trigger(animationsToTrigger);
     for(var key in keysToTrigger) {
