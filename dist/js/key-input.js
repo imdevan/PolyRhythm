@@ -94,7 +94,6 @@ window.addEventListener("keydown", function (e, data) {
             break;
     }
 
-    socket.emit('keyboard-triggered', { keysToTrigger: keysToTrigger });
     for (var key in keysToTrigger) {
         setActive(keysToTrigger[key]);
     }
@@ -110,6 +109,7 @@ window.addEventListener("keyup", function (e, data) {
     }
 });
 
+// Button input
 var buttonEvent = function (button) {
     button.addEventListener("mousedown", function () {
         soundController.trigger([button.dataset.id]);
@@ -118,6 +118,7 @@ var buttonEvent = function (button) {
         soundController.trigger([button.dataset.id]);
     });
 };
+
 var buttons = document.querySelectorAll(".pr-button");
 for (var i = 0; i < buttons.length; i++) {
     buttonEvent(buttons[i]);
