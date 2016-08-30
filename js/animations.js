@@ -1,107 +1,113 @@
-
 // ======================================
 // BACK GROUND
 // ======================================
 var backGround = two.makeGroup();
 
-  var veil = (function() {
+var veil = (function() {
 
     var callback = _.identity;
     var playing = false;
 
     var direction = true;
     var points = [
-      new Two.Anchor(- center.x, - center.y),
-      new Two.Anchor(center.x, - center.y),
-      new Two.Anchor(center.x, center.y),
-      new Two.Anchor(- center.x, center.y)
+        new Two.Anchor(-center.x, -center.y),
+        new Two.Anchor(center.x, -center.y),
+        new Two.Anchor(center.x, center.y),
+        new Two.Anchor(-center.x, center.y)
     ];
     var shape = two.makePath(points);
-    shape.fill = currentPallette[rand(0,currentPallette.length)];
+    shape.fill = currentPallette[rand(0, currentPallette.length)];
     shape.noStroke();
 
     var start = function(onComplete, silent) {
-      playing = true;
-      shape.visible = true;
-      animate_in.start();
-      if (!silent && exports.sound) {
-        exports.sound.stop().play();
-      }
-      if (_.isFunction(onComplete)) {
-        callback = onComplete;
-      }
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+        if (!silent && exports.sound) {
+            exports.sound.stop().play();
+        }
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
     };
 
     start.onComplete = reset;
 
     var update = function() {
-      shape.fill = "#EEE";
+        shape.fill = "#EEE";
     };
     var resize = function() {
-      points[0].set(- center.x, - center.y);
-      points[1].set(center.x, - center.y);
-      points[2].set(center.x, center.y);
-      points[3].set(- center.x, center.y);
+        points[0].set(-center.x, -center.y);
+        points[1].set(center.x, -center.y);
+        points[2].set(center.x, center.y);
+        points[3].set(-center.x, center.y);
     };
 
-    var dest_in = { y: center.y }, dest_out = { y: 0 };
+    var dest_in = {
+            y: center.y
+        },
+        dest_out = {
+            y: 0
+        };
 
     var animate_in = new TWEEN.Tween(shape.translation)
-      .to(dest_in, duration * 0.5)
-      .easing(Easing.Exponential.Out)
-      .onComplete(function() {
-        animate_out.start();
-      });
+        .to(dest_in, duration * 0.5)
+        .easing(Easing.Exponential.Out)
+        .onComplete(function() {
+            animate_out.start();
+        });
 
     var animate_out = new TWEEN.Tween(shape.translation)
-      .to(dest_out, duration * 0.5)
-      .easing(Easing.Exponential.In)
-      .onComplete(function() {
-        start.onComplete();
-        callback();
-      });
+        .to(dest_out, duration * 0.5)
+        .easing(Easing.Exponential.In)
+        .onComplete(function() {
+            start.onComplete();
+            callback();
+        });
 
     reset();
 
     function reset() {
-      shape.visible = false;
-      shape.fill = currentPallette[rand(0,currentPallette.length)];
-      playing = false;
-      direction = Math.random() > 0.5;
-      if (direction) {
-        shape.translation.set(center.x, - center.y);
-        dest_out.y = height * 1.5;
-      } else {
-        shape.translation.set(center.x, height * 1.5);
-        dest_out.y = - center.y;
-      }
-      dest_in.y = center.y;
-      animate_in.stop();
-      animate_out.stop();
+        shape.visible = false;
+        shape.fill = currentPallette[rand(0, currentPallette.length)];
+        playing = false;
+        direction = Math.random() > 0.5;
+        if (direction) {
+            shape.translation.set(center.x, -center.y);
+            dest_out.y = height * 1.5;
+        } else {
+            shape.translation.set(center.x, height * 1.5);
+            dest_out.y = -center.y;
+        }
+        dest_in.y = center.y;
+        animate_in.stop();
+        animate_out.stop();
     }
 
     var exports = {
-      start: start,
-      update: update,
-      resize: resize,
-      clear: reset,
-      playing: function() { return playing; },
-      hash: '1,1',
-      filename: 'veil'
+        start: start,
+        update: update,
+        resize: resize,
+        clear: reset,
+        playing: function() {
+            return playing;
+        },
+        hash: '1,1',
+        filename: 'veil'
     };
 
     return exports;
 
-  })();
+})();
 
-var highRise = (function(){
+var highRise = (function() {
     var callback = _.identity,
         colCount = 5,
         playing = false,
-        shape = two.makeRectangle(0, 0, (width/colCount)*1.5, height);
-        shape.fill = currentPallette[0];
-        shape.noStroke();
-        shape.visible = true;
+        shape = two.makeRectangle(0, 0, (width / colCount) * 1.5, height);
+    shape.fill = currentPallette[0];
+    shape.noStroke();
+    shape.visible = true;
 
     var start = function(onComplete, silent) {
         playing = true;
@@ -117,24 +123,31 @@ var highRise = (function(){
     start.onComplete = reset;
 
     var animate_in = new TWEEN.Tween(shape.translation)
-        .to({y: center.y}, shortDuration)
+        .to({
+            y: center.y
+        }, shortDuration)
         .easing(Easing.Cubic.Out)
         .onComplete(function() {
             animate_out.start();
         });
-        console.log(Easing);
+    console.log(Easing);
     var animate_out = new TWEEN.Tween(shape.translation)
-        .to({y: height+height/2}, shortDuration)
+        .to({
+            y: height + height / 2
+        }, shortDuration)
         .easing(Easing.Cubic.Out)
         .onComplete(function() {
-        start.onComplete();
+            start.onComplete();
             callback();
         });
 
     reset();
 
     function reset() {
-        var newPos = {x: width/(rand(0, colCount)+1), y: height + height/2};
+        var newPos = {
+            x: width / (rand(0, colCount) + 1),
+            y: height + height / 2
+        };
         shape.translation.set(newPos.x, newPos.y);
         shape.visible = false;
         shape.fill = currentPallette[0];
@@ -146,7 +159,9 @@ var highRise = (function(){
     var exports = {
         start: start,
         clear: reset,
-        playing: function() { return playing; },
+        playing: function() {
+            return playing;
+        },
     };
 
     return exports;
@@ -188,11 +203,11 @@ var flash = (function() {
     };
 
     var resize = function() {
-    var vertices = shape.vertices;
-        vertices[0].set(- center.x, - center.y);
-        vertices[1].set(center.x, - center.y);
+        var vertices = shape.vertices;
+        vertices[0].set(-center.x, -center.y);
+        vertices[1].set(center.x, -center.y);
         vertices[2].set(center.x, center.y);
-        vertices[3].set(- center.x, center.y);
+        vertices[3].set(-center.x, center.y);
         shape.translation.copy(center);
     };
 
@@ -200,7 +215,7 @@ var flash = (function() {
         if (!playing) {
             return;
         }
-            shape.visible = Math.random() > 0.5;
+        shape.visible = Math.random() > 0.5;
     });
 
     var exports = {
@@ -208,7 +223,9 @@ var flash = (function() {
         update: update,
         clear: _.identity,
         resize: resize,
-        playing: function() { return playing; },
+        playing: function() {
+            return playing;
+        },
     };
     return exports;
 })();
@@ -220,7 +237,9 @@ var starExplode = (function() {
     var playing = false;
 
     var shape = two.makeStar(center.x, center.y, 200, 400, 5);
-    var randColor = randomColor({luminosity: 'light'});
+    var randColor = randomColor({
+        luminosity: 'light'
+    });
     shape.fill = convertHex(randColor, 100);
     shape.stroke = convertHex(randColor, 100);
     shape.linewidth = 10;
@@ -228,43 +247,52 @@ var starExplode = (function() {
     shape.scale = 0;
 
     var start = function(onComplete, silent) {
-      var randColor = randomColor({luminosity: 'light'});
-      shape.fill = convertHex(randColor, 100);
-      shape.stroke = convertHex(randColor, 100);
-      playing = true;
-      shape.visible = true;
-      animate_in.start();
-      if (_.isFunction(onComplete)) {
-          callback = onComplete;
-      }
+        var randColor = randomColor({
+            luminosity: 'light'
+        });
+        shape.fill = convertHex(randColor, 100);
+        shape.stroke = convertHex(randColor, 100);
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
     }
     start.onComplete = reset;
 
     var animate_in = new TWEEN.Tween(shape)
-      .to({scale: 1}, duration * .2)
-      .easing(Easing.Exponential.Out)
-      .onComplete(function() {
-        animate_out.start();
-      });
+        .to({
+            scale: 1
+        }, duration * .2)
+        .easing(Easing.Exponential.Out)
+        .onComplete(function() {
+            animate_out.start();
+        });
     var animate_out = new TWEEN.Tween(shape)
-      .to({scale: 0}, duration * .2)
-      .easing(Easing.Exponential.In)
-      .onComplete(function() {
-        start.onComplete();
-        callback();
-      });
+        .to({
+            scale: 0
+        }, duration * .2)
+        .easing(Easing.Exponential.In)
+        .onComplete(function() {
+            start.onComplete();
+            callback();
+        });
     reset();
+
     function reset() {
-      shape.rotation = Math.PI * Math.random() * 10;
-      shape.visible = true;
-      playing = false;
-      animate_in.stop();
-      animate_out.stop();
+        shape.rotation = Math.PI * Math.random() * 10;
+        shape.visible = true;
+        playing = false;
+        animate_in.stop();
+        animate_out.stop();
     }
     var exports = {
-      start: start,
-      clear: reset,
-      playing: function() { return playing; },
+        start: start,
+        clear: reset,
+        playing: function() {
+            return playing;
+        },
     };
     return exports;
 })();
@@ -294,9 +322,9 @@ var suspension = (function() {
         });
 
     var group = two.makeGroup(circles);
-        group.translation.set(center.x, center.y);
+    group.translation.set(center.x, center.y);
 
-        var i, c;
+    var i, c;
     var start = function(onComplete, silent) {
         for (i = 0; i < amount; i++) {
             circles[i].visible = true;
@@ -312,11 +340,15 @@ var suspension = (function() {
 
     start.onComplete = reset;
 
-    var options = { ending: 0 },
+    var options = {
+            ending: 0
+        },
         t, d, x, y;
 
     var _in = new TWEEN.Tween(options)
-        .to({ ending: 1 }, duration * 0.5)
+        .to({
+            ending: 1
+        }, duration * 0.5)
         .easing(Easing.Sinusoidal.Out)
         .onStart(function() {
             playing = true;
@@ -362,7 +394,9 @@ var suspension = (function() {
     var exports = {
         start: start,
         clear: reset,
-        playing: function() { return playing; },
+        playing: function() {
+            return playing;
+        },
     };
 
     return exports;
@@ -373,13 +407,13 @@ var suspension = (function() {
 // ======================================
 var foreGround = two.makeGroup();
 
-var circlePop = (function(){
+var circlePop = (function() {
     var callback = _.identity,
         playing = false,
         shape = two.makeCircle(center.x, center.y, 200, 200);
-        shape.fill = "#FFF";
-        shape.noStroke();
-        shape.visible = true;
+    shape.fill = "#FFF";
+    shape.noStroke();
+    shape.visible = true;
 
     var start = function(onComplete, silent) {
         playing = true;
@@ -395,24 +429,28 @@ var circlePop = (function(){
     start.onComplete = reset;
 
     var animate_in = new TWEEN.Tween(shape)
-        .to({scale: 1}, shortDuration)
+        .to({
+            scale: 1
+        }, shortDuration)
         .easing(Easing.Exponential.Out)
         .onComplete(function() {
             animate_out.start();
         });
 
     var animate_out = new TWEEN.Tween(shape)
-        .to({scale: 0}, shortDuration)
+        .to({
+            scale: 0
+        }, shortDuration)
         .easing(Easing.Exponential.Out)
         .onComplete(function() {
-        start.onComplete();
+            start.onComplete();
             callback();
         });
 
     reset();
 
     function reset() {
-        var newPos = midCornerPositions[rand(0,midCornerPositions.length)];
+        var newPos = midCornerPositions[rand(0, midCornerPositions.length)];
         shape.translation.set(newPos.x, newPos.y);
         shape.visible = false;
         shape.fill = currentPallette[rand(0, currentPallette.length)];
@@ -424,7 +462,9 @@ var circlePop = (function(){
     var exports = {
         start: start,
         clear: reset,
-        playing: function() { return playing; },
+        playing: function() {
+            return playing;
+        },
     };
     return exports;
 })();
@@ -437,7 +477,7 @@ var horizontalLines = (function() {
     var distance = min_dimension * 0.5;
 
     var line = two.makeLine(-width, center.y - center.y * .25, 0, center.y - center.y * .25);
-    var line2 = two.makeLine(width, center.y + center.y * .25, 2*width, center.y + center.y * .25);
+    var line2 = two.makeLine(width, center.y + center.y * .25, 2 * width, center.y + center.y * .25);
 
     line.noFill().stroke = "#333";
     line.visible = true;
@@ -446,151 +486,49 @@ var horizontalLines = (function() {
     line2.visible = true;
 
     var start = function(onComplete, silent) {
-      line.visible = true;
-      playing = true;
-      animate_in.start();
-      animate_in2.start();
-      if (_.isFunction(onComplete)) {
-        callback = onComplete;
-      }
+        line.visible = true;
+        playing = true;
+        animate_in.start();
+        animate_in2.start();
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
     };
 
     start.onComplete = reset;
 
     var animate_in = new TWEEN.Tween(line.translation)
-      .to({
-        x: 2*width + width/2
-      }, duration * 0.7)
-      .easing(Easing.Circular.In)
-      .onComplete(function() {
-        //animate_out.start();
-        start.onComplete();
-        callback();
-      });
+        .to({
+            x: 2 * width + width / 2
+        }, duration * 0.7)
+        .easing(Easing.Circular.In)
+        .onComplete(function() {
+            //animate_out.start();
+            start.onComplete();
+            callback();
+        });
 
     var animate_in2 = new TWEEN.Tween(line2.translation)
-      .to({
-        x: -2*width + width/2
-      }, duration * 0.7)
-      .easing(Easing.Circular.In)
-      .onComplete(function() {
-        //animate_out.start();
-        start.onComplete();
-        callback();
-      });
+        .to({
+            x: -2 * width + width / 2
+        }, duration * 0.7)
+        .easing(Easing.Circular.In)
+        .onComplete(function() {
+            //animate_out.start();
+            start.onComplete();
+            callback();
+        });
 
     var animate_out = new TWEEN.Tween(line)
-      .to({
-        beginning: 1.0
-      }, duration * 0.25)
-      .easing(Easing.Circular.Out)
-      .onComplete(function() {
-        start.onComplete();
-        callback();
-      });
-
-    var exports = {
-      start: start,
-      clear: reset,
-      playing: function() { return playing; },
-    };
-
-    var a = {
-      x: 0, y: 0
-    };
-    var b = {
-      x: 0, y: 0
-    };
-
-    var rando, theta, pct, i, p;
-    function reset() {
-
-      playing = false;
-      rando = Math.random();
-
-      line.linewidth = Math.round(rando * 5) + 7;
-      line2.linewidth = Math.round(rando * 5) + 7;
-      line.translation.set(-width + width/2, line.translation.y);
-      line2.translation.set(width + width/2, line2.translation.y);
-
-      line.ending = line.beginning = 0;
-      line.ending = 1;
-      line.visible = true;
-      line2.visible = true;
-
-      animate_in.stop();
-      animate_out.stop();
-    }
-
-    reset();
-
-    return exports;
-
-  })();
-
-var centerCircle = (function() {
-    var callback = _.identity;
-    var playing = false;
-    var direction = true;
-    var pulseMin = 0.50;
-    var pulseDistance = 0.5;
-    var pulseIn = pulseMin + pulseDistance;
-    var pulseOut = pulseMin;
-    var shape = two.makeCircle(center.x, center.y, 200, 200);
-    shape.fill = "#FFF";
-    shape.noStroke();
-    shape.visible = true;
-    shape.scale = pulseMin;
-    var start = function(onComplete, silent) {
-        var x = acceleration / 40 * 1.5;
-        if (x > 2)
-            x = 2;
-        if (x < pulseMin)
-            x = pulseMin;
-        if (x > pulseOut) {
-            pulseIn = x + pulseDistance;
-            pulseOut = x;
-        } else if (x < pulseOut) {
-            pulseIn = pulseIn;
-            pulseOut = x;
-        }
-        playing = true;
-        shape.visible = true;
-        animate_in.start();
-        if (_.isFunction(onComplete)) {
-            callback = onComplete;
-        }
-    }
-    start.onComplete = reset;
-    var pI = {
-        scale: pulseIn
-    };
-    var pO = {
-        scale: pulseOut
-    };
-    var animate_in = new TWEEN.Tween(shape)
-        .to(pI, duration * 0.04)
-        .easing(Easing.Exponential.Out)
-        .onComplete(function() {
-            animate_out.start();
-        });
-    var animate_out = new TWEEN.Tween(shape)
-        .to(pO, duration * 0.04)
-        .easing(Easing.Exponential.In)
+        .to({
+            beginning: 1.0
+        }, duration * 0.25)
+        .easing(Easing.Circular.Out)
         .onComplete(function() {
             start.onComplete();
             callback();
         });
-    reset();
 
-    function reset() {
-        pI.scale = pulseIn;
-        pO.scale = pulseOut;
-        shape.visible = true;
-        playing = false;
-        animate_in.stop();
-        animate_out.stop();
-    }
     var exports = {
         start: start,
         clear: reset,
@@ -598,7 +536,106 @@ var centerCircle = (function() {
             return playing;
         },
     };
+
+    var a = {
+        x: 0,
+        y: 0
+    };
+    var b = {
+        x: 0,
+        y: 0
+    };
+
+    var rando, theta, pct, i, p;
+
+    function reset() {
+
+        playing = false;
+        rando = Math.random();
+
+        line.linewidth = Math.round(rando * 5) + 7;
+        line2.linewidth = Math.round(rando * 5) + 7;
+        line.translation.set(-width + width / 2, line.translation.y);
+        line2.translation.set(width + width / 2, line2.translation.y);
+
+        line.ending = line.beginning = 0;
+        line.ending = 1;
+        line.visible = true;
+        line2.visible = true;
+
+        animate_in.stop();
+        animate_out.stop();
+    }
+
+    reset();
+
     return exports;
+
+})();
+
+
+var centerCircle = (function() {
+
+    var callback = _.identity;
+    var playing = false;
+
+    var direction = true;
+
+    var shape = two.makeCircle(center.x, center.y, 125, 125);
+    shape.fill = "#FFF";
+    shape.noStroke();
+    shape.visible = true;
+
+    var start = function(onComplete, silent) {
+        playing = true;
+        shape.visible = true;
+        animate_in.start();
+
+        if (_.isFunction(onComplete)) {
+            callback = onComplete;
+        }
+    }
+
+    start.onComplete = reset;
+
+    var animate_in = new TWEEN.Tween(shape)
+        .to({
+            scale: 1.5
+        }, duration * 0.2)
+        .easing(Easing.Exponential.Out)
+        .onComplete(function() {
+            animate_out.start();
+        });
+
+    var animate_out = new TWEEN.Tween(shape)
+        .to({
+            scale: 1
+        }, duration * 0.15)
+        .easing(Easing.Exponential.In)
+        .onComplete(function() {
+            start.onComplete();
+            callback();
+        });
+
+    reset();
+
+    function reset() {
+        shape.visible = true;
+        playing = false;
+        animate_in.stop();
+        animate_out.stop();
+    }
+
+    var exports = {
+        start: start,
+        clear: reset,
+        playing: function() {
+            return playing;
+        },
+    };
+
+    return exports;
+
 })();
 
 var ufo = (function() {
