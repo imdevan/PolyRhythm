@@ -4,7 +4,7 @@
   "description": "sxsw music hackathon project",
   "main": "app.js",
   "scripts": {
-    "start": "gulp start",
+    "start": "gulp",
     "build": "gulp build"
   },
   "repository": {

@@ -18,7 +18,7 @@ var outputDir = {
         css: 'dist/css',
         js: 'dist/js',
         sejs: 'dist/js/session-edit',
-        assets: '/dist/assets'
+        assets: 'dist/assets'
     };
 
 browserSync = browserSync.create();
@@ -96,7 +96,5 @@ gulp.task('build', ['sass', 'scripts', 'assets']);
 gulp.task('test', ['build']);
 
 gulp.task('watch', ['scripts:watch', 'sass:watch']);
-
-gulp.task('start', ['build', 'start']);
 
 gulp.task('default', ['browser-sync', 'build', 'watch', 'start']);
