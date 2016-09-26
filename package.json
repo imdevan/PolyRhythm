@@ -20,6 +20,7 @@
     "jade-browser": "0.0.14",
     "path": "^0.12.7",
     "socket.io": "^1.4.5",
+    "gulp": "^3.9.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -29,7 +30,6 @@
     "babel-preset-stage-0": "^6.5.0",
     "browser-sync": "^2.11.1",
     "eslint": "^2.5.3",
-    "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
