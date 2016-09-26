@@ -97,4 +97,6 @@ gulp.task('test', ['build']);
 
 gulp.task('watch', ['scripts:watch', 'sass:watch']);
 
+gulp.task('start', ['build', 'start']);
+
 gulp.task('default', ['browser-sync', 'build', 'watch', 'start']);
